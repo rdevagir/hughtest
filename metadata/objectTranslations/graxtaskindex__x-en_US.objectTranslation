@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>graxtaskindex</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>graxtaskindex</value>
+    </caseValues>
+    <fields>
+        <label><!-- AccountId --></label>
+        <name>AccountId__c</name>
+    </fields>
+    <fields>
+        <label><!-- AccountId_grax_xf_account --></label>
+        <name>AccountId_grax_xf_account__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account_Name --></label>
+        <name>Account_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- ActivityDate --></label>
+        <name>ActivityDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- ActivityOriginType --></label>
+        <name>ActivityOriginType__c</name>
+    </fields>
+    <fields>
+        <label><!-- CallDisposition --></label>
+        <name>CallDisposition__c</name>
+    </fields>
+    <fields>
+        <label><!-- CallDurationInSeconds --></label>
+        <name>CallDurationInSeconds__c</name>
+    </fields>
+    <fields>
+        <label><!-- CallObject --></label>
+        <name>CallObject__c</name>
+    </fields>
+    <fields>
+        <label><!-- CallType --></label>
+        <name>CallType__c</name>
+    </fields>
+    <fields>
+        <label><!-- ConnectionReceivedId --></label>
+        <name>ConnectionReceivedId__c</name>
+    </fields>
+    <fields>
+        <label><!-- ConnectionSentId --></label>
+        <name>ConnectionSentId__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedById --></label>
+        <name>CreatedById__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedById_grax_xf_user --></label>
+        <name>CreatedById_grax_xf_user__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedBy_Name --></label>
+        <name>CreatedBy_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedDate --></label>
+        <name>CreatedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedDate__c --></label>
+        <name>CreatedDate_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- DB_Days__c --></label>
+        <name>DB_Days_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- DueDate --></label>
+        <name>DueDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- External_ID__c --></label>
+        <name>External_ID_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- FSL__Count_of_Events__c --></label>
+        <name>FSL_Count_of_Events_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- FSL__Count_of_Tasks__c --></label>
+        <name>FSL_Count_of_Tasks_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- FSL__Event_Type__c --></label>
+        <name>FSL_Event_Type_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAXCompanyName --></label>
+        <name>GRAXCompanyName__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAX_Execution_Unique_Key --></label>
+        <name>GRAX_Execution_Unique_Key__c</name>
+    </fields>
+    <fields>
+        <label><!-- Id --></label>
+        <name>Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsArchived --></label>
+        <name>IsArchived__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsClosed --></label>
+        <name>IsClosed__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsDeleted --></label>
+        <name>IsDeleted__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsHighPriority --></label>
+        <name>IsHighPriority__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsRecurrence --></label>
+        <name>IsRecurrence__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsReminderSet --></label>
+        <name>IsReminderSet__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsVisibleInSelfService --></label>
+        <name>IsVisibleInSelfService__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedById --></label>
+        <name>LastModifiedById__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedById_grax_xf_user --></label>
+        <name>LastModifiedById_grax_xf_user__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedBy_Name --></label>
+        <name>LastModifiedBy_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedDate --></label>
+        <name>LastModifiedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedDate__c --></label>
+        <name>LastModifiedDate_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- OwnerId --></label>
+        <name>OwnerId__c</name>
+    </fields>
+    <fields>
+        <label><!-- OwnerId_grax_xf_user --></label>
+        <name>OwnerId_grax_xf_user__c</name>
+    </fields>
+    <fields>
+        <label><!-- Owner_Name --></label>
+        <name>Owner_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Priority --></label>
+        <name>Priority__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecordTypeId --></label>
+        <name>RecordTypeId__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecordTypeId_grax_xf_recordtype --></label>
+        <name>RecordTypeId_grax_xf_recordtype__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecordType_Name --></label>
+        <name>RecordType_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecurrenceActivityId --></label>
+        <name>RecurrenceActivityId__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecurrenceDayOfMonth --></label>
+        <name>RecurrenceDayOfMonth__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecurrenceDayOfWeekMask --></label>
+        <name>RecurrenceDayOfWeekMask__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecurrenceEndDateOnly --></label>
+        <name>RecurrenceEndDateOnly__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecurrenceInstance --></label>
+        <name>RecurrenceInstance__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecurrenceInterval --></label>
+        <name>RecurrenceInterval__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecurrenceMonthOfYear --></label>
+        <name>RecurrenceMonthOfYear__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecurrenceRegeneratedType --></label>
+        <name>RecurrenceRegeneratedType__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecurrenceStartDateOnly --></label>
+        <name>RecurrenceStartDateOnly__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecurrenceTimeZoneSidKey --></label>
+        <name>RecurrenceTimeZoneSidKey__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecurrenceType --></label>
+        <name>RecurrenceType__c</name>
+    </fields>
+    <fields>
+        <label><!-- ReminderDateTime --></label>
+        <name>ReminderDateTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Subject --></label>
+        <name>Subject__c</name>
+    </fields>
+    <fields>
+        <label><!-- SystemModstamp --></label>
+        <name>SystemModstamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- TaskSubtype --></label>
+        <name>TaskSubtype__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type__c --></label>
+        <name>Type_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- WhatCount --></label>
+        <name>WhatCount__c</name>
+    </fields>
+    <fields>
+        <label><!-- WhatId --></label>
+        <name>WhatId__c</name>
+    </fields>
+    <fields>
+        <label><!-- WhatId_grax_xf_WhatId --></label>
+        <name>WhatId_grax_xf_WhatId__c</name>
+    </fields>
+    <fields>
+        <label><!-- WhatId_grax_xf_account --></label>
+        <name>WhatId_grax_xf_account__c</name>
+    </fields>
+    <fields>
+        <label><!-- What_Name --></label>
+        <name>What_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- WhoCount --></label>
+        <name>WhoCount__c</name>
+    </fields>
+    <fields>
+        <label><!-- WhoId --></label>
+        <name>WhoId__c</name>
+    </fields>
+    <fields>
+        <label><!-- WhoId_grax_xf_WhoId --></label>
+        <name>WhoId_grax_xf_WhoId__c</name>
+    </fields>
+    <fields>
+        <label><!-- WhoId_grax_xf_contact --></label>
+        <name>WhoId_grax_xf_contact__c</name>
+    </fields>
+    <fields>
+        <label><!-- Who_Name --></label>
+        <name>Who_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- analyticsdemo_batch_id__c --></label>
+        <name>analyticsdemo_batch_id_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_CreatedBy_Name --></label>
+        <name>grax_CreatedBy_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_LastModifiedBy_Name --></label>
+        <name>grax_LastModifiedBy_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_Owner_Name --></label>
+        <name>grax_Owner_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_RecordType_Name --></label>
+        <name>grax_RecordType_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_WhatId_xf --></label>
+        <name>grax_WhatId_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_What_Name --></label>
+        <name>grax_What_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_WhoId_xf --></label>
+        <name>grax_WhoId_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_Who_Name --></label>
+        <name>grax_Who_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_account_xf --></label>
+        <name>grax_account_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_accountid_name --></label>
+        <name>grax_accountid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_connectionreceivedid_name --></label>
+        <name>grax_connectionreceivedid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_connectionsentid_name --></label>
+        <name>grax_connectionsentid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_contact_xf --></label>
+        <name>grax_contact_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_createdbyid_name --></label>
+        <name>grax_createdbyid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_lastmodifiedbyid_name --></label>
+        <name>grax_lastmodifiedbyid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_ownerid_name --></label>
+        <name>grax_ownerid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_recordtype_xf --></label>
+        <name>grax_recordtype_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_recordtypeid_name --></label>
+        <name>grax_recordtypeid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_recurrenceactivityid_name --></label>
+        <name>grax_recurrenceactivityid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_task_xf --></label>
+        <name>grax_task_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_user_xf --></label>
+        <name>grax_user_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_whatid_name --></label>
+        <name>grax_whatid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_whoid_name --></label>
+        <name>grax_whoid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_xf --></label>
+        <name>grax_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- graxid --></label>
+        <name>graxid__c</name>
+    </fields>
+    <fields>
+        <label><!-- graxorgid --></label>
+        <name>graxorgid__c</name>
+    </fields>
+    <fields>
+        <label><!-- pi__pardot_source_id__c --></label>
+        <name>pi_pardot_source_id_c__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

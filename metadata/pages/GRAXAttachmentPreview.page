@@ -1,0 +1,10 @@
+<apex:page showHeader="false" showChat="false" showQuickActionVfHeader="false">
+    <apex:outputPanel layout="none" id="previewPanel">
+        <c:GRAXAttachmentPreview graxorgid1="00D1I000003nRMaUAM"
+            objectType1="Attachment"
+            recordId1="00P1I000007hCpsUAE"
+            name1="FileName.pdf"
+            mimeType1="application/pdf"
+        />
+    </apex:outputPanel>
+</apex:page>

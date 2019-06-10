@@ -1,0 +1,3 @@
+<apex:page standardController="Contact" tabstyle="Case" extensions="tierOneCallScriptCon" showHeader="false" sidebar="false">
+
+</apex:page>

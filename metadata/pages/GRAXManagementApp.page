@@ -1,0 +1,27 @@
+<apex:page controller="GRAXManagementAppCtrl">
+    <apex:outputPanel layout="none" rendered="{!isAuthenticated}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.6.3/iframeResizer.min.js"></script>
+
+        <style>
+            #GRAXDataManagementApp {
+                width: 100%!important;
+                min-height: 100vh;
+                border: 0; 
+            }
+        </style>
+        
+        <iframe id="GRAXDataManagementApp" height="100%" data-src="{!url}?orgid={!orgid}&sessionid={!sessionid}&endpoint={!endpoint}&domainurl={!graxdomain}&token={!token}&userid={!userid}&locale={!userLocale}&tz={!userTimeZone}#restore" scrolling="no"></iframe>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function(e) {
+                var isAppleDevice = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i) ? true : false;
+                
+                iFrameResize({
+                    log: false,
+                    checkOrigin: false,
+                    heightCalculationMethod: isAppleDevice ? 'bodyScroll' : 'bodyOffset'
+                }, '#GRAXDataManagementApp');
+            });
+        </script>
+    </apex:outputPanel>
+</apex:page>

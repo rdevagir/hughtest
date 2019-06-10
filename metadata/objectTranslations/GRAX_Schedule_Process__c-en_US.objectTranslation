@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>GRAX Schedule Process</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>GRAX Schedule Processes</value>
+    </caseValues>
+    <fields>
+        <label><!-- Active --></label>
+        <name>Active__c</name>
+    </fields>
+    <fields>
+        <label><!-- Archive Override Approved By --></label>
+        <name>Archive_Override_Approved_By__c</name>
+    </fields>
+    <fields>
+        <label><!-- Archive --></label>
+        <name>Archive__c</name>
+    </fields>
+    <fields>
+        <label><!-- Can Delete GRAX Records? --></label>
+        <name>Can_Delete_GRAX_Records__c</name>
+    </fields>
+    <fields>
+        <help><!-- Salesforce field on the selected object from which the Start &amp; End Dates are being used --></help>
+        <label><!-- Date Field --></label>
+        <name>Date_Field__c</name>
+    </fields>
+    <fields>
+        <label><!-- Execution Unique Key --></label>
+        <name>Execution_Unique_Key__c</name>
+    </fields>
+    <fields>
+        <label><!-- Frequency Type --></label>
+        <name>Frequency_Type__c</name>
+        <picklistValues>
+            <masterLabel>Days</masterLabel>
+            <translation><!-- Days --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hours</masterLabel>
+            <translation><!-- Hours --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Months</masterLabel>
+            <translation><!-- Months --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Weeks</masterLabel>
+            <translation><!-- Weeks --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Years</masterLabel>
+            <translation><!-- Years --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Frequency Value --></label>
+        <name>Frequency_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAX Summary Link --></label>
+        <name>GRAX_Summary_Link__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Running --></label>
+        <name>Is_Running__c</name>
+    </fields>
+    <fields>
+        <label><!-- JobId --></label>
+        <name>JobId__c</name>
+    </fields>
+    <fields>
+        <help><!-- Last time this Scheduled Process was run --></help>
+        <label><!-- Last Run Date --></label>
+        <name>Last_Run_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Start Time --></label>
+        <name>Last_Start_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Name --></label>
+        <name>Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Next date/time this Scheduled Process will execute --></help>
+        <label><!-- Next Run Date --></label>
+        <name>Next_Run_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Object Name --></label>
+        <name>Object_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Progressive --></label>
+        <name>Progressive__c</name>
+    </fields>
+    <fields>
+        <label><!-- Rolling Date --></label>
+        <name>Rolling_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Frequency of when the Scheduled Process will run --></help>
+        <label><!-- Schedule Type --></label>
+        <name>Schedule_Type__c</name>
+        <picklistValues>
+            <masterLabel>Annually</masterLabel>
+            <translation><!-- Annually --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Custom</masterLabel>
+            <translation><!-- Custom --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Daily</masterLabel>
+            <translation><!-- Daily --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Monthly</masterLabel>
+            <translation><!-- Monthly --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Once</masterLabel>
+            <translation><!-- Once --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Quarterly</masterLabel>
+            <translation><!-- Quarterly --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Semi-Annually</masterLabel>
+            <translation><!-- Semi-Annually --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Weekly</masterLabel>
+            <translation><!-- Weekly --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Select Criteria --></label>
+        <name>Select_Criteria__c</name>
+        <picklistValues>
+            <masterLabel>Main Object and Children not modified</masterLabel>
+            <translation><!-- Main Object and Children not modified --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Main Object not modified</masterLabel>
+            <translation><!-- Main Object not modified --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Selected Object Hierarchy JSON --></label>
+        <name>Selected_Object_Hierarchy_JSON__c</name>
+    </fields>
+    <fields>
+        <label><!-- Send Notifications --></label>
+        <name>Send_Notifications__c</name>
+    </fields>
+    <fields>
+        <label><!-- Start Time --></label>
+        <name>Start_Time__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Aborted</masterLabel>
+            <translation><!-- Aborted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed - Errors deleting records</masterLabel>
+            <translation><!-- Completed - Errors deleting records --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed - Errors sending data</masterLabel>
+            <translation><!-- Completed - Errors sending data --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Deleting Salesforce records</masterLabel>
+            <translation><!-- Deleting Salesforce records --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Error</masterLabel>
+            <translation><!-- Error --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending send data to GRAX</masterLabel>
+            <translation><!-- Pending send data to GRAX --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Running</masterLabel>
+            <translation><!-- Running --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sending data to GRAX</masterLabel>
+            <translation><!-- Sending data to GRAX --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Starting Archive Process</masterLabel>
+            <translation><!-- Starting Archive Process --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Target Start Date --></label>
+        <name>Target_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Target End Date --></label>
+        <name>Target_End_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Date/Time from the field value in the &quot;Date Field&quot; from when this Scheduled Process will end. --></help>
+        <label><!-- Target End Datetime --></label>
+        <name>Target_End_Datetime__c</name>
+    </fields>
+    <fields>
+        <help><!-- ID of the Salesforce report used for this process --></help>
+        <label><!-- Target Report --></label>
+        <name>Target_Report__c</name>
+    </fields>
+    <fields>
+        <help><!-- Date/Time from the field value in the &quot;Date Field&quot; from when this Scheduled Process will begin. --></help>
+        <label><!-- Target Start Datetime --></label>
+        <name>Target_Start_Datetime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tatal Objects Processed --></label>
+        <name>Tatal_Objects_Processed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Objects Processed --></label>
+        <name>Total_Objects_Processed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Objects To Process --></label>
+        <name>Total_Objects_To_Process__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Records Errors --></label>
+        <name>Total_Records_Errors__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Records Sent --></label>
+        <name>Total_Records_Sent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Records To Send --></label>
+        <name>Total_Records_To_Send__c</name>
+    </fields>
+    <fields>
+        <label><!-- currentElementIndex --></label>
+        <name>currentElementIndex__c</name>
+    </fields>
+    <fields>
+        <label><!-- type --></label>
+        <name>type__c</name>
+        <picklistValues>
+            <masterLabel>Hierarchy</masterLabel>
+            <translation><!-- Hierarchy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Multi-Object</masterLabel>
+            <translation><!-- Multi-Object --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>GRAX Schedule Process Layout</layout>
+        <sections>
+            <label><!-- Vínculos personalizados --></label>
+            <section>Vínculos personalizados</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

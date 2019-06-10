@@ -1,0 +1,614 @@
+<apex:page controller="GRAXTimeMachineCtrl" cache="false" showChat="false" showHeader="{!ISNULL($CurrentPage.parameters.isEmbedded)}" lightningStylesheets="true" sidebar="{!ISNULL($CurrentPage.parameters.isEmbedded)}" applyHtmlTag="{!ISNULL($CurrentPage.parameters.isEmbedded)}" applyBodyTag="false" docType="html-5.0">
+
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <apex:includeScript value="{!URLFOR($Resource.grax, '/thirdparty/jquery-3.3.1.slim.min.js')}"/>
+    <script src="{!URLFOR($Resource.grax, '/jquery.slds.js')}"></script>
+    <apex:includeScript value="{!URLFOR($Resource.grax, '/jquery.sldsPillsCombobox.js')}"/>
+    <script>
+        window.setCookie = function(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        };
+
+        window.getCookie = function(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        };
+    </script>
+    <!-- Import the Design System style sheet -->
+    <apex:slds />
+    
+    <style>
+        .slds-form-element_separator {
+            border-bottom: 1px solid rgb(221, 219, 218);
+        }
+
+        table#diffTable {
+            border-bottom: 0;
+        }
+
+        table#diffTable > tbody > tr {
+            display: none;
+        }
+
+        table#diffTable.showAllRows > tbody > tr,
+        table#diffTable > tbody > tr.isDifferent {
+            display: table-row;
+        }
+
+        table#diffTable > tbody > tr > td.col-field-name {
+            max-width: 15vw;
+        }
+
+        table#diffTable > tbody > tr > td.col-old,
+        table#diffTable > tbody > tr > td.col-new,
+        table#diffTable > tbody > tr > td.col-current {
+            max-width: 25vw;
+        }
+
+        table#diffTable > tbody > tr.isDifferent {
+            font-weight: bold;
+        }
+
+        /*table#diffTable > tbody > tr.isDifferent > td.col-field-name {
+            background-color: #faffbd;
+        }
+
+        table#diffTable > tbody > tr.isDifferent > td.col-old {
+            background-color: #ffdde1;
+        }
+
+        table#diffTable > tbody > tr.isDifferent > td.col-new {
+            background-color: #d8edff;
+        }*/
+
+        table#diffTable > tfoot > tr > td {
+            padding-top: 1rem !important;
+            border-top: 1px solid rgb(221, 219, 218);
+            border-left-color: transparent !important;
+        }
+
+        span.slds-truncate {
+            display: inline-block;
+        }
+
+        [data-load="true"][data-loading="true"] {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        [data-load="true"] + [role="status"] {
+            display: none;
+        }
+        [data-load="true"][data-loading="true"] + [role="status"] {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        (function() {
+            var toggleAllRows = function($btn, $tbl, state) {
+                $btn.text(state ? 'Display updated fields only' : 'Display all field values');
+                $tbl.toggleClass('showAllRows', state);
+            };
+
+            window.toggleAllRowsButtonInit = function(btnSelector, tblSelector, state) {
+                state = state !== undefined ? state : false;
+
+                var $btn = $(btnSelector);
+                var $tbl = $(tblSelector);
+                
+                toggleAllRows($btn, $tbl, state);
+
+                $btn.on('click', function(e) {
+                    state = !state;
+
+                    toggleAllRows($btn, $tbl, state);
+
+                    e.preventDefault();
+                }).removeClass('slds-hide');
+            };
+
+            window.fileSelectDataTableInit = function(fileSelectData) {
+                var $tbody = $('#fileSelectDataTable > tbody');
+
+                $tbody.empty();
+
+                $.each(fileSelectData, function(i, item) {
+                    var $tr = $('<tr>');
+
+                    $tr.append($('<td>').text(item.lastModifiedDate));
+                    $tr.append($('<td>').text(item.lastModifiedBy));
+
+                    if(item.extraFieldsValues) {
+                        $.each(item.extraFieldsValues, function(i, v) {
+                            $tr.append($('<td>').text(v));
+                        });
+                    }
+
+                    var $a = $('<a>')
+                        .addClass('slds-button')
+                        .text('Load this Version');
+
+                    $a.on('click', function(e) {
+                        showGlobalSpinner(true, true);
+
+                        if(fileSelectData[i + 1]) {
+                            changeFileSelected(item.file, fileSelectData[i + 1].file);
+                        } else {
+                            changeFileSelected(item.file);
+                        }
+
+                        e.preventDefault();
+                    });
+
+                    $tr.append($('<td>').append($a));
+
+                    $tbody.append($tr);
+                });
+            };
+        })();
+
+        $(function() {
+            var $fieldlist = $('#fieldlist');
+
+            var selectedObject = '{!parentType}';
+
+            window.renderHistoryTable = function() {
+                var selectedFields = $fieldlist.val();
+
+                showGlobalSpinner(true, false);
+                retrieveHistory(selectedFields, $('#excludeVersionsWithoutChanges').prop('checked'));
+            };
+			
+            window.renderFieldList = function(fieldOptions) {
+                if(fieldOptions.length == 0) return;
+                showGlobalSpinner(true);
+                
+                function getFieldSelection() {                            
+                    var selectedFields = $.parseJSON(window.getCookie(selectedObject + 'FieldsTimeMachine') || '["Id"]');
+                    if (selectedFields.length == 0) {
+                        selectedFields = $.parseJSON('["Id"]');
+                    }
+                    return selectedFields.map(function(item) {
+                        return {
+                            id: item
+                        }
+                    });
+                };
+                $fieldlist.sldsPillsCombobox({
+                    comboboxSelector: '#combobox-fields',
+                    listboxItemsSelector: '#listbox-fields',
+                    selectedItemsPillsSelector: '#selectedFieldsPills',
+                    pillRemoveIcon: "{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#close')}",
+                    options: fieldOptions,
+                    selection: getFieldSelection()
+                }, function(setSelection, clearSelection, setOptions) {
+                    window.renderFieldSelection = function(data) {
+                        var selectedFields = getFieldSelection();
+                        
+                        clearSelection(false);
+                        setOptions(data);
+                        
+                        if(selectedFields.length > 0) {
+                            setSelection(selectedFields);
+                        }
+                    };
+                }).on('changeSelection', function(e) {
+                    window.setCookie(selectedObject + 'FieldsTimeMachine', e.target.value);
+                });
+                
+                showGlobalSpinner(false);
+            };
+            
+            window.renderFieldListSelector = function(data) {
+                data.sort(function (a, b) {
+                    if (a.label > b.label) {
+                        return 1;
+                    }
+
+                    if (a.label < b.label) {
+                        return -1;
+                    }
+                    
+                    return 0;
+                });
+            };
+
+            var $retrieveHistory = $('#retrieveHistory');
+            $retrieveHistory.on('click', function(e) {
+                renderHistoryTable();
+
+                e.preventDefault();
+            });
+
+        });
+    </script>
+    
+    <div class="slds-scope">
+        <apex:form id="form-timemachine">
+            <apex:actionFunction action="{!retrieveHistory}" name="retrieveHistory" immediate="true" reRender="totalRetrievedText, historyTable" oncomplete="showGlobalSpinner(false, false);">
+                <apex:param name="selectedFields" value="LastModified" />
+                <apex:param name="excludeVersionsWithoutChanges" value="false" />
+            </apex:actionFunction>
+
+            <apex:actionFunction action="{!changeFileSelected}" name="changeFileSelected" immediate="true" rerender="out" oncomplete="showGlobalSpinner(false, true);">
+                <apex:param name="fileSelected" value="" />
+                <apex:param name="filePrev" value="" />
+            </apex:actionFunction>
+
+            <apex:actionFunction action="{!restoreToOldVersion}" name="restoreToOldVersion" immediate="true" oncomplete="showRestoreToOldVersionModal(false);showGlobalSpinner(false);" rendered="{!gp.ifhasRestorePermission}">
+                <apex:param name="setBlankValues" value="" />
+            </apex:actionFunction>
+
+            <apex:actionFunction action="{!updateToThisVersion}" name="updateToThisVersion" immediate="true" oncomplete="showUpdateToThisVersionModal(false);showGlobalSpinner(false);" rendered="{!gp.ifhasRestorePermission}">
+                <apex:param name="setBlankValues" value="" />
+            </apex:actionFunction>
+        
+            <div class="slds-section">
+                <h3 class="slds-section__title slds-theme_shade">
+                    <button aria-controls="fieldListSelector-section" aria-expanded="false" class="slds-button slds-section__title-action">
+                        <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}" class="slds-section__title-action-icon slds-button__icon slds-button__icon_left"></i>
+                        <span class="slds-truncate" title="Select Extra Fields">Select Extra Fields</span>
+                    </button>
+                </h3>
+                <div aria-hidden="true" class="slds-section__content slds-is-relative" id="fieldListSelector-section">
+                    <input type="hidden" id="fieldlist" />
+                    <div id="fieldSelection">      
+                        <div class="slds-form-element" >
+                            <label class="slds-form-element__label" for="combobox-fields">Fields</label>
+                            <div clas="slds-form-element__control">
+                                <div class="slds-combobox_container">
+                                    <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" aria-expanded="false" aria-haspopup="listbox" role="combobox">
+                                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                            <input id="selectedFields" type="hidden" />
+                                            <input type="text" class="slds-input slds-combobox__input" id="combobox-fields" aria-autocomplete="list" aria-controls="listbox-fields" autoComplete="off" role="textbox" placeholder="Search..." />
+                                            <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                                                <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" class="slds-button__icon"></i>
+                                            </span>
+                                        </div>
+                                        <div id="listbox-fields" class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                                            <ul class="slds-listbox slds-listbox_vertical" role="presentation"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="slds-listbox_selection-group" style="height: auto;">
+                                    <ul id="selectedFieldsPills" class="slds-listbox slds-listbox_horizontal" role="listbox" aria-label="Selected Fields:" aria-orientation="horizontal"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-section">
+                <h3 class="slds-section__title slds-theme_shade">
+                    <button aria-controls="settings-section" aria-expanded="false" class="slds-button slds-section__title-action">
+                        <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}" class="slds-section__title-action-icon slds-button__icon slds-button__icon_left"></i>
+                        <span class="slds-truncate" title="Settings">Settings</span>
+                    </button>
+                </h3>
+                <div aria-hidden="true" class="slds-section__content slds-is-relative" id="settings-section">
+                    <div style="display:inline-block">
+                        <label class="slds-checkbox_toggle">
+                            <span class="slds-form-element__label slds-m-bottom_none">Exclude Versions without changes</span>
+                            <input id="excludeVersionsWithoutChanges" type="checkbox" />
+                            <span aria-live="assertive" class="slds-checkbox_faux_container">
+                                <span class="slds-checkbox_faux"></span>
+                                <span class="slds-checkbox_on">Yes</span>
+                                <span class="slds-checkbox_off">No</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <apex:outputPanel id="datatableOuput" layout="block">
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title">
+                        <button aria-controls="fileSelectDataTable-section" aria-expanded="true" class="slds-button slds-section__title-action">
+                            <i class="slds-section__title-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                            <span class="slds-truncate" title="Record Version History">Record Version History</span>
+                        </button>
+                    </h3>
+                    <div aria-hidden="false" class="slds-section__content" id="fileSelectDataTable-section">
+                        <div class="slds-clearfix slds-p-bottom_medium">
+                            <div class="slds-clearfix">
+                                <div class="slds-float_left">
+                                    <button id="retrieveHistory" class="slds-button slds-button_brand">Retrieve</button>
+                                    <apex:outputPanel layout="inline" id="totalRetrievedText" styleClass="slds-p-horizontal_small slds-text-color_weak">
+                                        <apex:outputText rendered="{!isRetrieved}">
+                                            Displaying the {!totalRetrieved} most recent GRAX History records.
+                                            <a href="{!allHistoryUrl}" target="_blank">Click here</a> to view all GRAX History records related to this record.
+                                        </apex:outputText>
+                                    </apex:outputPanel>
+                                </div>
+                            </div>
+                        </div>
+
+                        <apex:outputPanel id="historyTable" layout="block">
+							<apex:outputPanel layout="none" rendered="{!isRetrieved}">
+                                <apex:outputPanel rendered="{!hasBackups}">
+                                    <table id="fileSelectDataTable" class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                        <thead>
+                                            <tr class="slds-text-title_caps">
+                                                <th scope="col">
+                                                    <div class="slds-truncate" title="Updated Date">Updated Date</div>
+                                                </th>
+
+                                                <th scope="col">
+                                                    <div class="slds-truncate" title="Updated By">Updated By</div>
+                                                </th>
+
+                                                <apex:repeat var="f" value="{!selectedFieldsList}">
+                                                    <th scope="col">
+                                                        <div class="slds-truncate" title="{!f}">{!f}</div>
+                                                    </th>
+                                                </apex:repeat>
+
+                                                <th scope="col">
+                                                    <span class="slds-assistive-text">Actions</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+
+                                    <script>
+                                        fileSelectDataTableInit({!fileSelectJson});
+                                    </script>
+                                </apex:outputPanel>
+
+                                <apex:outputPanel layout="block" rendered="{!!hasBackups}" styleClass="slds-text-align_center">
+                                    No records were found in GRAX
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                    </div>
+                </div>
+            </apex:outputPanel>
+            <apex:outputPanel id="out">
+                <apex:outputPanel rendered="{!isFileSelected}">
+                    <div class="slds-section slds-is-open slds-is-relative slds-m-top_large">
+                        <h3 class="slds-section__title slds-theme_shade">
+                            <span class="slds-truncate slds-p-horizontal_small" title="Version Information">Version Information</span>
+                        </h3>
+                        
+                        <div aria-hidden="false" class="slds-section__content">
+                            <div class="slds-form-element slds-form-element_separator slds-m-bottom_small">
+                                <label lass="slds-form-element__label">Location</label>
+                                <div class="slds-form-element__control">
+                                    <input readonly="readonly" class="slds-input" value="{!fileSelected}" type="text" />
+                                </div>
+                            </div>
+
+                            <div class="slds-clearfix slds-p-vertical_large">
+                                <div class="slds-clearfix">
+                                    <div class="slds-align_absolute-center">
+                                        <button id="toggleAllRowsButton" class="slds-button slds-button_neutral slds-hide"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table id="diffTable" class="slds-table slds-table_bordered slds-table_col-bordered slds-table_cell-buffer">
+                                <thead>
+                                    <tr class="slds-text-title_caps">
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Field">Field</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Original Value">Original Value</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="New Value">New Value</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="slds-truncate" title="Current Value">Current Value</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!diff}" var="fieldName">
+                                        <tr class="{!diff[fieldName].styleClass}">
+                                            <td data-label="Field" class="col-field-name">
+                                                <span class="slds-truncate">
+                                                    <apex:outputText value="{!fieldName}" title="{!fieldName}" />
+                                                </span>
+                                            </td>
+
+                                            <td data-label="Original Value" class="col-old">
+                                                <span class="slds-truncate">
+                                                    <apex:outputText value="{!diff[fieldName].oldValue}" title="{!diff[fieldName].oldValue}" />
+                                                </span>
+                                            </td>
+
+                                            <td data-label="New Value" class="col-new">
+                                                <span class="slds-truncate">
+                                                    <apex:outputText value="{!diff[fieldName].newValue}" title="{!diff[fieldName].newValue}" />
+                                                </span>
+                                            </td>
+
+                                            <td data-label="Current Value" class="col-current">
+                                                <span class="slds-truncate">
+                                                    <apex:outputText value="{!diff[fieldName].currentValue}" title="{!diff[fieldName].currentValue}" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td data-label="Field"></td>
+
+                                        <td data-label="Original Value" style="text-align: center;font-weight:bold;">
+                                            <apex:commandButton id="restoreToOldVersionButton" html-data-toggle="modal" html-data-target="#restoreToOldVersionModal" value="Restore Original Values" styleClass="slds-button slds-button_neutral" rendered="{!gp.ifhasRestorePermission && showRestoreToOldVersionButton}"/>
+                                        </td>
+
+                                        <td data-label="New Value" style="text-align: center;font-weight:bold;">
+                                            <apex:commandButton id="updateToThisVersionButton" html-data-toggle="modal" html-data-target="#updateToThisVersionModal" value="Restore New Values" styleClass="slds-button slds-button_neutral" rendered="{!gp.ifhasRestorePermission}" />
+                                        </td>
+
+                                        <td data-label="Current Value"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <script>
+                        window.toggleAllRowsButtonInit('#toggleAllRowsButton', '#diffTable', false);
+                    </script>
+                    
+                    <!--<div class="slds-clearfix slds-p-vertical_large">
+                        <div class="slds-clearfix">
+                            <div class="slds-float_right">
+                                <apex:commandButton id="restoreToOldVersionButton" html-data-toggle="modal" html-data-target="#restoreToOldVersionModal" value="Restore Original Values" styleClass="slds-button slds-button_neutral" rendered="{!showRestoreToOldVersionButton}"/>
+                                <apex:commandButton id="updateToThisVersionButton" html-data-toggle="modal" html-data-target="#updateToThisVersionModal" value="Restore New Values" styleClass="slds-button slds-button_neutral"/>
+                            </div>
+                        </div>
+                    </div>-->
+                </apex:outputPanel>
+            </apex:outputPanel>
+
+            <section id="restoreToOldVersionModal" role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-hide">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button data-toggle="modal" data-target="#restoreToOldVersionModal" class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                            <i class="slds-button__icon slds-button__icon_large" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#close')}"></i>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+
+                        <h2 class="slds-text-heading_medium slds-hyphenate">Restore to Old Version</h2>
+                    </header>
+
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <p class="slds-text-heading_small">Are you sure that you would like to update this record with the values from the selected record?</p>
+                        <p>Warning: This will update this record when you click "OK".</p>
+                    </div>
+
+                    <footer class="slds-modal__footer">
+                        <div class="slds-form-element slds-float_left" data-multi="false">
+                            <label class="slds-checkbox_toggle slds-grid">
+                                <span class="slds-form-element__label slds-m-bottom_none">Update field(s) on record to blank values from this version</span>
+                                <input type="checkbox" id="setBlankValues_old"/>
+                                <span class="slds-checkbox_faux_container" aria-live="assertive">
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-checkbox_on">Yes</span>
+                                    <span class="slds-checkbox_off">No</span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <span class="slds-button slds-button_neutral" data-toggle="modal" data-target="#restoreToOldVersionModal">Cancel</span>
+                        <apex:commandButton value="OK" onclick="showGlobalSpinner(true);restoreToOldVersion($('#setBlankValues_old').prop('checked'));return false;" styleClass="slds-button slds-button_destructive _blank"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-hide"></div>
+
+            <section id="updateToThisVersionModal" role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-hide">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button data-toggle="modal" data-target="#updateToThisVersionModal" class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                            <i class="slds-button__icon slds-button__icon_large" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#close')}"></i>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+
+                        <h2 class="slds-text-heading_medium slds-hyphenate">Update to this Version</h2>
+                    </header>
+
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <p class="slds-text-heading_small">Are you sure that you would like to update this record with the values from the selected record?</p>
+                        <p>Warning: This will update this record when you click "OK".</p>
+                    </div>
+
+                    <footer class="slds-modal__footer">
+                        <div class="slds-form-element slds-float_left" data-multi="false">
+                            <label class="slds-checkbox_toggle slds-grid">
+                                <span class="slds-form-element__label slds-m-bottom_none">Update field(s) on record to blank values from this version</span>
+                                <input type="checkbox" id="setBlankValues_new"/>
+                                <span class="slds-checkbox_faux_container" aria-live="assertive">
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-checkbox_on">Yes</span>
+                                    <span class="slds-checkbox_off">No</span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <span class="slds-button slds-button_neutral" data-toggle="modal" data-target="#updateToThisVersionModal">Cancel</span>
+                        <apex:commandButton value="OK" onclick="showGlobalSpinner(true);updateToThisVersion($('#setBlankValues_new').prop('checked'));return false;" styleClass="slds-button slds-button_destructive _blank"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-hide"></div>
+
+            <div id="globalSpinner" class="slds-spinner_container slds-is-fixed slds-hide">
+                <div role="status" class="slds-spinner slds-spinner_large slds-spinner_brand">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </apex:form>
+    </div>
+    
+    <script>
+        $(function() {
+            var $globalSpinner = $('#globalSpinner');
+            
+            var globalSpinnerCounter = 0;
+            window.showGlobalSpinner = function(state, scrollIntoView) {
+                globalSpinnerCounter += (state ? 1 : -1);
+        
+                if(globalSpinnerCounter < 0) {
+                    globalSpinnerCounter = 0;
+                }
+
+                if(scrollIntoView) {
+                    setTimeout(function() {
+                        var diffTable = document.getElementById("diffTable");
+
+                        if(globalSpinnerCounter == 0 && diffTable) {
+                            diffTable.scrollIntoView();
+                        }
+                    }, 100);
+                }
+
+                $globalSpinner.toggleClass('slds-hide', globalSpinnerCounter == 0);
+            };
+
+            window.showRestoreToOldVersionModal = function(state) {
+                $('#restoreToOldVersionModal').trigger('modaltoggle', [state]);
+            };
+
+            window.showUpdateToThisVersionModal = function(state) {
+                $('#updateToThisVersionModal').trigger('modaltoggle', [state]);
+            };
+
+			renderFieldList({!fieldsJSON});
+            // renderHistoryTable();
+            renderSvgIcons();
+            
+        });
+    </script>
+</body>
+</html>
+</apex:page>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>grax$auditlog</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>grax$auditlog</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- grax$auditlog --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Case --></label>
+        <name>Case__c</name>
+        <relationshipLabel><!-- grax$auditlog --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- ModifiedByUser --></label>
+        <name>ModifiedByUser__c</name>
+        <relationshipLabel><!-- grax$auditlog --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- auditid --></label>
+        <name>auditid__c</name>
+    </fields>
+    <fields>
+        <label><!-- fieldupdated --></label>
+        <name>fieldupdated__c</name>
+    </fields>
+    <fields>
+        <label><!-- newvalue --></label>
+        <name>newvalue__c</name>
+    </fields>
+    <fields>
+        <label><!-- objectid --></label>
+        <name>objectid__c</name>
+    </fields>
+    <fields>
+        <label><!-- objecttype --></label>
+        <name>objecttype__c</name>
+    </fields>
+    <fields>
+        <label><!-- oldvalue --></label>
+        <name>oldvalue__c</name>
+    </fields>
+    <fields>
+        <label><!-- updatedate --></label>
+        <name>updatedate__c</name>
+    </fields>
+    <fields>
+        <label><!-- updatedbyid --></label>
+        <name>updatedbyid__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

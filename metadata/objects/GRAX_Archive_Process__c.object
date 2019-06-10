@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object is used when the user creates a &quot;Scheduled Process&quot; and decides to Archive records from Salesforce.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>false</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Async_Records_Successfully_Sent__c</fullName>
+        <externalId>false</externalId>
+        <label># Async Records Successfully Sent</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Async_Records_to_Process__c</fullName>
+        <externalId>false</externalId>
+        <label># Async Records to Process</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Can_Delete_GRAX_Record__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Can Delete GRAX Record?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Execution_Unique_Key__c</fullName>
+        <externalId>false</externalId>
+        <label>Execution Unique Key</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GRAX_Schedule_Process__c</fullName>
+        <externalId>false</externalId>
+        <label>GRAX Schedule Process</label>
+        <referenceTo>GRAX_Schedule_Process__c</referenceTo>
+        <relationshipLabel>GRAX Archive Processes</relationshipLabel>
+        <relationshipName>GRAX_Archive_Processes</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Records_Successfully_Sent__c</fullName>
+        <externalId>false</externalId>
+        <label># Records Successfully Sent</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Records_To_Process__c</fullName>
+        <description>Count of the # of records which have been processed within Salesforce</description>
+        <externalId>false</externalId>
+        <label># Records To Process</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Records_To_Process__c &gt; 0 &amp;&amp; Records_Successfully_Sent__c = Records_To_Process__c &amp;&amp; Async_Records_Successfully_Sent__c = Async_Records_to_Process__c &amp;&amp; Total_SFDC_Records_Deleted__c = 0 &amp;&amp; Total_SFDC_Records_Failed_to_Delete__c = 0, 
+  &apos;Ready to Delete&apos;,
+  IF(Total_SFDC_Records__c &gt; 0 &amp;&amp; Total_SFDC_Records__c != Total_SFDC_Records_Deleted__c + Total_SFDC_Records_Failed_to_Delete__c &amp;&amp; (Total_SFDC_Records_Deleted__c &gt; 0 || Total_SFDC_Records_Failed_to_Delete__c &gt; 0),
+    &apos;Delete Process Started&apos;,
+    IF(Total_SFDC_Records__c &gt; 0 &amp;&amp; Total_SFDC_Records__c = Total_SFDC_Records_Deleted__c + Total_SFDC_Records_Failed_to_Delete__c,
+      &apos;Delete Process Completed&apos;,
+      IF(ISPICKVAL(GRAX_Schedule_Process__r.Status__c, &apos;Completed&apos;) &amp;&amp; Records_To_Process__c = 0,
+        &apos;Delete Process Completed&apos;,
+        &apos;Waiting Backup to Complete&apos;
+      )
+    )
+  )
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_SFDC_Records_Deleted__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label># Total SFDC Records Deleted</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_SFDC_Records_Failed_to_Delete__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label># Total SFDC Records Failed to Delete</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_SFDC_Records__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label># Total SFDC Records</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>GRAX Archive Process</label>
+    <nameField>
+        <displayFormat>GRAX-Proc-{0000000}</displayFormat>
+        <label>GRAX Archive Process Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>GRAX Archive Processes</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

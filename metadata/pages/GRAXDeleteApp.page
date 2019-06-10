@@ -1,0 +1,13 @@
+<apex:page controller="GRAXManagementAppCtrl">
+    <apex:outputPanel layout="none" rendered="{!isAuthenticated}">
+        <style>
+            #GRAXDeleteApp {
+                width: 100%!important;
+                min-height: 100vh;
+                border: 0; 
+            }
+        </style>
+        
+        <iframe id="GRAXDeleteApp" height="100%" data-src="{!url}?orgid={!orgid}&sessionid={!sessionid}&endpoint={!endpoint}&domainurl={!graxdomain}&token={!token}&userid={!userid}#delete" scrolling="yes"></iframe>
+    </apex:outputPanel>
+</apex:page>

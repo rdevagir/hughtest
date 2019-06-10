@@ -1,0 +1,6 @@
+<apex:page controller="GRAXConnect">
+<apex:form >
+<apex:commandButton value="Authorize GRAX Connect" action="{!connect}"/> <i>(If page does not load please authorize)</i>
+</apex:form>
+<iframe height="600px" id="theIframe" name="theIframe" src="{!PropURLToDisplay}" width="100%" frameBorder="0"></iframe>
+</apex:page>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>graxsgisampleindex</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>graxsgisampleindex</value>
+    </caseValues>
+    <fields>
+        <label><!-- Audit_Status --></label>
+        <name>Audit_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- City --></label>
+        <name>City__c</name>
+    </fields>
+    <fields>
+        <label><!-- County --></label>
+        <name>County__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedById --></label>
+        <name>CreatedById__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedDate --></label>
+        <name>CreatedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- DBA --></label>
+        <name>DBA__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date --></label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Funds_In --></label>
+        <name>Funds_In__c</name>
+    </fields>
+    <fields>
+        <label><!-- IGB_Tag --></label>
+        <name>IGB_Tag__c</name>
+    </fields>
+    <fields>
+        <label><!-- Id --></label>
+        <name>Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedById --></label>
+        <name>LastModifiedById__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedDate --></label>
+        <name>LastModifiedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- License_Type --></label>
+        <name>License_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- License --></label>
+        <name>License__c</name>
+    </fields>
+    <fields>
+        <label><!-- Live_Date --></label>
+        <name>Live_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Manufacturer --></label>
+        <name>Manufacturer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Model --></label>
+        <name>Model__c</name>
+    </fields>
+    <fields>
+        <label><!-- Original_Live_Date --></label>
+        <name>Original_Live_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- RO --></label>
+        <name>RO__c</name>
+    </fields>
+    <fields>
+        <label><!-- SAS --></label>
+        <name>SAS__c</name>
+    </fields>
+    <fields>
+        <label><!-- Salesforce_ID --></label>
+        <name>Salesforce_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Serial_Number --></label>
+        <name>Serial_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- SystemModstamp --></label>
+        <name>SystemModstamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- UniqueId --></label>
+        <name>UniqueId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Upgrade_Date --></label>
+        <name>Upgrade_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Zip --></label>
+        <name>Zip__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_sgisample_xf --></label>
+        <name>grax_sgisample_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_xf --></label>
+        <name>grax_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- graxid --></label>
+        <name>graxid__c</name>
+    </fields>
+    <fields>
+        <label><!-- graxorgid --></label>
+        <name>graxorgid__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

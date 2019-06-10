@@ -1,0 +1,100 @@
+<apex:page standardController="Account" extensions="GRAXAccountReportingCtrl" showHeader="false" sidebar="false" lightningStylesheets="{! $User.UIThemeDisplayed == 'Theme4d' }">
+<!--<base target="_blank" />-->
+
+<script type="text/javascript">
+    var __sfdcSessionId = '{!GETSESSIONID()}';
+</script>
+<script src="../../soap/ajax/41.0/connection.js"
+      type="text/javascript">
+</script>
+<script src="../../soap/ajax/41.0/apex.js"
+      type="text/javascript">
+</script>
+
+<style>
+    .goToReport:active > .preventClick .analyticsEmbeddedChart {
+        pointer-events: none;
+    }
+</style>
+
+<apex:outputPanel rendered="{! $User.UIThemeDisplayed == 'Theme3' }">
+    <style>
+        div.reports {
+            display: table;
+            width: 100%;
+        }
+
+        div.reports > div {
+            display: table-row;
+        }
+
+        div.reports > div div.report {
+            display: table-cell;
+        }
+    </style>
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{! $User.UIThemeDisplayed == 'Theme4d' }">
+    <style>
+        div.reports {
+            display: block;
+            display: flex;
+            justify-content: center;
+        }
+
+        div.report + div.report {
+            margin-top: 1rem;
+        }
+
+        div.report div.analyticsEmbeddedReportChart {
+            width: 90vw;
+        }
+    </style>
+</apex:outputPanel>
+
+<script>
+    function goToReport(reportId, filterKeyID, filterKeyIndex, e) {
+        e = e || window.event;
+        var target = e.target || e.srcElement;
+
+        if(target.tagName.toLowerCase() === 'a' || target.classList.contains('chartContainer') || target.classList.contains('analyticsEmbeddedChart')) {
+            var newUrl = '/' + reportId;
+
+            var filterValue = encodeURI('{!filterValue}');
+
+            if((typeof sforce != 'undefined') && (sforce != null) && sforce.one){
+                newUrl += '?fv' + filterKeyIndex + '=' + filterValue;
+                sforce.one.navigateToURL(newUrl);
+                //newUrl = '#/sObject/' + reportId + '';
+            } else {
+                newUrl += '?drilldown=1&drillcol=' + filterKeyID + '&drillval=' + filterValue + '&drillop=equals';
+                window.open(window.location.protocol + '//' + window.location.hostname + newUrl, '_blank');
+            }
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        return false;
+    };
+</script>
+
+<div class="reports">
+    <div>
+        <apex:repeat value="{!settings}" var="setting" id="reports">
+            <div class="report">
+                <a href="javascript:void(0);" onmouseup="javascript:goToReport('{!setting.Report_ID__c}', '{!setting.Filter_Key_Id__c}', {!setting.filterKeyIndex__c}, event);">
+                    Report Link
+                </a>
+
+                <div class="goToReport" onmouseup="goToReport('{!setting.Report_ID__c}', '{!setting.Filter_Key_Id__c}', {!setting.filterKeyIndex__c}, event);">
+                    <div class="preventClick">
+                        <analytics:reportChart reportId="{!setting.Report_ID__c}" size="{!setting.size__c}" cacheResults="{!setting.cacheResults__c}" filter="[{column:'{!setting.Filter_Key__c}',operator:'equals',value:'{!filterValue}'}]"/>
+                    </div>
+                </div>
+            </div>
+        </apex:repeat>
+    </div>
+</div>
+    
+</apex:page>

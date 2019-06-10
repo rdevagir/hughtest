@@ -1,0 +1,2027 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>graxcaseindex</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>graxcaseindex</value>
+    </caseValues>
+    <fields>
+        <label><!-- AF_Funded__c --></label>
+        <name>AF_Funded_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- AGCO_Current_Net_Price__c --></label>
+        <name>AGCO_Current_Net_Price_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- AGCO_Current_Retail_Price__c --></label>
+        <name>AGCO_Current_Retail_Price_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- AGCO_Power_Review__c --></label>
+        <name>AGCO_Power_Review_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- AccountId --></label>
+        <name>AccountId__c</name>
+    </fields>
+    <fields>
+        <label><!-- AccountId_grax_xf_account --></label>
+        <name>AccountId_grax_xf_account__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account_Name --></label>
+        <name>Account_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Actioned_By__c --></label>
+        <name>Actioned_By_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Actions_Taken_By_Dealer_English__c --></label>
+        <name>Actions_Taken_By_Dealer_English_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Actions_Taken_By_Dealer__c --></label>
+        <name>Actions_Taken_By_Dealer_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Additional_Part_Numbers__c --></label>
+        <name>Additional_Part_Numbers_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Advanced_Ship_Notice_All_Locations__c --></label>
+        <name>Advanced_Ship_Notice_All_Locations_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Advanced_Ship_Notice_My_Location__c --></label>
+        <name>Advanced_Ship_Notice_My_Location_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Affected_Area__c --></label>
+        <name>Affected_Area_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- After_Care_Certificate_Number__c --></label>
+        <name>After_Care_Certificate_Number_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- After_Care_Certificate__c --></label>
+        <name>After_Care_Certificate_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approval_1st_Submission_Date_Time__c --></label>
+        <name>Approval_1st_Submission_Date_Time_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approval_Comment_History__c --></label>
+        <name>Approval_Comment_History_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approval_Last_Action_Date_Time__c --></label>
+        <name>Approval_Last_Action_Date_Time_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approval_Last_Submission_Date_Time__c --></label>
+        <name>Approval_Last_Submission_Date_Time_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approval_Lock__c --></label>
+        <name>Approval_Lock_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approval_Override__c --></label>
+        <name>Approval_Override_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approval_Status__c --></label>
+        <name>Approval_Status_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approval_Submission_Count__c --></label>
+        <name>Approval_Submission_Count_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Area__c --></label>
+        <name>Area_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Assembly_Center__c --></label>
+        <name>Assembly_Center_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- AssetId --></label>
+        <name>AssetId__c</name>
+    </fields>
+    <fields>
+        <label><!-- AssetId_grax_xf_asset --></label>
+        <name>AssetId_grax_xf_asset__c</name>
+    </fields>
+    <fields>
+        <label><!-- Assignment_Date__c --></label>
+        <name>Assignment_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Assistance_Required__c --></label>
+        <name>Assistance_Required_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Audit_Usage__c --></label>
+        <name>Audit_Usage_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Audix__c --></label>
+        <name>Audix_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Book_Category__c --></label>
+        <name>Book_Category_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Book_Code__c --></label>
+        <name>Book_Code_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Book_Origin__c --></label>
+        <name>Book_Origin_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Book_Sub_Category__c --></label>
+        <name>Book_Sub_Category_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Book_Title__c --></label>
+        <name>Book_Title_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Box__c --></label>
+        <name>Box_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Brand_Code__c --></label>
+        <name>Brand_Code_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Brand__c --></label>
+        <name>Brand_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Browser_Language__c --></label>
+        <name>Browser_Language_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Browser_Version__c --></label>
+        <name>Browser_Version_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Budget_Approver__c --></label>
+        <name>Budget_Approver_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Build_Process_Alert_Email_1__c --></label>
+        <name>Build_Process_Alert_Email_1_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Build_Process_Alert_Email_2__c --></label>
+        <name>Build_Process_Alert_Email_2_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Build_Process_Alert_Email_3__c --></label>
+        <name>Build_Process_Alert_Email_3_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- BusinessHoursId --></label>
+        <name>BusinessHoursId__c</name>
+    </fields>
+    <fields>
+        <label><!-- BusinessHoursId_grax_xf_businesshours --></label>
+        <name>BusinessHoursId_grax_xf_businesshours__c</name>
+    </fields>
+    <fields>
+        <label><!-- BusinessHours_Name --></label>
+        <name>BusinessHours_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Business_Manager__c --></label>
+        <name>Business_Manager_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Buyer__c --></label>
+        <name>Buyer_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- CC_AGCO_User__c --></label>
+        <name>CC_AGCO_User_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- CSAT__c --></label>
+        <name>CSAT_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- CS_Instructions__c --></label>
+        <name>CS_Instructions_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Call_Log__c --></label>
+        <name>Call_Log_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Caller__c --></label>
+        <name>Caller_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Campaign_Approval__c --></label>
+        <name>Campaign_Approval_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cancellation_Date__c --></label>
+        <name>Cancellation_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Carrier__c --></label>
+        <name>Carrier_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- CaseNumber --></label>
+        <name>CaseNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case_Backorder_Count__c --></label>
+        <name>Case_Backorder_Count_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case_Backorder__c --></label>
+        <name>Case_Backorder_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case_Classification__c --></label>
+        <name>Case_Classification_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case_Comment_Body__c --></label>
+        <name>Case_Comment_Body_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case_Comment_Count__c --></label>
+        <name>Case_Comment_Count_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case_Comment_History__c --></label>
+        <name>Case_Comment_History_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case_Comment_NEW__c --></label>
+        <name>Case_Comment_NEW_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case_Owner__c --></label>
+        <name>Case_Owner_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case_Snapshots__c --></label>
+        <name>Case_Snapshots_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case_Summary_Code__c --></label>
+        <name>Case_Summary_Code_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case_Summary_Failure_Area__c --></label>
+        <name>Case_Summary_Failure_Area_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case_Summary_Failure_Defect__c --></label>
+        <name>Case_Summary_Failure_Defect_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case_Summary_Failure_SubArea__c --></label>
+        <name>Case_Summary_Failure_SubArea_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case_Summary_GFC__c --></label>
+        <name>Case_Summary_GFC_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case_Survey_URL__c --></label>
+        <name>Case_Survey_URL_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Category__c --></label>
+        <name>Category_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Change_of_Query_Owner_Time__c --></label>
+        <name>Change_of_Query_Owner_Time_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Changes_Working_in_Merge_and_UAT__c --></label>
+        <name>Changes_Working_in_Merge_and_UAT_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Changing_to_BP__c --></label>
+        <name>Changing_to_BP_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Channel__c --></label>
+        <name>Channel_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Chapter_Title__c --></label>
+        <name>Chapter_Title_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- ClosedDate --></label>
+        <name>ClosedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- ClosedDate__c --></label>
+        <name>ClosedDate_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- ClosedOnCreate --></label>
+        <name>ClosedOnCreate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Closed_By_Text__c --></label>
+        <name>Closed_By_Text_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Closed_By__c --></label>
+        <name>Closed_By_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Closer__c --></label>
+        <name>Closer_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Closing_Lock__c --></label>
+        <name>Closing_Lock_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Closing_Locked_By__c --></label>
+        <name>Closing_Locked_By_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Closure_Reason__c --></label>
+        <name>Closure_Reason_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Code_Required__c --></label>
+        <name>Code_Required_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Collation__c --></label>
+        <name>Collation_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comment_Creator_ID__c --></label>
+        <name>Comment_Creator_ID_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comment_Creator__c --></label>
+        <name>Comment_Creator_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Commercial_Issue__c --></label>
+        <name>Commercial_Issue_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Community_Contact_Match__c --></label>
+        <name>Community_Contact_Match_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comparable_Part__c --></label>
+        <name>Comparable_Part_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Competitor_Name__c --></label>
+        <name>Competitor_Name_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Competitor_Net_Price__c --></label>
+        <name>Competitor_Net_Price_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Competitor_Part__c --></label>
+        <name>Competitor_Part_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Competitor_Retail_Price__c --></label>
+        <name>Competitor_Retail_Price_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Competitor_Supporting_Material__c --></label>
+        <name>Competitor_Supporting_Material_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Confirmed_Order_Qty_if_Price_Adjusted__c --></label>
+        <name>Confirmed_Order_Qty_if_Price_Adjusted_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Connection_To_Dealer__c --></label>
+        <name>Connection_To_Dealer_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- ContactEmail --></label>
+        <name>ContactEmail__c</name>
+    </fields>
+    <fields>
+        <label><!-- ContactFax --></label>
+        <name>ContactFax__c</name>
+    </fields>
+    <fields>
+        <label><!-- ContactId --></label>
+        <name>ContactId__c</name>
+    </fields>
+    <fields>
+        <label><!-- ContactId_grax_xf_contact --></label>
+        <name>ContactId_grax_xf_contact__c</name>
+    </fields>
+    <fields>
+        <label><!-- ContactMobile --></label>
+        <name>ContactMobile__c</name>
+    </fields>
+    <fields>
+        <label><!-- ContactPhone --></label>
+        <name>ContactPhone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact_Name --></label>
+        <name>Contact_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cost__c --></label>
+        <name>Cost_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Course_Referrals__c --></label>
+        <name>Course_Referrals_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedByAlias --></label>
+        <name>CreatedByAlias__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedById --></label>
+        <name>CreatedById__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedById_grax_xf_user --></label>
+        <name>CreatedById_grax_xf_user__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedBy_Name --></label>
+        <name>CreatedBy_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedDate --></label>
+        <name>CreatedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedDate__c --></label>
+        <name>CreatedDate_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Created_By_Role__c --></label>
+        <name>Created_By_Role_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Creator_Override__c --></label>
+        <name>Creator_Override_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current_Annual_Purchase_Quantity_from_AG --></label>
+        <name>Current_Annual_Purchase_Quantity_from_AG__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current_Approver_Name__c --></label>
+        <name>Current_Approver_Name_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current_Approver__c --></label>
+        <name>Current_Approver_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current_MOQ__c --></label>
+        <name>Current_MOQ_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current_Margin__c --></label>
+        <name>Current_Margin_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current_Non_Current_Inquiry__c --></label>
+        <name>Current_Non_Current_Inquiry_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current_Price__c --></label>
+        <name>Current_Price_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current_Revenue__c --></label>
+        <name>Current_Revenue_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current_Supplier_Will_Deliver_Open_PO__c --></label>
+        <name>Current_Supplier_Will_Deliver_Open_PO_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Custom_Date_Field__c --></label>
+        <name>Custom_Date_Field_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer_Contacted_Dealer__c --></label>
+        <name>Customer_Contacted_Dealer_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Customer_Order_Reference_Number__c --></label>
+        <name>Customer_Order_Reference_Number_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- DB_Case_Duration_Hours__c --></label>
+        <name>DB_Case_Duration_Hours_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- DB_Hours__c --></label>
+        <name>DB_Hours_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- DFS_Credit_Manager__c --></label>
+        <name>DFS_Credit_Manager_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- DFS_Reminder__c --></label>
+        <name>DFS_Reminder_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- DSS_Cause__c --></label>
+        <name>DSS_Cause_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- DSS_Sub_Category__c --></label>
+        <name>DSS_Sub_Category_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- DateTime_Closed_c__c --></label>
+        <name>DateTime_Closed_c_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- DateTime_Opened_c__c --></label>
+        <name>DateTime_Opened_c_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date_Time_Originally_Closed__c --></label>
+        <name>Date_Time_Originally_Closed_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date_Time_Reopened__c --></label>
+        <name>Date_Time_Reopened_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deadline_SLA__c --></label>
+        <name>Deadline_SLA_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dealer_Contacted_Parts__c --></label>
+        <name>Dealer_Contacted_Parts_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dealer_Contacted_Service__c --></label>
+        <name>Dealer_Contacted_Service_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dealer_Information_Quality__c --></label>
+        <name>Dealer_Information_Quality_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dealer_Number__c --></label>
+        <name>Dealer_Number_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Delivery_Note_Number__c --></label>
+        <name>Delivery_Note_Number_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deployed_to_UAT__c --></label>
+        <name>Deployed_to_UAT_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deployment_Required__c --></label>
+        <name>Deployment_Required_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description_English__c --></label>
+        <name>Description_English_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Design_Approved__c --></label>
+        <name>Design_Approved_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Detailed_Requirements__c --></label>
+        <name>Detailed_Requirements_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Disposition__c --></label>
+        <name>Disposition_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- District_Director__c --></label>
+        <name>District_Director_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Division__c --></label>
+        <name>Division_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Does_PATS_Date_Request_Date__c --></label>
+        <name>Does_PATS_Date_Request_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Due_Date_Change_Count__c --></label>
+        <name>Due_Date_Change_Count_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Due_Date__c --></label>
+        <name>Due_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Duration__c --></label>
+        <name>Duration_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- E2CP__AdditionalBCC__c --></label>
+        <name>E2CP_AdditionalBCC_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- E2CP__AdditionalCC__c --></label>
+        <name>E2CP_AdditionalCC_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- E2CP__AdditionalTo__c --></label>
+        <name>E2CP_AdditionalTo_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- E2CP__Disable_Email_Distribution__c --></label>
+        <name>E2CP_Disable_Email_Distribution_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- E2CP__ExtraEmails__c --></label>
+        <name>E2CP_ExtraEmails_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- E2CP__HistoryText_Inc_Private__c --></label>
+        <name>E2CP_HistoryText_Inc_Private_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- E2CP__HistoryText__c --></label>
+        <name>E2CP_HistoryText_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- E2CP__Most_Recent_Private_Comment_HTML__ --></label>
+        <name>E2CP_Most_Recent_Private_Comment_HTML_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- E2CP__Most_Recent_Private_Comment__c --></label>
+        <name>E2CP_Most_Recent_Private_Comment_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- E2CP__Most_Recent_Public_Comment_HTML__c --></label>
+        <name>E2CP_Most_Recent_Public_Comment_HTML_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- E2CP__Most_Recent_Public_Comment__c --></label>
+        <name>E2CP_Most_Recent_Public_Comment_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- EDY_ORGCUSTOM__DB__c --></label>
+        <name>EDY_ORGCUSTOM_DB_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- ED_Leading_Causes__c --></label>
+        <name>ED_Leading_Causes_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- ED_Prescription__c --></label>
+        <name>ED_Prescription_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Effort_to_Resolve__c --></label>
+        <name>Effort_to_Resolve_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- EmailToCase__c --></label>
+        <name>EmailToCase_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Area_Owner__c --></label>
+        <name>Email_Area_Owner_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Case_Owner_Manager_Manager__c --></label>
+        <name>Email_Case_Owner_Manager_Manager_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Case_Owner_Manager__c --></label>
+        <name>Email_Case_Owner_Manager_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Category_Owner__c --></label>
+        <name>Email_Category_Owner_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Creator_Override__c --></label>
+        <name>Email_Creator_Override_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_DFS_Credit_Manager__c --></label>
+        <name>Email_DFS_Credit_Manager_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Dealer_Central_Zone__c --></label>
+        <name>Email_Dealer_Central_Zone_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Field_Service_Manager__c --></label>
+        <name>Email_Field_Service_Manager_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Logistics_Export_1__c --></label>
+        <name>Email_Logistics_Export_1_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Logistics_Export_2__c --></label>
+        <name>Email_Logistics_Export_2_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Logistics_Export_3__c --></label>
+        <name>Email_Logistics_Export_3_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Logistics_Export_4__c --></label>
+        <name>Email_Logistics_Export_4_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Order_Management_1__c --></label>
+        <name>Email_Order_Management_1_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Order_Management_2__c --></label>
+        <name>Email_Order_Management_2_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Order_Management_3__c --></label>
+        <name>Email_Order_Management_3_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Order_Management_4__c --></label>
+        <name>Email_Order_Management_4_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Order_Management_5__c --></label>
+        <name>Email_Order_Management_5_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Sales_Director__c --></label>
+        <name>Email_Sales_Director_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Sales_Manager__c --></label>
+        <name>Email_Sales_Manager_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Encryption_Field__c --></label>
+        <name>Encryption_Field_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- End_Customer_Email__c --></label>
+        <name>End_Customer_Email_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- End_Customer_First_Name__c --></label>
+        <name>End_Customer_First_Name_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- End_Customer_Last_Name__c --></label>
+        <name>End_Customer_Last_Name_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- End_Customer_Phone__c --></label>
+        <name>End_Customer_Phone_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Engine_Serial__c --></label>
+        <name>Engine_Serial_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- EngineeringReqNumber__c --></label>
+        <name>EngineeringReqNumber_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- EntitlementId --></label>
+        <name>EntitlementId__c</name>
+    </fields>
+    <fields>
+        <label><!-- EntitlementId_grax_xf_entitlement --></label>
+        <name>EntitlementId_grax_xf_entitlement__c</name>
+    </fields>
+    <fields>
+        <label><!-- Entitlement_Name --></label>
+        <name>Entitlement_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Epsilon_DVD_Request__c --></label>
+        <name>Epsilon_DVD_Request_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Equipment__c --></label>
+        <name>Equipment_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Error_Code__c --></label>
+        <name>Error_Code_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Escalation_Level__c --></label>
+        <name>Escalation_Level_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Escalation_Path__c --></label>
+        <name>Escalation_Path_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Escalation_Rules_Reset__c --></label>
+        <name>Escalation_Rules_Reset_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Escalation_Time_1__c --></label>
+        <name>Escalation_Time_1_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Escalation_Time_2__c --></label>
+        <name>Escalation_Time_2_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Escalation_Time_3__c --></label>
+        <name>Escalation_Time_3_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Escalation_Time_4__c --></label>
+        <name>Escalation_Time_4_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Escalation_Time_5__c --></label>
+        <name>Escalation_Time_5_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Escalation_URL__c --></label>
+        <name>Escalation_URL_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Escalation__c --></label>
+        <name>Escalation_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Est_Cost__c --></label>
+        <name>Est_Cost_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- EventsProcessedDate --></label>
+        <name>EventsProcessedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expedite_Count__c --></label>
+        <name>Expedite_Count_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expedite_Open_Count__c --></label>
+        <name>Expedite_Open_Count_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expedite_Promise_Date_Change_Count__c --></label>
+        <name>Expedite_Promise_Date_Change_Count_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expedite_Report_Full__c --></label>
+        <name>Expedite_Report_Full_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expeditor__c --></label>
+        <name>Expeditor_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expiration_Date__c --></label>
+        <name>Expiration_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Explanation__c --></label>
+        <name>Explanation_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Extension__c --></label>
+        <name>Extension_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- External_Hours_Estimate__c --></label>
+        <name>External_Hours_Estimate_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- External_ID__c --></label>
+        <name>External_ID_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- F1_Release_OLD__c --></label>
+        <name>F1_Release_OLD_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- F1_Release__c --></label>
+        <name>F1_Release_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- F_P_Brief__c --></label>
+        <name>F_P_Brief_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Family_Code__c --></label>
+        <name>Family_Code_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Family__c --></label>
+        <name>Family_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Feedback_Comment_English__c --></label>
+        <name>Feedback_Comment_English_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Feedback_Comment__c --></label>
+        <name>Feedback_Comment_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fictive_Box__c --></label>
+        <name>Fictive_Box_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Field_Parts_Manager__c --></label>
+        <name>Field_Parts_Manager_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Field_Service_Manager__c --></label>
+        <name>Field_Service_Manager_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- First_Case_Owner__c --></label>
+        <name>First_Case_Owner_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- First_Contact_Close__c --></label>
+        <name>First_Contact_Close_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- First_Response_Date_Time__c --></label>
+        <name>First_Response_Date_Time_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Follow_up_Date__c --></label>
+        <name>Follow_up_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Force_com_URL__c --></label>
+        <name>Force_com_URL_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Force_com_aeid__c --></label>
+        <name>Force_com_aeid_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Force_com_ceid__c --></label>
+        <name>Force_com_ceid_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- GFC__c --></label>
+        <name>GFC_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAXCompanyName --></label>
+        <name>GRAXCompanyName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Global_FailureCode__c --></label>
+        <name>Global_FailureCode_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Global_Failure_Area__c --></label>
+        <name>Global_Failure_Area_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Global_Failure_Defect__c --></label>
+        <name>Global_Failure_Defect_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Global_Failure_SubArea__c --></label>
+        <name>Global_Failure_SubArea_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Global_Model__c --></label>
+        <name>Global_Model_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Global_Part_Number__c --></label>
+        <name>Global_Part_Number_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Goods_In_Receipt__c --></label>
+        <name>Goods_In_Receipt_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Group_Brand__c --></label>
+        <name>Group_Brand_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- HasCommentsUnreadByOwner --></label>
+        <name>HasCommentsUnreadByOwner__c</name>
+    </fields>
+    <fields>
+        <label><!-- HasSelfServiceComments --></label>
+        <name>HasSelfServiceComments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Has_New_Message_For_Dealer__c --></label>
+        <name>Has_New_Message_For_Dealer_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- High_Priority_Expedite_Count__c --></label>
+        <name>High_Priority_Expedite_Count_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- IDEAL_Review__c --></label>
+        <name>IDEAL_Review_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Id --></label>
+        <name>Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Incident_Number__c --></label>
+        <name>Incident_Number_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Information_Provided__c --></label>
+        <name>Information_Provided_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Information_needed_to_solve_the_issue__c --></label>
+        <name>Information_needed_to_solve_the_issue_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Inquiry_Resolved__c --></label>
+        <name>Inquiry_Resolved_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Internal_Hours_Estimate__c --></label>
+        <name>Internal_Hours_Estimate_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Invoice_Date__c --></label>
+        <name>Invoice_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Invoice__c --></label>
+        <name>Invoice_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsClosedOnCreate --></label>
+        <name>IsClosedOnCreate__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsClosed --></label>
+        <name>IsClosed__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsDeleted --></label>
+        <name>IsDeleted__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsEscalated --></label>
+        <name>IsEscalated__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsLocked --></label>
+        <name>IsLocked__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsSelfServiceClosed --></label>
+        <name>IsSelfServiceClosed__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsStopped --></label>
+        <name>IsStopped__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsVisibleInCss --></label>
+        <name>IsVisibleInCss__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsVisibleInSelfService --></label>
+        <name>IsVisibleInSelfService__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is_Case_Comment__c --></label>
+        <name>Is_Case_Comment_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is_Manual_Reassign__c --></label>
+        <name>Is_Manual_Reassign_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is_Tech_Connect_Case__c --></label>
+        <name>Is_Tech_Connect_Case_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Issue_Resolved_by__c --></label>
+        <name>Issue_Resolved_by_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- JIRA_Ticket_AGCO__c --></label>
+        <name>JIRA_Ticket_AGCO_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- JIRA_Ticket_Tierra__c --></label>
+        <name>JIRA_Ticket_Tierra_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Just_Closed__c --></label>
+        <name>Just_Closed_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- KB_Article_Attached__c --></label>
+        <name>KB_Article_Attached_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- KO_Checked_DateTime__c --></label>
+        <name>KO_Checked_DateTime_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Kit_Usage__c --></label>
+        <name>Kit_Usage_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Knowledge_Object__c --></label>
+        <name>Knowledge_Object_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- LM_External_Id__c --></label>
+        <name>LM_External_Id_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedByAlias --></label>
+        <name>LastModifiedByAlias__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedById --></label>
+        <name>LastModifiedById__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedById_grax_xf_user --></label>
+        <name>LastModifiedById_grax_xf_user__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedBy_Name --></label>
+        <name>LastModifiedBy_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedDate --></label>
+        <name>LastModifiedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastReferencedDate --></label>
+        <name>LastReferencedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastViewedDate --></label>
+        <name>LastViewedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last_Comment_Date_Time__c --></label>
+        <name>Last_Comment_Date_Time_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last_Comment_Date__c --></label>
+        <name>Last_Comment_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last_History_Item__c --></label>
+        <name>Last_History_Item_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Load__c --></label>
+        <name>Load_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Loaner_Required__c --></label>
+        <name>Loaner_Required_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lock_Case_Origin__c --></label>
+        <name>Lock_Case_Origin_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lock_First_Response_Date_Time__c --></label>
+        <name>Lock_First_Response_Date_Time_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Machine_In_Quest__c --></label>
+        <name>Machine_In_Quest_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Machine_Serial__c --></label>
+        <name>Machine_Serial_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Machine_Serviced__c --></label>
+        <name>Machine_Serviced_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Manufacturer_Notes_Needed__c --></label>
+        <name>Manufacturer_Notes_Needed_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Manufacturing_Location__c --></label>
+        <name>Manufacturing_Location_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Market_Code__c --></label>
+        <name>Market_Code_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Market__c --></label>
+        <name>Market_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- MayEdit --></label>
+        <name>MayEdit__c</name>
+    </fields>
+    <fields>
+        <label><!-- MilestoneStatus --></label>
+        <name>MilestoneStatus__c</name>
+    </fields>
+    <fields>
+        <label><!-- MilestoneStatus__c --></label>
+        <name>MilestoneStatus_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Mobile_Device_Setup__c --></label>
+        <name>Mobile_Device_Setup_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Model_Not_Found__c --></label>
+        <name>Model_Not_Found_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Model_Number__c --></label>
+        <name>Model_Number_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Model_Product_Description_or_Version__c --></label>
+        <name>Model_Product_Description_or_Version_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Model__c --></label>
+        <name>Model_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Monitor_Issue__c --></label>
+        <name>Monitor_Issue_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Most_Recent_Approval_Comment_Base__c --></label>
+        <name>Most_Recent_Approval_Comment_Base_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Most_Recent_Approval_Comment__c --></label>
+        <name>Most_Recent_Approval_Comment_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Multiple_Part__c --></label>
+        <name>Multiple_Part_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- New_MOQ__c --></label>
+        <name>New_MOQ_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- New_Price__c --></label>
+        <name>New_Price_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Next_Steps__c --></label>
+        <name>Next_Steps_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- No_Causal_Part_Reason__c --></label>
+        <name>No_Causal_Part_Reason_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- No_Causal_Part__c --></label>
+        <name>No_Causal_Part_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- OPS_Instructions__c --></label>
+        <name>OPS_Instructions_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Oasis_Campaign_Loaded__c --></label>
+        <name>Oasis_Campaign_Loaded_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Off_Lot_Date__c --></label>
+        <name>Off_Lot_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Offer_Voucher__c --></label>
+        <name>Offer_Voucher_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Old_Due_Date__c --></label>
+        <name>Old_Due_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Open_Expedited_Backorders__c --></label>
+        <name>Open_Expedited_Backorders_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Operating_Hours__c --></label>
+        <name>Operating_Hours_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Operating_System__c --></label>
+        <name>Operating_System_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order_Acknowledgement_All_Locations__c --></label>
+        <name>Order_Acknowledgement_All_Locations_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order_Acknowledgement_My_Location__c --></label>
+        <name>Order_Acknowledgement_My_Location_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order_Category_PickList__c --></label>
+        <name>Order_Category_PickList_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order_Category__c --></label>
+        <name>Order_Category_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order_Date_Time__c --></label>
+        <name>Order_Date_Time_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order_Reference__c --></label>
+        <name>Order_Reference_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order_Type_CPS__c --></label>
+        <name>Order_Type_CPS_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order_Type__c --></label>
+        <name>Order_Type_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order__c --></label>
+        <name>Order_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Org_Cust_Case_ID__c --></label>
+        <name>Org_Cust_Case_ID_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Orginal_Usage__c --></label>
+        <name>Orginal_Usage_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Origin --></label>
+        <name>Origin__c</name>
+    </fields>
+    <fields>
+        <label><!-- OwnerId --></label>
+        <name>OwnerId__c</name>
+    </fields>
+    <fields>
+        <label><!-- OwnerId_grax_xf_OwnerId --></label>
+        <name>OwnerId_grax_xf_OwnerId__c</name>
+    </fields>
+    <fields>
+        <label><!-- OwnerId_grax_xf_group --></label>
+        <name>OwnerId_grax_xf_group__c</name>
+    </fields>
+    <fields>
+        <label><!-- Owner_Name --></label>
+        <name>Owner_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Owner_Profile_Name__c --></label>
+        <name>Owner_Profile_Name_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- PMC_Code__c --></label>
+        <name>PMC_Code_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- PMC_Description__c --></label>
+        <name>PMC_Description_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- PMC_Owner__c --></label>
+        <name>PMC_Owner_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Page_Number__c --></label>
+        <name>Page_Number_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Page_Title__c --></label>
+        <name>Page_Title_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- ParentId --></label>
+        <name>ParentId__c</name>
+    </fields>
+    <fields>
+        <label><!-- ParentId_grax_xf_case --></label>
+        <name>ParentId_grax_xf_case__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parent_Account__c --></label>
+        <name>Parent_Account_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Part_2__c --></label>
+        <name>Part_2_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Part_3__c --></label>
+        <name>Part_3_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Part_4__c --></label>
+        <name>Part_4_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Part_5__c --></label>
+        <name>Part_5_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Part_Description_English__c --></label>
+        <name>Part_Description_English_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Part_Description__c --></label>
+        <name>Part_Description_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Part_Number__c --></label>
+        <name>Part_Number_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Part_Quantity__c --></label>
+        <name>Part_Quantity_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Part__c --></label>
+        <name>Part_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parts_Customer_Service_Rep__c --></label>
+        <name>Parts_Customer_Service_Rep_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parts_Ordered__c --></label>
+        <name>Parts_Ordered_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parts_Received__c --></label>
+        <name>Parts_Received_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parts_Shipped__c --></label>
+        <name>Parts_Shipped_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pick_Up__c --></label>
+        <name>Pick_Up_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Picking_Confirmation__c --></label>
+        <name>Picking_Confirmation_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Planned_Ship_Date_Change_All_Locations__ --></label>
+        <name>Planned_Ship_Date_Change_All_Locations_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Planned_Ship_Date_Change_My_Location__c --></label>
+        <name>Planned_Ship_Date_Change_My_Location_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Post_Deployment_Activity_Complete__c --></label>
+        <name>Post_Deployment_Activity_Complete_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Post_Deployment_Activity__c --></label>
+        <name>Post_Deployment_Activity_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Post_Visit__c --></label>
+        <name>Post_Visit_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- PotentialLiability__c --></label>
+        <name>PotentialLiability_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Potential_Purchase_Quantity_if_price_adj --></label>
+        <name>Potential_Purchase_Quantity_if_price_adj__c</name>
+    </fields>
+    <fields>
+        <label><!-- Previous_Approver_Name__c --></label>
+        <name>Previous_Approver_Name_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Previous_Owner_ID__c --></label>
+        <name>Previous_Owner_ID_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pricing_Assignment__c --></label>
+        <name>Pricing_Assignment_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pricing_Decision_and_Solution__c --></label>
+        <name>Pricing_Decision_and_Solution_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Priority --></label>
+        <name>Priority__c</name>
+    </fields>
+    <fields>
+        <label><!-- ProductId --></label>
+        <name>ProductId__c</name>
+    </fields>
+    <fields>
+        <label><!-- ProductId_grax_xf_product2 --></label>
+        <name>ProductId_grax_xf_product2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product_Code__c --></label>
+        <name>Product_Code_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product_Family_KB__c --></label>
+        <name>Product_Family_KB_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product_Group__c --></label>
+        <name>Product_Group_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product_Name --></label>
+        <name>Product_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product_Name__c --></label>
+        <name>Product_Name_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product__c --></label>
+        <name>Product_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Production_Change_Instructions__c --></label>
+        <name>Production_Change_Instructions_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Production_Inbound_Change_Sets__c --></label>
+        <name>Production_Inbound_Change_Sets_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Proposed_AGCO_Net_Price__c --></label>
+        <name>Proposed_AGCO_Net_Price_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Published_Date__c --></label>
+        <name>Published_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Publisher_Location__c --></label>
+        <name>Publisher_Location_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Purchase_Order_Line_Number__c --></label>
+        <name>Purchase_Order_Line_Number_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Purchase_Order_Number__c --></label>
+        <name>Purchase_Order_Number_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Purchasing_Target_Cost_Currency__c --></label>
+        <name>Purchasing_Target_Cost_Currency_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Purchasing_Target_Cost__c --></label>
+        <name>Purchasing_Target_Cost_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quality_Score__c --></label>
+        <name>Quality_Score_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quantity_Advised__c --></label>
+        <name>Quantity_Advised_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quantity_Received__c --></label>
+        <name>Quantity_Received_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Queue_Department__c --></label>
+        <name>Queue_Department_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quick_Close__c --></label>
+        <name>Quick_Close_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reason --></label>
+        <name>Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reason__c --></label>
+        <name>Reason_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reason_for_Price_Adjustment__c --></label>
+        <name>Reason_for_Price_Adjustment_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Receipt_Date__c --></label>
+        <name>Receipt_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecordTypeId --></label>
+        <name>RecordTypeId__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecordTypeId_grax_xf_recordtype --></label>
+        <name>RecordTypeId_grax_xf_recordtype__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecordType_Name --></label>
+        <name>RecordType_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Region__c --></label>
+        <name>Region_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Release_Added_Date__c --></label>
+        <name>Release_Added_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Release_Type__c --></label>
+        <name>Release_Type_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Release__c --></label>
+        <name>Release_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reliability_Issue_IDEAL_Only__c --></label>
+        <name>Reliability_Issue_IDEAL_Only_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reminder_Count__c --></label>
+        <name>Reminder_Count_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reminder_Method__c --></label>
+        <name>Reminder_Method_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Requirements_Approved__c --></label>
+        <name>Requirements_Approved_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Resolution_English__c --></label>
+        <name>Resolution_English_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Resolution_Feedback__c --></label>
+        <name>Resolution_Feedback_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Resolution__c --></label>
+        <name>Resolution_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Response_Time_mins__c --></label>
+        <name>Response_Time_mins_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Retail_Price_Currency__c --></label>
+        <name>Retail_Price_Currency_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Returns__c --></label>
+        <name>Returns_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Revision_Number__c --></label>
+        <name>Revision_Number_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- SLAViolation__c --></label>
+        <name>SLAViolation_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- SLA_Compliant__c --></label>
+        <name>SLA_Compliant_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- SOURCE_Incident__c --></label>
+        <name>SOURCE_Incident_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sales_Order_Number__c --></label>
+        <name>Sales_Order_Number_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sales_Value__c --></label>
+        <name>Sales_Value_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Salesforce_BA__c --></label>
+        <name>Salesforce_BA_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Send_Approval_Email__c --></label>
+        <name>Send_Approval_Email_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Send_Email_Trigger__c --></label>
+        <name>Send_Email_Trigger_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Send_FieldService__c --></label>
+        <name>Send_FieldService_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Send_Rejection_Email__c --></label>
+        <name>Send_Rejection_Email_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Send_Survey__c --></label>
+        <name>Send_Survey_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Separator_Hours__c --></label>
+        <name>Separator_Hours_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Serial_Not_Found_Reason__c --></label>
+        <name>Serial_Not_Found_Reason_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Serial_Not_Found__c --></label>
+        <name>Serial_Not_Found_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Service_Life__c --></label>
+        <name>Service_Life_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Severity__c --></label>
+        <name>Severity_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- SlaExitDate --></label>
+        <name>SlaExitDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- SlaStartDate --></label>
+        <name>SlaStartDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Solution_Design__c --></label>
+        <name>Solution_Design_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- SourceId --></label>
+        <name>SourceId__c</name>
+    </fields>
+    <fields>
+        <label><!-- SourceId_grax_xf_emailmessage --></label>
+        <name>SourceId_grax_xf_emailmessage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Special_Instructions__c --></label>
+        <name>Special_Instructions_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Stage_Inbound_Change_Sets__c --></label>
+        <name>Stage_Inbound_Change_Sets_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Standard_Due_Date__c --></label>
+        <name>Standard_Due_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Start_Date__c --></label>
+        <name>Start_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status_CS__c --></label>
+        <name>Status_CS_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status_Indicator__c --></label>
+        <name>Status_Indicator_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status_Procurement__c --></label>
+        <name>Status_Procurement_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- StopStartDate --></label>
+        <name>StopStartDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sub_Type__c --></label>
+        <name>Sub_Type_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Subject --></label>
+        <name>Subject__c</name>
+    </fields>
+    <fields>
+        <label><!-- SuppliedCompany --></label>
+        <name>SuppliedCompany__c</name>
+    </fields>
+    <fields>
+        <label><!-- SuppliedEmail --></label>
+        <name>SuppliedEmail__c</name>
+    </fields>
+    <fields>
+        <label><!-- SuppliedName --></label>
+        <name>SuppliedName__c</name>
+    </fields>
+    <fields>
+        <label><!-- SuppliedPhone --></label>
+        <name>SuppliedPhone__c</name>
+    </fields>
+    <fields>
+        <label><!-- SystemModstamp --></label>
+        <name>SystemModstamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- Team__c --></label>
+        <name>Team_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Time_Open__c --></label>
+        <name>Time_Open_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type_of_Support__c --></label>
+        <name>Type_of_Support_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Urgency__c --></label>
+        <name>Urgency_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Volume__c --></label>
+        <name>Volume_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- analyticsdemo_batch_id__c --></label>
+        <name>analyticsdemo_batch_id_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_Account_Name --></label>
+        <name>grax_Account_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_BusinessHours_Name --></label>
+        <name>grax_BusinessHours_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_Contact_Name --></label>
+        <name>grax_Contact_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_CreatedBy_Name --></label>
+        <name>grax_CreatedBy_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_Entitlement_Name --></label>
+        <name>grax_Entitlement_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_LastModifiedBy_Name --></label>
+        <name>grax_LastModifiedBy_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_OwnerId_xf --></label>
+        <name>grax_OwnerId_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_Owner_Name --></label>
+        <name>grax_Owner_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_Product_Name --></label>
+        <name>grax_Product_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_RecordType_Name --></label>
+        <name>grax_RecordType_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_account_xf --></label>
+        <name>grax_account_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_businesshours_xf --></label>
+        <name>grax_businesshours_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_case_xf --></label>
+        <name>grax_case_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_contact_xf --></label>
+        <name>grax_contact_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_entitlement_xf --></label>
+        <name>grax_entitlement_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_product2_xf --></label>
+        <name>grax_product2_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_recordtype_xf --></label>
+        <name>grax_recordtype_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_user_xf --></label>
+        <name>grax_user_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_xf --></label>
+        <name>grax_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- graxid --></label>
+        <name>graxid__c</name>
+    </fields>
+    <fields>
+        <label><!-- graxorgid --></label>
+        <name>graxorgid__c</name>
+    </fields>
+    <layouts>
+        <layout>graxcaseindex Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Restore --></label>
+        <name>Restore</name>
+    </webLinks>
+</CustomObjectTranslation>

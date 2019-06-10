@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>GRAX Archive Process</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>GRAX Archive Processes</value>
+    </caseValues>
+    <fields>
+        <label><!-- # Async Records Successfully Sent --></label>
+        <name>Async_Records_Successfully_Sent__c</name>
+    </fields>
+    <fields>
+        <label><!-- # Async Records to Process --></label>
+        <name>Async_Records_to_Process__c</name>
+    </fields>
+    <fields>
+        <label><!-- Can Delete GRAX Record? --></label>
+        <name>Can_Delete_GRAX_Record__c</name>
+    </fields>
+    <fields>
+        <label><!-- Execution Unique Key --></label>
+        <name>Execution_Unique_Key__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAX Schedule Process --></label>
+        <name>GRAX_Schedule_Process__c</name>
+        <relationshipLabel><!-- GRAX Archive Processes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- # Records Successfully Sent --></label>
+        <name>Records_Successfully_Sent__c</name>
+    </fields>
+    <fields>
+        <label><!-- # Records To Process --></label>
+        <name>Records_To_Process__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- # Total SFDC Records Deleted --></label>
+        <name>Total_SFDC_Records_Deleted__c</name>
+    </fields>
+    <fields>
+        <label><!-- # Total SFDC Records Failed to Delete --></label>
+        <name>Total_SFDC_Records_Failed_to_Delete__c</name>
+    </fields>
+    <fields>
+        <label><!-- # Total SFDC Records --></label>
+        <name>Total_SFDC_Records__c</name>
+    </fields>
+    <layouts>
+        <layout>GRAX Archive Process Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

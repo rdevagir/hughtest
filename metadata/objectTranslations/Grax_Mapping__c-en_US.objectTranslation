@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Grax Field Mapping</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Grax Field Mapping</value>
+    </caseValues>
+    <fields>
+        <help><!-- Salesforce Field to query --></help>
+        <label><!-- API Field Name --></label>
+        <name>API_Field_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Label to be displayed on the Graph Panel table --></help>
+        <label><!-- Field Label --></label>
+        <name>Field_Label__c</name>
+    </fields>
+    <fields>
+        <help><!-- Object Name (i.e Opportunity) --></help>
+        <label><!-- Object --></label>
+        <name>Object__c</name>
+    </fields>
+    <fields>
+        <help><!-- Indicates the order of the fields to display --></help>
+        <label><!-- Order --></label>
+        <name>Order__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,1219 @@
+<apex:page controller="GRAXRestoreCtrl" cache="false" showChat="false" showHeader="{!AND(ISNULL($CurrentPage.parameters.isEmbedded), AND(NOT($User.UIThemeDisplayed == 'Theme4d'), NOT(isMasterRestore), NOT(isRelatedRestore)))}" standardStylesheets="true" sidebar="{!ISNULL($CurrentPage.parameters.isEmbedded)}" applyHtmlTag="{!OR(NOT(ISNULL($CurrentPage.parameters.isEmbedded)), AND(NOT($User.UIThemeDisplayed == 'Theme4d'), NOT(isMasterRestore), NOT(isRelatedRestore)))}" applyBodyTag="false" docType="html-5.0">
+
+    <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.grax, '/jquery.sldsPillsCombobox.js')}"/>
+    
+    <apex:outputPanel rendered="{!!isMasterRestore}">
+        <!--<apex:includeScript value="{!URLFOR($Resource.grax, '/thirdparty/jquery-3.3.1.slim.min.js')}"/>-->
+        
+        <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"/>
+        <script src="{!URLFOR($Resource.aljs, '/jquery.aljs-init.min.js')}"></script>
+        <script src="{!URLFOR($Resource.aljs, '/jquery.aljs-datepicker.min.js')}"></script>
+        <script src="{!URLFOR($Resource.grax, '/jquery.slds.js')}"></script>
+        
+        <script>
+            window.setCookie = function(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                var expires = "expires="+ d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            };
+
+            window.getCookie = function(cname) {
+                var name = cname + "=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var ca = decodedCookie.split(';');
+                for(var i = 0; i <ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            };
+
+            var $sf = function(id) {
+                return $(document.getElementById(id));
+            };
+
+            window.radioChange = function(input, hiddenId) {
+                $(document.getElementById(hiddenId)).val(input.value).trigger('change');
+            };
+        </script>
+        <!-- Import the Design System style sheet -->
+        <apex:slds />
+        <style>
+            .slds-scope .slds-input-has-icon.slds-form-element__date .slds-input__icon, .slds-icon_container.slds-icon-utility-clock.slds-input__icon.slds-input__icon_right .slds-icon {
+                pointer-events: all;
+                cursor: pointer;
+                fill: #005fb2;
+            }
+
+            .slds-scope .slds-input-has-icon.slds-form-element__date .slds-input__icon:hover {
+                fill: #005fb2;
+            }
+        </style>
+    </apex:outputPanel>
+
+    <style>
+        .assistiveText {
+            display: none;
+        }
+
+        [data-load="true"][data-loading="true"] {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        [data-load="true"] + [role="status"] {
+            display: none;
+        }
+        [data-load="true"][data-loading="true"] + [role="status"] {
+            display: block;
+        }
+        
+        #datePicker {
+            z-index: 99999;
+            top: 2.9rem!important;
+            left: 0!important;
+        }
+
+        .dateFormat {
+            display: none;
+        }
+
+        .noPointerEvents {
+            pointer-events: none;
+        }
+
+        .slds-scope .slds-input-has-icon a.slds-input__icon {
+            pointer-events: all;
+        }
+
+        .relatedIframeContent {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        #sObjectDataTableContainer .slds-th__action {
+            margin: -0.25rem;
+            cursor: pointer;
+        }
+
+        a[disabled], a[disabled]:hover {
+            pointer-events: none;
+        }
+
+        .attachment-show,
+        [data-restore="Attachment"] .attachment-hide {
+            display: none!important;
+        }
+
+        [data-restore="Attachment"] .attachment-show {
+            display: initial!important;
+        }
+
+        [data-restore="Attachment"] .restore-field-container {
+            /*display: none;*/
+            pointer-events: none!important;
+            opacity: 0.5;
+        }
+
+        [data-restore="Attachment"] .restore-field-container.restore-field-container_ParentId {
+            /*display: block;*/
+            pointer-events: all!important;
+            opacity: 1;
+        }
+
+        #archivefilter_help {
+            position: fixed;
+            margin-top: 1rem;
+        }
+        
+        #listbox-fields .slds-listbox.slds-listbox_vertical:empty::before {
+            content: 'Loading...';
+            display: block;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        var selectedObject = '{!objToQuery}';
+    </script>
+    
+    <apex:outputPanel layout="none" rendered="{!AND(NOT($User.UIThemeDisplayed == 'Theme4d'), NOT(isMasterRestore), NOT(isRelatedRestore), ISNULL($CurrentPage.parameters.isEmbedded))}">
+        <apex:sectionHeader title="Restore" subtitle="{!$CurrentPage.parameters.recordName}"></apex:sectionHeader>
+        
+        <div style="height: auto; margin-top: 3px; margin-bottom: 15px; font-family: 'Verdana','Geneva',sans-serif; font-size: 90%;">
+            &nbsp;«&nbsp;
+            <apex:outputLink value="/{!parentId}" style="color: #015ba7; text-decoration: none;">Back to Parent record</apex:outputLink>
+        </div>
+    </apex:outputPanel>
+
+    <div class="{!IF(isMasterRestore, 'slds-tabs_scoped__content', 'slds-scope')}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <apex:outputPanel id="csvExportRestoreOutput" layout="block" style="margin:0;padding:0;border:0;display:block;height:0;width:0;position:absolute;left:0;top:0;">
+            <apex:outputPanel layout="none" rendered="{!!isTableRecordsEmpty && isFieldSelected}">
+                <form id="csvExportRestore" action="{!exportToCsvUrl}" target="_blank" method="POST" enctype="application/x-www-form-urlencoded">
+                    <input type="hidden" name="source" value="elastic" />
+                    <input type="hidden" name="dataIndex" value="grax{!objToQuery}index" />
+                    <input type="hidden" name="_select" value="{!selectedFields}" />
+                    <input type="hidden" name="_q" value="{!filterSearchTerm}" />
+                    <input type="hidden" name="_sort" value="{!pageSort} {!pageSortOrder}" />
+                    <input type="hidden" name="_sortType" value="{!pageSortType}" />
+                    <input type="hidden" name="columns" value="{!selectedFields}" />
+                </form>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        
+        <apex:form id="form-restore">
+            <apex:actionFunction action="{!changeObjToQuery}" name="changeObjToQuery" immediate="true" reRender="fieldListOutput, restoreFilterPanelOuput, datatableOuput, csvExportRestoreOutput, initializeFieldPicklist" oncomplete="showGlobalSpinner(false);">
+                <apex:param name="objToQueryValue" value="" />
+            </apex:actionFunction>
+
+            <apex:actionFunction action="{!updateDataTable}" name="updateDataTable" immediate="true" reRender="datatableOuput, csvExportRestoreOutput" oncomplete="showDataTable();showGlobalSpinner(false);">
+                <apex:param name="selectedFields" value="Id" />
+                <apex:param name="filterSearchTerm" value="" />
+                <apex:param name="page" value="0" />
+                <apex:param name="sort" value="" />
+                <apex:param name="sortOrder" value="" />
+                <apex:param name="sortType" value="" />
+                <apex:param name="archiveFilter" value="" />
+                <apex:param name="isAllOrgRecords" value="" />
+            </apex:actionFunction>
+
+            <apex:actionFunction action="{!changeSObjectToRestore}" name="changeSObjectToRestore" immediate="true" reRender="restoreOutput" oncomplete="showRestoreModal(true);showGlobalSpinner(false);renderSvgIcons();">
+                <apex:param name="soToRestore" value="" />
+                <apex:param name="isReadOnlyMode" value="false" />
+            </apex:actionFunction>
+
+            <apex:actionFunction action="{!saveSObjectToRestore}" name="saveSObjectToRestore" immediate="true" reRender="restoreOutput" oncomplete="showRestoreModal(false);showGlobalSpinner(false);renderSvgIcons();" rendered="{!gp.ifHasRestorePermission}">
+                <apex:param name="serializedForm" value="" />
+                <apex:param name="restoreAttachments" value="false" />
+            </apex:actionFunction>
+
+            <apex:actionFunction action="{!restoreAttachmentsCallout}" name="restoreAttachmentsCallout" immediate="true" reRender="restoreAttachmentsOutput" oncomplete="showGlobalSpinner(false);" rendered="{!gp.ifHasRestorePermission}">
+            </apex:actionFunction>
+
+            <apex:actionFunction action="{!restoreSObjectCallout}" name="restoreSObjectCallout" immediate="true" reRender="restoreSObjectOutput" oncomplete="showGlobalSpinner(false);" rendered="{!gp.ifHasRestorePermission}">
+                <apex:param name="graxorgid" value="" />
+                <apex:param name="recordId" value="" />
+            </apex:actionFunction>
+
+            <apex:actionFunction action="{!saveHistory}" name="saveHistory" immediate="true" reRender="saveHistoryOutput" oncomplete="showGlobalSpinner(false);" rendered="{!gp.ifHasRestorePermission}">
+            </apex:actionFunction>
+
+            <apex:actionFunction action="{!changeIdToGetRelated}" name="changeIdToGetRelated" immediate="true" reRender="outputRelatedIframe" oncomplete="showRelatedModal(true);showGlobalSpinner(false);renderSvgIcons();">
+                <apex:param name="idToGetRelated" value="" />
+            </apex:actionFunction>
+
+            <apex:actionFunction action="{!previewAttachment}" name="previewAttachment" immediate="true" reRender="previewAttachmentPanelOuput" oncomplete="showGlobalSpinner(false);renderSvgIcons();">
+                <apex:param name="graxorgid" value="" />
+                <apex:param name="objectType" value="" />
+                <apex:param name="recordId" value="" />
+                <apex:param name="name" value="" />
+                <apex:param name="mimeType" value="" />
+                <apex:param name="size" value="" />
+            </apex:actionFunction>
+
+            <div class="{!IF(isRelatedRestore, 'slds-p-horizontal_medium', '')}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <div id="tab-restore_restore">       
+                    <div class="slds-section {!IF(ISNULL($CurrentPage.parameters.isEmbedded), 'slds-is-open', '')}{!IF(NOT(ISNULL($CurrentPage.parameters.isEmbeddedRelatedList)), 'slds-hide', '')}" >
+                        <apex:outputPanel layout="none" rendered="{!ISNULL($CurrentPage.parameters.isEmbedded)}">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <button aria-controls="restore_selectObject-section" aria-expanded="false" class="slds-button slds-section__title-action">
+                                    <i class="slds-section__title-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                    <span class="slds-truncate slds-p-horizontal_small" title="Select your Salesforce Object">Select your Salesforce Object</span>
+                                </button>
+                            </h3>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="none" rendered="{!!ISNULL($CurrentPage.parameters.isEmbedded)}">
+                            <h3 class="slds-section__title">
+                                <button aria-controls="restore_selectObject-section" aria-expanded="false" class="slds-button slds-section__title-action">
+                                    <i class="slds-section__title-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                    <span class="slds-truncate" title="Select your Salesforce Object">Select your Salesforce Object</span>
+                                </button>
+                            </h3>
+                        </apex:outputPanel>
+
+                        <div aria-hidden="{!IF(ISNULL($CurrentPage.parameters.isEmbedded), 'true', 'false')}" class="slds-section__content" id="restore_selectObject-section">
+                            <div class="slds-grid slds-grid_vertical-align-center">
+                                <div class="slds-col slds-grow-none slds-m-right_small">
+                                    <div class="slds-form-element">
+                                        <div class="slds-form-element__control">
+                                            <apex:outputPanel layout="block" styleClass="slds-select_container">
+                                                <select id="objectList" class="slds-select objectList" disabled="disabled">
+                                                    <option value="" disabled="disabled" selected="selected">-- SELECT SALESFORCE OBJECT --</option>
+                                                </select>
+                                            </apex:outputPanel>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-section {!IF(ISNULL($CurrentPage.parameters.isEmbedded), 'slds-is-open slds-p-top_large', '')} {!IF(NOT(ISNULL($CurrentPage.parameters.isEmbeddedRelatedList)), 'slds-hide', '')}">
+                        <apex:outputPanel layout="none" rendered="{!ISNULL($CurrentPage.parameters.isEmbedded)}">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <button aria-controls="restore_selectFields-section" aria-expanded="false" class="slds-button slds-section__title-action">
+                                    <i class="slds-section__title-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                    <span class="slds-truncate slds-p-horizontal_small" title="Select Object Fields">Select Object Fields</span>
+                                </button>
+                            </h3>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="none" rendered="{!!ISNULL($CurrentPage.parameters.isEmbedded)}">
+                            <h3 class="slds-section__title">
+                                <button aria-controls="restore_selectFields-section" aria-expanded="false" class="slds-button slds-section__title-action">
+                                    <i class="slds-section__title-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                    <span class="slds-truncate" title="Select Object Fields">Select Object Fields</span>
+                                </button>
+                            </h3>
+                        </apex:outputPanel>
+                        
+                        <div aria-hidden="{!IF(ISNULL($CurrentPage.parameters.isEmbedded) && ISNULL($CurrentPage.parameters.isEmbeddedRelatedList), 'true', 'false')}" class="slds-section__content slds-is-relative" id="restore_selectFields-section">
+                            <input type="hidden" id="fieldList" />
+                                                        
+                            <div id="fieldSelection">      
+                                <div class="slds-form-element" >
+                                    <label class="slds-form-element__label" for="combobox-fields">Fields</label>
+                                    <div clas="slds-form-element__control">
+                                        <div class="slds-combobox_container">
+                                            <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" aria-expanded="false" aria-haspopup="listbox" role="combobox">
+                                                <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                                    <input id="selectedFields" type="hidden" />
+                                                    <input type="text" class="slds-input slds-combobox__input" id="combobox-fields" aria-autocomplete="list" aria-controls="listbox-fields" autoComplete="off" role="textbox" placeholder="Search..." />
+                                                    <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                                                        <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" class="slds-button__icon"></i>
+                                                    </span>
+                                                </div>
+                                                <div id="listbox-fields" class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                                                    <ul class="slds-listbox slds-listbox_vertical" role="presentation"></ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="slds-listbox_selection-group" style="height: auto;">
+                                            <ul id="selectedFieldsPills" class="slds-listbox slds-listbox_horizontal" role="listbox" aria-label="Selected Fields:" aria-orientation="horizontal"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <apex:outputPanel styleClass="{!IF(NOT(ISNULL($CurrentPage.parameters.isEmbeddedRelatedList)), 'slds-hide', 'slds-section slds-is-open slds-p-top_large')}" layout="block">
+                        <div id="filterRecords-section">
+                        <h3 class="slds-section__title slds-theme_shade">
+                            <button aria-controls="filterRecords-section" aria-expanded="false" class="slds-button slds-section__title-action">
+                                <i class="slds-section__title-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                <span class="slds-truncate slds-p-horizontal_small" title="Filter Records">Filter Records</span>
+                            </button>
+                        </h3>
+                        <div aria-hidden="false" class="slds-section__content slds-is-relative">
+                            <apex:outputPanel layout="none" rendered="{!gp.isAdmin}">
+                                <div class="slds-form-element slds-is-relative slds-p-bottom_medium" id="allOrgRecords">
+                                    <div style="display:inline-block">
+                                        <label class="slds-checkbox_toggle">
+                                            <span class="slds-form-element__label slds-m-bottom_none">Show records from all environments?</span>
+                                            <apex:inputCheckbox id="isAllOrgRecords" value="{!isAllOrgRecords}"/>
+                                            <span class="slds-checkbox_faux_container" aria-live="assertive">
+                                                <span class="slds-checkbox_faux"></span>
+                                                <span class="slds-checkbox_on">All connected SF environments</span>
+                                                <span class="slds-checkbox_off">Current Environment</span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+
+                            <apex:outputPanel layout="none">
+                                <fieldset class="slds-form-element slds-p-bottom_medium">
+                                    <apex:inputHidden id="archiveFilter" value="{!archiveFilter}" required="true"></apex:inputHidden>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-radio_button-group slds-m-right_xx-small">
+                                            <span class="slds-button slds-radio_button">
+                                                <input id="archiveFilterBackedUp" name="archiveFilterOptions" value="BACKEDUP" type="radio" onchange="radioChange(this,'{!$Component.archiveFilter}');" required="required" />
+                                                <label class="slds-radio_button__label" for="archiveFilterBackedUp">
+                                                    <span class="slds-radio_faux">Backed Up</span>
+                                                </label>
+                                            </span>
+                                            <span class="slds-button slds-radio_button">
+                                                <input id="archiveFilterArchived" name="archiveFilterOptions" value="ARCHIVED" type="radio" onchange="radioChange(this,'{!$Component.archiveFilter}');" required="required" />
+                                                <label class="slds-radio_button__label" for="archiveFilterArchived">
+                                                    <span class="slds-radio_faux">Archived</span>
+                                                </label>
+                                            </span>
+                                            <span class="slds-button slds-radio_button">
+                                                <input id="archiveFilterBoth" name="archiveFilterOptions" value="BOTH" type="radio" onchange="radioChange(this,'{!$Component.archiveFilter}');" required="required" checked="checked" />
+                                                <label class="slds-radio_button__label" for="archiveFilterBoth">
+                                                    <span class="slds-radio_faux">Both</span>
+                                                </label>
+                                            </span>
+                                        </div>
+
+                                        <button class="slds-button slds-button_icon slds-button slds-button_icon" aria-describedby="archivefilter_help" title="Help">
+                                            <i class="slds-button__icon" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#info')}"></i>
+                                            <span class="slds-assistive-text">Help</span>
+                                        </button>
+                                    </div>
+                                </fieldset>
+
+                                <div class="slds-popover slds-popover_tooltip slds-nubbin_top-right slds-rise-from-ground slds-hide" role="tooltip" id="archivefilter_help" aria-hidden="true">
+                                    <div class="slds-popover__body">
+                                        Select one of the options, "Backed Up", "Archived", or "Both", below to display these records.
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+
+                            <apex:outputPanel layout="none" id="restoreFilterPanelOuput">
+                                <apex:outputPanel layout="none" rendered="{!isMasterRestore}">
+                                    <c:GRAXFilterGenerator id="GRAXRestoreFilterGenerator"
+                                        fieldsStructJSON="{!fieldsJSON}"
+                                        jsCallback="window.setRestoreFilterQuery" />
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+
+                            <div class="slds-grid slds-grid_vertical-align-center slds-hide">
+                                <div class="slds-col slds-m-right_small">
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label" for="filter-search-term">Search Term</label>
+                                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                                            <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"></i>
+                                            <input id="filter-search-term" class="slds-input" placeholder="Search" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </apex:outputPanel>
+
+                    <div id="graxDataRecords-section" class="slds-section {!IF(ISNULL($CurrentPage.parameters.isEmbedded) || NOT(ISNULL($CurrentPage.parameters.isEmbeddedRelatedList)), 'slds-is-open slds-p-top_large', '')}" style="{!IF(NOT(ISNULL($CurrentPage.parameters.isEmbeddedRelatedList)), 'padding-top: 15px;', '')}">
+                        <apex:outputPanel layout="none" rendered="{!ISNULL($CurrentPage.parameters.isEmbedded)}">
+                            <h3 class="slds-section__title slds-theme_shade">
+                                <button aria-controls="graxDataRecords-section" aria-expanded="false" class="slds-button slds-section__title-action">
+                                    <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}" class="slds-section__title-action-icon slds-button__icon slds-button__icon_left"></i>
+                                    <span class="slds-truncate slds-p-horizontal_small" title="GRAX Stored Records">GRAX Stored Records</span>
+                                </button>
+                            </h3>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="none" rendered="{!!ISNULL($CurrentPage.parameters.isEmbedded) && ISNULL($CurrentPage.parameters.isEmbeddedRelatedList)}">
+                            <h3 class="slds-section__title">
+                                <button aria-controls="graxDataRecords-section" aria-expanded="false" class="slds-button slds-section__title-action">
+                                    <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}" class="slds-section__title-action-icon slds-button__icon slds-button__icon_left"></i>
+                                    <span class="slds-truncate" title="GRAX Stored Records">GRAX Stored Records</span>
+                                 </button>
+                            </h3>
+                        </apex:outputPanel>
+
+                        <div aria-hidden="{!IF(ISNULL($CurrentPage.parameters.isEmbedded), 'true', 'false')}" class="slds-section__content slds-is-relative" id="restore_records-section">
+                            <div class="slds-clearfix slds-p-bottom_medium {!IF(NOT(ISNULL($CurrentPage.parameters.isEmbeddedRelatedList)), 'slds-hide', '')}">
+                                <div class="slds-clearfix">
+                                    <div class="slds-float_left">
+                                        <button id="retriveGRAXFields" class="slds-button slds-button_brand">Retrieve</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="sObjectDataTableContainer" data-load="true">
+                                <apex:outputPanel id="datatableOuput" layout="block">
+                                    <apex:dataTable value="{!sortedIds}" var="sid" id="sObjectDataTable" styleClass="slds-table slds-table_bordered slds-table_cell-buffer" rendered="{!!isTableRecordsEmpty}">
+                                        <apex:repeat var="n" value="{!selectedFieldsList}">
+                                            <apex:column headerClass="slds-text-title_caps {!IF(fieldMap[n].isSortable, 'slds-is-sortable', '')} {!IF(pageSort == fieldMap[n].name, 'slds-is-sorted slds-is-sorted_' + pageSortOrder, '')}">
+                                                <apex:facet name="header">
+                                                    <div class="{!IF(fieldMap[n].isSortable, 'slds-th__action', '')}" role="button" tabindex="0" onclick="graxRestoreGoToPage({!page}, '{!fieldMap[n].name}', '{!IF(pageSort == fieldMap[n].name, IF(pageSortOrder == 'asc', 'desc', 'asc'), 'asc')}', null, {!fieldMap[n].isSortable});">
+                                                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                                            <span class="slds-truncate" title="{!fieldMap[n].label}">{!fieldMap[n].label}</span>
+                                                            <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                                                <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#arrowdown')}" class="slds-icon slds-icon-text-default slds-is-sortable__icon"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </apex:facet>
+
+                                                <apex:outputPanel layout="none" rendered="{!OR(AND(NOT(fieldMap[n].isAttachmentLink), NOT(fieldMap[n].isContentVersionLink)), ISBLANK(objectMap[sid]['graxfilename'].val))}">
+                                                    <c:GRAXFieldDisplay objName1="{!objToQuery}" fieldName1="{!fieldMap[n].name}" currentValue1="{!objectMap[sid][fieldMap[n].name].val}" isEdit1="false" />
+                                                </apex:outputPanel>
+
+                                                <apex:outputPanel layout="none" rendered="{!AND(fieldMap[n].isAttachmentLink, NOT(ISBLANK(objectMap[sid]['graxfilename'].val)))}">
+                                                    <a href="javascript:showGlobalSpinner(true);previewAttachment('{!objectMap[sid]['graxorgid'].val}', '{!objToQuery}', '{!sid}', '{!objectMap[sid][fieldMap[n].name].val}', '{!objectMap[sid]['ContentType'].val}', {!objectMap[sid]['BodyLength'].val});">
+                                                        <c:GRAXFieldDisplay objName1="{!objToQuery}" fieldName1="{!fieldMap[n].name}" currentValue1="{!objectMap[sid][fieldMap[n].name].val}" isEdit1="false" />
+                                                    </a>
+                                                </apex:outputPanel>
+
+                                                <apex:outputPanel layout="none" rendered="{!AND(fieldMap[n].isContentVersionLink, NOT(ISBLANK(objectMap[sid]['graxfilename'].val)))}">
+                                                    <a href="javascript:showGlobalSpinner(true);previewAttachment('{!objectMap[sid]['graxorgid'].val}', '{!objToQuery}', '{!sid}', '{!objectMap[sid][fieldMap[n].name].val}', '{!objectMap[sid]['FileType'].val}', {!objectMap[sid]['ContentSize'].val});">
+                                                        <c:GRAXFieldDisplay objName1="{!objToQuery}" fieldName1="{!fieldMap[n].name}" currentValue1="{!objectMap[sid][fieldMap[n].name].val}" isEdit1="false" />
+                                                    </a>
+                                                </apex:outputPanel>
+                                            </apex:column>
+                                        </apex:repeat>
+                    
+                                        <apex:column rendered="{!ISNULL($CurrentPage.parameters.isEmbeddedRelatedList) || $CurrentPage.parameters.showPreviewButton == 'true'}">
+                                            <apex:facet name="header">
+                                                <span class="slds-assistive-text">Actions</span>
+                                            </apex:facet>
+                                            <apex:outputPanel >
+                                                <div class="slds-dropdown-trigger slds-dropdown-trigger_click">
+                                                    <apex:commandLink styleClass="slds-button slds-button_icon" onclick="preview('{!sid}', '{!objToQuery}');return false;" title="Preview / Re-create">
+                                                        <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#preview')}" class="slds-button__icon"></i>
+                                                        <span class="slds-assistive-text">Preview</span>
+                                                    </apex:commandLink>
+
+                                                    <apex:commandLink styleClass="slds-button slds-button_icon" onclick="restore('{!sid}', '{!objectMap[sid]['graxorgid'].val}');return false;" title="Restore" rendered="{!gp.ifHasRestorePermission && ISNULL($CurrentPage.parameters.isEmbeddedRelatedList)}">
+                                                        <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#undo')}" class="slds-button__icon"></i>
+                                                        <span class="slds-assistive-text">Restore</span>
+                                                    </apex:commandLink>
+
+                                                    <apex:commandLink styleClass="slds-button slds-button_icon" onclick="related('{!sid}');return false;" title="Related" rendered="{!isMasterRestore && ISNULL($CurrentPage.parameters.isEmbeddedRelatedList)}">
+                                                        <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#hierarchy')}" class="slds-button__icon"></i>
+                                                        <span class="slds-assistive-text">Related</span>
+                                                    </apex:commandLink>
+                                                </div>
+                                            </apex:outputPanel>
+                                        </apex:column>
+                                    </apex:dataTable>
+
+                                    <apex:outputPanel layout="block" rendered="{!!isTableRecordsEmpty && isFieldSelected}">
+                                        <div id="restorePaginator" class="-x-small-buttons--horizontal slds-p-top_small"></div>
+
+                                        <script>
+                                            window.elasticFieldsMapping = {!elasticFieldsMapping};
+                                            window.renderRestorePaginator({!totalRecords}, {!pageLimit}, {!page}, '{!pageSort}', '{!pageSortOrder}', window.elasticFieldsMapping);
+                                        </script>
+
+                                        <div class="-x-small-buttons--horizontal slds-p-top_medium {!IF(NOT(ISNULL($CurrentPage.parameters.isEmbeddedRelatedList)), 'slds-hide', '')}">
+                                            <button class="slds-button slds-button_neutral" type="submit" form="csvExportRestore">Export to CSV</button>
+                                        </div>
+                                    </apex:outputPanel>
+
+                                    <apex:outputPanel layout="block" rendered="{!isTableRecordsEmpty && !!isFieldSelected && ISNULL($CurrentPage.parameters.isEmbeddedRelatedList)}" styleClass="slds-text-align_center">
+                                        No records were found in GRAX
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </div>
+
+                            <div role="status" class="slds-spinner slds-spinner_large slds-spinner_brand {!IF(NOT(ISNULL($CurrentPage.parameters.isEmbeddedRelatedList)), 'slds-hide', '')}">
+                                <span class="slds-assistive-text">Loading GRAX Records...</span>
+                                <div class="slds-spinner__dot-a"></div>
+                                <div class="slds-spinner__dot-b"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section id="restoreModal" role="dialog" tabindex="-1" aria-labelledby="modal-restore" aria-modal="true" aria-describedby="modal-content-restore" class="slds-modal slds-modal_medium slds-hide {!IF(objToQuery == 'Attachment', 'isAttachment', '')}">
+                <div class="slds-modal__container" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" data-toggle="modal" data-target="#restoreModal">
+                            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                                <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#close')}"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-restore" class="slds-text-heading_medium slds-hyphenate">Restore</h2>
+                    </header>
+                    
+                    <div class="slds-modal__content slds-p-horizontal_medium" id="modal-content-restore">
+                        <apex:outputPanel id="restoreOutput" layout="block" styleClass="slds-m-bottom_large restoreOutput">
+                            <script>
+                                if({!restoreAttachments}) {
+                                    showGlobalSpinner(true);
+
+                                    restoreAttachmentsCallout();
+                                }
+                            </script>
+
+                            <script>
+                                if({!isRestoredSuccess}) {
+                                    showGlobalSpinner(true);
+
+                                    saveHistory();
+                                }
+                            </script>
+
+                            <apex:outputPanel layout="block" styleClass="slds-m-vertical_small pageMessages">
+                                <apex:pageMessages ></apex:pageMessages>
+                            </apex:outputPanel>
+
+                            <apex:repeat var="f" value="{!sObjectFields}" rendered="{!isSobjectToRestoreSelected}">
+                                <apex:outputPanel layout="block" styleClass="slds-form-element slds-m-bottom_xx-small {!IF(isReadOnlyMode, 'slds-p-top_xx-small readonly-', ' ')}restore-field-container restore-field-container_{!f.name}" rendered="{!f.isCreateable && f.isEditable && NOT(f.isModalExluded)}">
+                                    <apex:outputLabel styleClass="slds-form-element__label" for="inputField" value="{!f.label}" escape="false" />
+                                    <div class="slds-form-element__control {!IF(isReadOnlyMode, 'slds-p-bottom_xx-small slds-border_bottom', '')}">
+                                        <c:GRAXFieldDisplay objName1="{!objToQuery}" fieldName1="{!f.name}" currentValue1="{!sobjectToRestore[f.name].val}" inputNamePrefix="GRAXRestore_" isEdit1="{!!isReadOnlyMode}" />
+                                        <apex:outputPanel layout="inline" rendered="{!isReadOnlyMode}">
+                                            &nbsp;
+                                        </apex:outputPanel>
+                                    </div>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                        </apex:outputPanel>
+                    </div>
+    
+                    <footer class="slds-modal__footer">
+                        <div class="slds-form-element slds-float_left restore_attachments attachment-hide" data-restore-only="true">
+                            <label class="slds-checkbox_toggle slds-grid">
+                                <span class="slds-form-element__label slds-m-bottom_none attachment-show">Restore Attachment?</span>
+                                <span class="slds-form-element__label slds-m-bottom_none attachment-hide">Restore Attachments?</span>
+                                <apex:inputCheckbox id="restore_attachment" styleClass="restore_attachments_checkbox"/>
+                                <span class="slds-checkbox_faux_container" aria-live="assertive">
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-checkbox_on">Yes</span>
+                                    <span class="slds-checkbox_off">No</span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <apex:outputPanel layout="none" rendered="{!gp.ifHasRestorePermission}">
+                            <button id="reCreateButton" class="slds-button slds-button_brand" data-preview-only="true">Re-create</button>
+                        </apex:outputPanel>
+                        <button id="saveRestore" class="slds-button slds-button_brand" data-restore-only="true">Save</button>
+                        <button id="cancelRestore" class="slds-button slds-button_neutral" data-toggle="modal" data-target="#restoreModal" data-restore-only="true">Cancel</button>
+                        <button id="closeRestore" class="slds-button slds-button_neutral" data-toggle="modal" data-target="#restoreModal" data-preview-only="true">Close</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-hide"></div>
+
+            <section id="relatedModal" role="dialog" tabindex="-1" aria-labelledby="modal-related" aria-modal="true" aria-describedby="modal-content-related" class="slds-modal slds-modal_medium slds-hide">
+                <div class="slds-modal__container" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" data-toggle="modal" data-target="#relatedModal">
+                            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                                <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#close')}"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-related" class="slds-text-heading_medium slds-hyphenate">Related</h2>
+                    </header>
+                    
+                    <div class="slds-modal__content" id="modal-content-related">
+                        <apex:outputPanel id="outputRelatedIframe" layout="block" styleClass="relatedIframeContent">
+                            <apex:iframe id="relatedIframe" src="{!relatedIframeUrl}" scrolling="true" />
+                        </apex:outputPanel>
+                    </div>
+    
+                    <footer class="slds-modal__footer">
+                        <button id="closeRelated" class="slds-button slds-button_neutral" data-toggle="modal" data-target="#relatedModal">Close</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-hide"></div>
+
+            <section id="relatedRestoreModal" role="dialog" tabindex="-1" aria-labelledby="modal-relatedRestore" aria-modal="true" aria-describedby="modal-content-relatedRestore" class="slds-modal slds-modal_medium slds-hide">
+                <div class="slds-modal__container" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" data-toggle="modal" data-target="#relatedRestoreModal">
+                            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                                <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#close')}"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-relatedRestore" class="slds-text-heading_medium slds-hyphenate">Restore</h2>
+                    </header>
+                    
+                    <div class="slds-modal__content slds-p-horizontal_medium" id="modal-content-relatedRestore">
+                        <div class="restoreOutput"></div>
+                    </div>
+    
+                    <footer class="slds-modal__footer">
+                        <div class="restore_attachments" data-restore-only="true"></div>
+
+                        <button id="saveRelatedRestore" class="slds-button slds-button_brand" data-restore-only="true">Save</button>
+                        <button id="closeRelatedRestore" class="slds-button slds-button_neutral" data-toggle="modal" data-target="#relatedRestoreModal">Close</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-hide"></div>
+
+            <apex:outputPanel rendered="{!!isMasterRestore}" layout="block">
+                <div id="globalSpinner" class="slds-spinner_container slds-is-fixed slds-hide">
+                    <div role="status" class="slds-spinner slds-spinner_large slds-spinner_brand">
+                        <span class="slds-assistive-text">Loading</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+
+            <apex:outputPanel layout="block" id="previewAttachmentPanelOuput">
+                <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(previewAttRecordId))}">
+                    <c:GRAXAttachmentPreview graxorgid1="{!previewAttGraxOrgId}"
+                        objectType1="{!previewAttObjectType}"
+                        recordId1="{!previewAttRecordId}"
+                        name1="{!previewAttName}"
+                        mimeType1="{!previewAttMimeType}"
+                        size1="{!previewAttSize}"
+                    />
+
+                    <script>
+                        renderSvgIcons();
+                    </script>
+                </apex:outputPanel>
+            </apex:outputPanel>
+            
+            <apex:outputPanel id="initializeFieldPicklist" layout="block" style="display: none;">
+                <apex:outputPanel rendered="{!NOT(ISBLANK(fieldsJsonString))}">
+                    <script>
+                        var fieldsJson = {!fieldsJsonString};
+                        if (window.renderFieldSelection !== undefined ) {
+                            renderFieldSelection(fieldsJson);
+                        } else { renderFieldList(fieldsJson); }
+                    </script>
+                </apex:outputPanel>
+            </apex:outputPanel>
+
+            <script>
+                            
+                $(function() {
+                    var isRelatedRestore = {!isRelatedRestore};
+
+                    var $restoreObjectList = $('.objectList');
+                    var $fieldList = $('#fieldList');
+                    var $sObjectDataTableContainer = $('#sObjectDataTableContainer');
+                    window.$restoreModal = $('#restoreModal');
+                    var $relatedModal = $('#relatedModal');
+                    window.$relatedRestoreModal = $('#relatedRestoreModal');
+                    var $reCreateButton = $('#reCreateButton');
+                    var $saveRestore = $('#saveRestore');
+                    var $saveRelatedRestore = $('#saveRelatedRestore');
+                    
+                    var $filterSearchTerm = $('#filter-search-term');
+                    var $retriveGRAXFields = $('#retriveGRAXFields');
+                    var $globalSpinner = window.$globalSpinner || $('#globalSpinner');
+
+                    var $archiveFilter = $sf('{!$Component.archiveFilter}');
+                    var $isAllOrgRecords = $sf('{!$Component.isAllOrgRecords}');
+                    
+                    
+                    window.renderFieldList = function(fieldOptions) {
+                        if(fieldOptions.length == 0) return;
+                        showGlobalSpinner(true);
+        
+                        function getFieldSelection() {                            
+                            var selectedFields = $.parseJSON(window.getCookie($restoreObjectList.val() + 'Fields') || '["Id"]');
+                            if (selectedFields.length == 0) {
+                                selectedFields = $.parseJSON('["Id"]');
+                            }
+                            return selectedFields.map(function(item) {
+                                return {
+                                    id: item
+                                }
+                            });
+                        };
+                        $fieldList.sldsPillsCombobox({
+                                comboboxSelector: '#combobox-fields',
+                                listboxItemsSelector: '#listbox-fields',
+                                selectedItemsPillsSelector: '#selectedFieldsPills',
+                                pillRemoveIcon: "{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#close')}",
+                                options: fieldOptions,
+                                selection: getFieldSelection()
+                            }, function(setSelection, clearSelection, setOptions) {
+                                window.renderFieldSelection = function(data) {
+                                    var selectedFields = getFieldSelection();
+                                    
+                                    clearSelection(false);
+                                    setOptions(data);
+                                    
+                                    if(selectedFields.length > 0) {
+                                        setSelection(selectedFields);
+                                    }
+                                };
+                            }).on('changeSelection', function(e) {
+                                window.setCookie($restoreObjectList.val() + 'Fields', e.target.value);
+                        });
+        
+                        showGlobalSpinner(false); 
+                    };
+
+                    var sanitizeElasticFilterValue = function(filterValue) {
+                        return filterValue
+                            .replace(/[\*\+\-=~><\"\?^\${}\(\)\:\!\/[\]\\\s]/g, '\\$&') // replace single character special characters
+                            .replace(/\|\|/g, '\\||') // replace ||
+                            .replace(/\&\&/g, '\\&&') // replace &&
+                            .replace(/AND/g, '\\A\\N\\D') // replace AND
+                            .replace(/OR/g, '\\O\\R') // replace OR
+                            .replace(/NOT/g, '\\N\\O\\T'); // replace NOT
+                    };
+
+                    var getFilterQuery = function(filters) {
+                        var queryConditions = [];
+
+                        $.each(filters, function(i, filter) {
+                            var condition = '';
+
+                            var hasValue = Boolean(filter.value);
+
+                            if((filter.operator == '!=' && hasValue) || (filter.operator == '==' && !hasValue) || filter.operator == 'not contains') {
+                                condition += 'NOT ';
+                            }
+
+                            condition += '(';
+
+                            if(filter.type == 'boolean' && !Boolean(filter.value)) {
+                                condition += 'NOT ';
+                            }
+
+                            if(hasValue) {
+                                condition += 'doc.' + filter.field + ':';
+                            } else {
+                                condition += '_exists_:';
+                            }
+
+                            if(filter.operator == '==' || filter.operator == '!=') {
+                                if(!hasValue) {
+                                    condition += 'doc.' + filter.field;
+                                } else if(filter.type == 'boolean') {
+                                    condition += 'true';
+                                } else if(filter.type == 'number') {
+                                    condition += parseFloat(filter.value);
+                                } else if(filter.type == 'date') {
+                                    condition += moment(filter.value).format('YYYY-MM-DD');
+                                } else if(hasValue) {
+                                    condition += '"' + filter.value + '"';
+                                }
+                            } else if(filter.operator == 'contains' || filter.operator == 'not contains') {
+                                condition += '*' + sanitizeElasticFilterValue(filter.value.toLowerCase()) + '*';
+                            } else if(filter.type == 'date') {
+                                condition += filter.operator + moment(filter.value).format('YYYY-MM-DD');
+                            } else {
+                                condition += filter.operator + sanitizeElasticFilterValue(filter.value);
+                            }
+                            
+                            condition += ')';
+
+                            queryConditions.push(condition);
+                        });
+
+                        /*if(['Attachment', 'ContentVersion'].indexOf($objectList.val()) !== -1) {
+                            queryConditions.push('_exists_:doc.graxfilename');
+                        }*/
+
+                        return queryConditions.length > 0 ? queryConditions.join(' AND ') : null;
+                    };
+
+                    window.setRestoreFilterQuery = function(filters) {
+                        $filterSearchTerm.val(getFilterQuery(filters));
+                    };
+
+                    var globalSpinnerCounter = 0;
+                    window.showGlobalSpinner = window.showGlobalSpinner || function(state) {
+                        globalSpinnerCounter += (state ? 1 : -1);
+                
+                        if(globalSpinnerCounter < 0) {
+                            globalSpinnerCounter = 0;
+                        }
+
+                        $globalSpinner.toggleClass('slds-hide', globalSpinnerCounter == 0);
+
+                        if(isRelatedRestore && globalSpinnerCounter == 0) {
+                            parent.showGlobalSpinner(globalSpinnerCounter != 0);
+                        }
+                    };
+
+                    var defaultObjToQuery = '{!objToQuery}';
+                    window.addRestoreObjectListOptions = function(options, isMasterRestore) {
+                        options.sort(function (a, b) {
+                            if (a.label > b.label) {
+                                return 1;
+                            }
+        
+                            if (a.label < b.label) {
+                                return -1;
+                            }
+                            
+                            return 0;
+                        });
+
+                        var selectedOption = '{!objToQuery}';
+                        var selectedIndex;
+        
+                        $.each(options, function(i, item) {
+                            var $option = $('<option>').attr('value', item.index);
+                            
+                            if(isMasterRestore) {
+                                $option.text(item.label);
+                            } else {
+                                $option.text(item.label + ' (' + item.relation + ')');
+                            }
+
+                            if(item.index == selectedOption || item.name == selectedOption) {
+                                $option.prop('selected', true);
+
+                                selectedIndex = item.index;
+                            }
+
+                            $restoreObjectList.append($option).prop('disabled', false);
+                        });
+
+                        if(selectedIndex) {
+                            $restoreObjectList.val(selectedIndex).trigger('change');
+                        }
+                    };
+
+                    $restoreObjectList.on('change', function(e) {
+                        showGlobalSpinner(true);
+                
+                        selectedObject = e.target.value;
+                        
+                        changeObjToQuery(selectedObject);
+                        
+                        window.setRestoreFilterQuery([]);
+                        
+                    });
+
+                    $restoreModal.on('change', '.restore_attachments_checkbox', function(e) {
+                        if(e.target.checked) {
+                            $restoreModal.addClass('restore_attachments');
+                        } else {
+                            $restoreModal.removeClass('restore_attachments');
+                        }
+                    });
+                    
+                    window.graxRestoreGoToPage = function(page, sort, sortOrder, pageSortType, isSortable) {
+                        if(isSortable === false) return;
+
+                        var selectedFields = $fieldList.val();
+                        // var defaultSortField = selectedFields.split(',')[0];
+                        var defaultSortField = 'Id';
+
+                        if(!pageSortType && window.elasticFieldsMapping) {
+                            pageSortType = window.elasticFieldsMapping[sort] || '';
+                        }
+
+                        var archiveFilter = $archiveFilter.val();
+                        var isAllOrgRecords = $isAllOrgRecords.prop('checked');
+                        
+                        if(selectedFields) {
+                            $sObjectDataTableContainer.attr({'data-loading': true});
+                            updateDataTable(selectedFields, $filterSearchTerm.val(), page || 0, sort || defaultSortField, sortOrder || 'asc', pageSortType, archiveFilter, isAllOrgRecords);
+                        } else {
+                            alert('No fields selected.');
+                        }
+                    };
+
+                    $retriveGRAXFields.on('click', function(e) {
+                        graxRestoreGoToPage(0);
+        
+                        e.preventDefault();
+                    });
+
+                    window.showDataTable = function() {
+                        $sObjectDataTableContainer.attr({'data-loading': false});
+                        renderSvgIcons();
+                    };
+
+                    window.setReadOnlyMode = function(state) {
+                        var $restoreOnly = $('[data-restore-only="true"]');
+                        var $previewOnly = $('[data-preview-only="true"]');
+                        
+                        if(state) {
+                            $("#modal-restore, #modal-related").text('Preview');
+                            $restoreOnly.addClass('slds-hide');
+                            $previewOnly.removeClass('slds-hide');
+                        } else {
+                            $("#modal-restore, #modal-related").text('Restore');
+                            $restoreOnly.removeClass('slds-hide');
+                            $previewOnly.addClass('slds-hide');
+                        }
+
+                        if(isRelatedRestore) {
+                            parent.setReadOnlyMode(state);
+                        }
+                    };
+
+                    window.recreate = function(sid, objToQuery) {
+                        showGlobalSpinner(true);
+                        setReadOnlyMode(false);
+                        changeSObjectToRestore(sid);
+
+                        if(!isRelatedRestore) {
+                            $restoreModal.attr('data-restore', objToQuery);
+                            $restoreModal.attr('data-restore-id', sid);
+                        } else {
+                            parent.$relatedRestoreModal.attr('data-restore', objToQuery);
+                            parent.$relatedRestoreModal.attr('data-restore-id', sid);
+                        }
+
+                        if(objToQuery == 'Attachment') {
+                            $('.restore_attachments_checkbox').prop('checked', true);
+                        }
+                    };
+
+                    window.preview = function(sid, objToQuery) {
+                        showGlobalSpinner(true);
+                        
+                        if(!isRelatedRestore) {
+                            $restoreModal.attr('data-restore', objToQuery);
+                            $restoreModal.attr('data-restore-id', sid);
+                        } else {
+                            parent.$relatedRestoreModal.attr('data-restore', objToQuery);
+                            parent.$relatedRestoreModal.attr('data-restore-id', sid);
+                        }
+
+                        setReadOnlyMode(true);
+                        changeSObjectToRestore(sid, true);
+                    };
+
+                    window.related = function(sid, objToQuery) {
+                        showGlobalSpinner(true);
+                        changeIdToGetRelated(sid);
+                    };
+
+                    window.restore = function(sid, graxorgid) {
+                        if(confirm('Click OK to re-create this record')) {
+                            showGlobalSpinner(true);
+                            restoreSObjectCallout(graxorgid, sid);
+                        }
+                    };
+
+                    $reCreateButton.on('click', function(e) {
+                        recreate($restoreModal.attr('data-restore-id'), $restoreModal.attr('data-restore'));
+
+                        e.preventDefault();
+                    });
+        
+                    $saveRestore.on('click', function(e) {
+                        showGlobalSpinner(true);
+
+                        var $restoreForm = $restoreModal.find('.restoreOutput, .restore_attachments').find('input, select');
+
+                        saveSObjectToRestore($restoreForm.serialize(), $('.restore_attachments_checkbox').prop('checked'));
+        
+                        e.preventDefault();
+                    });
+
+                    $saveRelatedRestore.on('click', function(e) {
+                        showGlobalSpinner(true);
+
+                        var relatedIframe = $relatedModal.find('iframe').get(0);
+
+                        var $restoreForm = relatedIframe.contentWindow.$restoreModal.find('.restoreOutput, .restore_attachments').find('input, select');
+                        var $relatedForm = $relatedRestoreModal.find('.restoreOutput, .restore_attachments').find('input, select');
+
+                        $relatedForm.each(function(i) {
+                            var $old = $restoreForm.eq(i);
+                            var $new = $(this);
+
+                            if($old.val() != $new.val()) {
+                               $old.val($new.val()).trigger('focus focusin keydown keyup input focusout change');
+                            }
+                        });
+
+                        relatedIframe.contentWindow.saveSObjectToRestore($relatedForm.serialize(), $('.restore_attachments_checkbox').prop('checked'));
+
+                        e.preventDefault();
+                    });
+        
+                    window.showRestoreModal = function(state) {
+                        if(!state) {
+                            state = $restoreModal.find('.pageMessages').text().trim() != '';
+                        }
+        
+                        if(state) {
+                            $globalSpinner.addClass('slds-hide');
+                        }
+        
+                        if(!isRelatedRestore) {
+                            $restoreModal.trigger('modaltoggle', [state]);
+
+                            if(state) renderSvgIcons();
+                        } else {
+                            if(state) {
+                                parent.$relatedRestoreModal.find('.restoreOutput').replaceWith(
+                                    $restoreModal.find('.restoreOutput').clone());
+
+                                parent.$relatedRestoreModal.find('.restore_attachments').replaceWith(
+                                    $restoreModal.find('.restore_attachments').clone());
+
+                                parent.renderSvgIcons();
+                            }
+
+                            $restoreModal.find('.restoreOutput').empty();
+
+                            parent.showRelatedModal([state]);
+                            parent.$relatedRestoreModal.trigger('modaltoggle', [state]);
+                            
+                            $('#datePicker').appendTo($('body', parent.document));
+                        }
+
+                        $('.restore_attachments_checkbox').trigger('change');
+                    };
+
+                    $restoreModal.on('modaltoggle', function(e, state) {
+                        if(!state) $('#datePicker').appendTo('body');
+                    });
+
+                    $relatedRestoreModal.on('modaltoggle', function(e, state) {
+                        showRelatedModal(!state);
+                    });
+
+                    window.showRelatedModal = function(state) {
+                        $relatedModal.trigger('modaltoggle', [state]);
+                    };
+
+                    window.renderFieldListSelector = function(data) {
+                        data.sort(function (a, b) {
+                            if (a.label > b.label) {
+                                return 1;
+                            }
+        
+                            if (a.label < b.label) {
+                                return -1;
+                            }
+                            
+                            return 0;
+                        });
+                        
+                    };
+
+                    var paginatorFirstIcon = "{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#left')}";
+                    var paginatorPrevIcon = "{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#chevronleft')}";
+                    var paginatorNextIcon = "{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#chevronright')}";
+                    var paginatorLastIcon = "{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#right')}";
+
+                    window.renderRestorePaginator = function(totalRecords, pageLimit, currentIndex, pageSort, pageSortOrder, elasticFieldsMapping) {
+                        var $restorePaginator = $('#restorePaginator');
+
+                        var isNarrow = false;
+                        if(totalRecords > 10000) {
+                            isNarrow = true;
+                            totalRecords = 10000;
+                        }
+
+                        var totalPages = Math.ceil(totalRecords / pageLimit);
+
+                        if (totalPages > 1) {
+                            var $pages = $('<div class="slds-button-group" role="group" />');
+
+                            var currentPage = currentIndex + 1;
+
+                            var startPage, endPage;
+                            if (totalPages <= 10) {
+                                // less than 10 total pages so show all
+                                startPage = 1;
+                                endPage = totalPages;
+                            } else {
+                                // more than 10 total pages so calculate start and end pages
+                                if (currentPage <= 6) {
+                                    startPage = 1;
+                                    endPage = 10;
+                                } else if (isNarrow && (currentPage + 3) >= totalPages) {
+                                    startPage = totalPages - 8;
+                                    endPage = totalPages;
+                                } else if ((currentPage + 4) >= totalPages) {
+                                    startPage = totalPages - 9;
+                                    endPage = totalPages;
+                                } else {
+                                    startPage = currentPage - 5;
+                                    endPage = currentPage + 4;
+                                }
+                            }
+
+                            var pages = Array.from(Array((endPage + 1) - startPage).keys()).map(function(i) {
+                                return startPage + i;
+                            });
+
+                            var isFirstPage = currentPage === 1;
+                            var isLastPage = currentPage === totalPages;
+
+                            var pageSortType = elasticFieldsMapping ? (elasticFieldsMapping[pageSort] || '') : '';
+
+                            $pages.append('<a href="javascript:void(0);" onclick="graxRestoreGoToPage(0, \'' + pageSort + '\', \'' + pageSortOrder + '\', \'' + pageSortType + '\', true);" role="button" class="slds-button slds-button--neutral' + (isFirstPage ? ' noPointerEvents' : '') + '"' + (isFirstPage ? ' disabled' : '') + '><i data-icon="' + paginatorFirstIcon + '" class="slds-button__icon slds-button__icon--left"></i> First</a>');
+                            $pages.append('<a href="javascript:void(0);" onclick="graxRestoreGoToPage(' + (currentIndex - 1) + ', \'' + pageSort + '\', \'' + pageSortOrder + '\', \'' + pageSortType + '\', true);" role="button" class="slds-button slds-button--neutral' + (isFirstPage ? ' noPointerEvents' : '') + '"' + (isFirstPage ? ' disabled' : '') + '><i data-icon="' + paginatorPrevIcon + '" class="slds-button__icon slds-button__icon--left"></i></a>');
+
+                            pages.map(function(page, index) {
+                                $pages.append('<a href="javascript:void(0);" onclick="graxRestoreGoToPage(' + (page - 1) + ', \'' + pageSort + '\', \'' + pageSortOrder + '\', \'' + pageSortType + '\', true);" role="button" class="slds-button ' + (page == currentPage ? 'slds-button--brand noPointerEvents' : 'slds-button--neutral') + '">' + page + '</a>');
+                            });
+
+                            if(isNarrow && currentPage >= (totalPages - 3)) {
+                                $pages.append('<a href="javascript:void(0);" title="The list is too long, try adding more filters to optimize the results." role="button" class="slds-button slds-button--neutral">&middot;&middot;&middot;</a>');
+                            }
+
+                            $pages.append('<a href="javascript:void(0);" onclick="graxRestoreGoToPage(' + (currentIndex + 1) + ', \'' + pageSort + '\', \'' + pageSortOrder + '\', \'' + pageSortType + '\', true);" role="button" class="slds-button slds-button--neutral' + (isLastPage ? ' noPointerEvents' : '') + '"' + (isLastPage ? ' disabled' : '') + '><i data-icon="' + paginatorNextIcon + '" class="slds-button__icon slds-button__icon--right"></i></a>');
+                            $pages.append('<a href="javascript:void(0);" onclick="graxRestoreGoToPage(' + (totalPages - 1) + ', \'' + pageSort + '\', \'' + pageSortOrder + '\', \'' + pageSortType + '\', true);" role="button" class="slds-button slds-button--neutral' + (isLastPage ? ' noPointerEvents' : '') + '"' + (isLastPage ? ' disabled' : '') + '>Last <i data-icon="' + paginatorLastIcon + '" class="slds-button__icon slds-button__icon--right"></i></a>');
+
+                            $restorePaginator.html($pages);
+
+                            renderSvgIcons();
+                        } else {
+                            $restorePaginator.empty();
+                        }
+                    };
+
+                    renderSvgIcons();
+                });
+            </script>
+        
+            <apex:outputPanel rendered="{!!isMasterRestore}">
+                <script>
+                    $(function() {
+                        addRestoreObjectListOptions({!relatedJSON}, false);
+                    });
+                </script>
+            </apex:outputPanel>
+
+            <apex:outputPanel rendered="{!isMasterRestore}">
+                <script>
+                    $(function() {
+                        addRestoreObjectListOptions({!restoreItemsJSON}, true);
+                    });
+                </script>
+            </apex:outputPanel>
+        
+            <apex:outputPanel id="fieldListOutput">
+                <script>
+                    $(function() {
+                        renderFieldListSelector({!fieldsJSON});
+                    });
+                </script>
+            </apex:outputPanel>
+
+            <apex:outputPanel id="restoreAttachmentsOutput">
+                <script>
+                    var restoreAttachmentsMessage = '{!restoreAttachmentsMessage}'
+                    
+                    if(restoreAttachmentsMessage) {
+                        alert(restoreAttachmentsMessage);
+                    }
+                </script>
+            </apex:outputPanel>
+
+            <apex:outputPanel id="restoreSObjectOutput">
+                <script>
+                    var restoreSObjectMessage = '{!restoreSObjectMessage}'
+                    
+                    if(restoreSObjectMessage) {
+                        if(restoreSObjectMessage == 'Record re-creation in progress') {
+                            restoreSObjectMessage += '. Go to GRAX Logs tab -> "Restore Logs" to check the results.';
+                        }
+
+                        alert(restoreSObjectMessage);
+                    }
+                </script>
+            </apex:outputPanel>
+
+            <apex:outputPanel rendered="{!NOT(ISNULL($CurrentPage.parameters.isEmbeddedRelatedList))}">
+                <script>
+                    $(document).ready(function() {
+                        showGlobalSpinner(true);
+                        setTimeout(function(){                            
+                            $('#fieldList').val('{!$CurrentPage.parameters.selectedFields}');
+                            graxRestoreGoToPage(0);
+                        }, 3500);
+                    });
+                </script>
+            </apex:outputPanel>
+
+            <apex:outputPanel id="saveHistoryOutput"></apex:outputPanel>
+        </apex:form>
+    </div>
+</apex:page>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalDataSource xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customConfiguration>{&quot;inlineCountEnabled&quot;:&quot;true&quot;,&quot;requestCompression&quot;:&quot;false&quot;,&quot;pagination&quot;:&quot;CLIENT&quot;,&quot;noIdMapping&quot;:&quot;false&quot;,&quot;format&quot;:&quot;JSON&quot;,&quot;compatibility&quot;:&quot;DEFAULT&quot;,&quot;timeout&quot;:&quot;120&quot;,&quot;searchEnabled&quot;:&quot;true&quot;}</customConfiguration>
+    <endpoint>https://grax-datalake-demo2.herokuapp.com/grax.svc</endpoint>
+    <isWritable>false</isWritable>
+    <label>grax-odata</label>
+    <principalType>NamedUser</principalType>
+    <protocol>Password</protocol>
+    <type>OData4</type>
+    <username>dQeB9vw2K08WE3H5hdOuv2yS2U9TuP0g4DouQsM6</username>
+</ExternalDataSource>

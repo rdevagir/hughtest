@@ -1,0 +1,7 @@
+<!--
+ - Created by cpurodriguez on 12/27/17.
+ -->
+
+<aura:event type="APPLICATION" description="GRAXRecordChanged">
+    <aura:attribute name="newRecordId" type="String"/>
+</aura:event>

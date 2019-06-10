@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>GRAX by Harding Point Settings. https://grax.io</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>ApiToken__c</fullName>
+        <description>GRAX Settings : Heroku Setting ENGAGEMENTGRAPH_APITOKEN</description>
+        <externalId>false</externalId>
+        <inlineHelpText>GRAX Settings : Heroku Setting ENGAGEMENTGRAPH_APITOKEN</inlineHelpText>
+        <label>ApiToken</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BatchMaxExecutionNumber__c</fullName>
+        <externalId>false</externalId>
+        <label>BatchMaxExecutionNumber</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Display_Organization_Name__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Display Organization Name on the table</inlineHelpText>
+        <label>Display Organization Name</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Display_Outside_Records_Only__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Display Outside Records Only</inlineHelpText>
+        <label>Display Outside Records Only</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>EnableDeleteTab__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Enable Delete Tab</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>EnableFieldTracking__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Enable Field Tracking</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>EnableObjectTracking__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Enable Object Tracking</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>GRAX_API_Url__c</fullName>
+        <externalId>false</externalId>
+        <label>GRAX API Url</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>GRAX_Cloud_Path__c</fullName>
+        <externalId>false</externalId>
+        <label>GRAX Cloud Path</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GRAX_Flow_URL__c</fullName>
+        <externalId>false</externalId>
+        <label>GRAX Flow URL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>GatewayToken__c</fullName>
+        <description>GRAX Settings : Heroku Setting ENGAGEMENTGRAPH_GATEWAYTOKEN</description>
+        <externalId>false</externalId>
+        <inlineHelpText>GRAX Settings : Heroku Setting ENGAGEMENTGRAPH_GATEWAYTOKEN</inlineHelpText>
+        <label>GatewayToken</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Graph_DB_Password__c</fullName>
+        <defaultValue>&quot;b.o70mLuaAUEUO.BA1vM10dsFOjtEKm&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>Graph DB Password</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Graph_DB_URL__c</fullName>
+        <defaultValue>&quot;https://db-ljovrmxu24s76s1jbphc.graphenedb.com:24780&quot;</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>E.G. https://hobby-ilpalckeehocgbkeoncdnjal.dbs.graphenedb.com:24780</inlineHelpText>
+        <label>Graph DB URL</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Graph_DB_Username__c</fullName>
+        <defaultValue>&quot;app81968631-13521279694483497&quot;</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Graph DB Username</inlineHelpText>
+        <label>Graph DB Username</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Heroku_App_Name__c</fullName>
+        <description>Heroku Application Name</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Heroku Application Name</inlineHelpText>
+        <label>Heroku App Name</label>
+        <length>55</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LicenseToken__c</fullName>
+        <description>GRAX Settings : Heroku Setting ENGAGEMENTGRAPH_LICENSETOKEN</description>
+        <externalId>false</externalId>
+        <inlineHelpText>GRAX Settings : Heroku Setting ENGAGEMENTGRAPH_LICENSETOKEN</inlineHelpText>
+        <label>LicenseToken</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LogAllErrors__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>LogAllErrors</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>MaxNumberOfParentsOnHierarchyBackup__c</fullName>
+        <externalId>false</externalId>
+        <label>MaxNumberOfParentsOnHierarchyBackup</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MaxNumberOfRecordsPerPayload__c</fullName>
+        <description>This value will be used to set the maximum number of records sent to GRAX in a single Payload. Values could be: 1, 2, 5, 10, 20, 25, 50, 100, 200, 400, 500, 1000, 2000</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This value will be used to set the maximum number of records sent to GRAX in a single Payload. Values could be: 1, 2, 5, 10, 20, 25, 50, 100, 200, 400, 500, 1000, 2000</inlineHelpText>
+        <label>MaxNumberOfRecordsPerPayload</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Postgres_URL__c</fullName>
+        <description>Postgres URL used for Audit Trail</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Postgres URL used for Audit Trail</inlineHelpText>
+        <label>PostgresURL</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>QueryLimit__c</fullName>
+        <externalId>false</externalId>
+        <label>QueryLimit</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>QueryOrderBy__c</fullName>
+        <externalId>false</externalId>
+        <label>QueryOrderBy</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>graphdburl__c</fullName>
+        <description>GRAX Settings : Heroku Setting GRAPHENEDB_URL</description>
+        <externalId>false</externalId>
+        <inlineHelpText>GRAX Settings : Heroku Setting GRAPHENEDB_URL</inlineHelpText>
+        <label>graphdburl</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>s3accesskeyid__c</fullName>
+        <description>s3accesskeyid used for Audit Tracking</description>
+        <externalId>false</externalId>
+        <inlineHelpText>s3accesskeyid used for Audit Tracking</inlineHelpText>
+        <label>s3accesskeyid</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>s3bucket__c</fullName>
+        <description>s3bucket Used for GRAX Audit Trail</description>
+        <externalId>false</externalId>
+        <inlineHelpText>s3bucket Used for GRAX Audit Trail</inlineHelpText>
+        <label>s3bucket</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>s3region__c</fullName>
+        <externalId>false</externalId>
+        <label>s3region</label>
+        <length>25</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>s3secretaccesskey__c</fullName>
+        <description>s3secretaccesskey used for GRAX Audit Trail</description>
+        <externalId>false</externalId>
+        <inlineHelpText>s3secretaccesskey used for GRAX Audit Trail</inlineHelpText>
+        <label>s3secretaccesskey</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>GRAX Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

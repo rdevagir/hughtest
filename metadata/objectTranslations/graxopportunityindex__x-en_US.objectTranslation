@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>graxopportunityindex</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>graxopportunityindex</value>
+    </caseValues>
+    <fields>
+        <label><!-- AccountId --></label>
+        <name>AccountId__c</name>
+    </fields>
+    <fields>
+        <label><!-- AccountId_grax_xf_account --></label>
+        <name>AccountId_grax_xf_account__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account Lookup --></label>
+        <name>Account_Lookup__c</name>
+        <relationshipLabel><!-- graxopportunityindex --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Account_Name --></label>
+        <name>Account_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account_Name__c --></label>
+        <name>Account_Name_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account_Region__c --></label>
+        <name>Account_Region_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Age__c --></label>
+        <name>Age_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Amount --></label>
+        <name>Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- AutoNumber__c --></label>
+        <name>AutoNumber_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Boosting_Reason__c --></label>
+        <name>Boosting_Reason_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Budget_Approved__c --></label>
+        <name>Budget_Approved_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- CampaignId --></label>
+        <name>CampaignId__c</name>
+    </fields>
+    <fields>
+        <label><!-- CampaignId_grax_xf_campaign --></label>
+        <name>CampaignId_grax_xf_campaign__c</name>
+    </fields>
+    <fields>
+        <label><!-- Campaign_Name --></label>
+        <name>Campaign_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case__c --></label>
+        <name>Case_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case__c_grax_xf_case --></label>
+        <name>Case_c_grax_xf_case__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case__r_CaseNumber --></label>
+        <name>Case_r_CaseNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- CloseDate_TODAY__c --></label>
+        <name>CloseDate_TODAY_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- CloseDate --></label>
+        <name>CloseDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Coaching__c --></label>
+        <name>Coaching_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Coaching__c_grax_xf_workcoaching --></label>
+        <name>Coaching_c_grax_xf_workcoaching__c</name>
+    </fields>
+    <fields>
+        <label><!-- Coaching__r_Name --></label>
+        <name>Coaching_r_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Competition__c --></label>
+        <name>Competition_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Competitive_Coach__c --></label>
+        <name>Competitive_Coach_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Competitive_Deal__c --></label>
+        <name>Competitive_Deal_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Competitor_Mentioned__c --></label>
+        <name>Competitor_Mentioned_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Competitor__c --></label>
+        <name>Competitor_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Competitor_they_Mentioned__c --></label>
+        <name>Competitor_they_Mentioned_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Complete_ROI_Analysis__c --></label>
+        <name>Complete_ROI_Analysis_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- ConnectionReceivedId --></label>
+        <name>ConnectionReceivedId__c</name>
+    </fields>
+    <fields>
+        <label><!-- ConnectionSentId --></label>
+        <name>ConnectionSentId__c</name>
+    </fields>
+    <fields>
+        <label><!-- ContactId --></label>
+        <name>ContactId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact_City__c --></label>
+        <name>Contact_City_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact_Company__c --></label>
+        <name>Contact_Company_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact_Country__c --></label>
+        <name>Contact_Country_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact_Email__c --></label>
+        <name>Contact_Email_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact_Name__c --></label>
+        <name>Contact_Name_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact_Phone__c --></label>
+        <name>Contact_Phone_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact_Postal_Code__c --></label>
+        <name>Contact_Postal_Code_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact_State_Province__c --></label>
+        <name>Contact_State_Province_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact_Street__c --></label>
+        <name>Contact_Street_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact_Title__c --></label>
+        <name>Contact_Title_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact_to_email__c --></label>
+        <name>Contact_to_email_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- ContractId --></label>
+        <name>ContractId__c</name>
+    </fields>
+    <fields>
+        <label><!-- ContractId_grax_xf_contract --></label>
+        <name>ContractId_grax_xf_contract__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contract_ContractNumber --></label>
+        <name>Contract_ContractNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contract_Terms__c --></label>
+        <name>Contract_Terms_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedById --></label>
+        <name>CreatedById__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedById_grax_xf_user --></label>
+        <name>CreatedById_grax_xf_user__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedBy_Name --></label>
+        <name>CreatedBy_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedDate --></label>
+        <name>CreatedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- CreatedDate__c --></label>
+        <name>CreatedDate_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- CurrentGenerators__c --></label>
+        <name>CurrentGenerators_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- DB_Amount__c --></label>
+        <name>DB_Amount_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- DB_Days__c --></label>
+        <name>DB_Days_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- DateTimeCreated__c --></label>
+        <name>DateTimeCreated_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Days_Left_Until_Expire__c --></label>
+        <name>Days_Left_Until_Expire_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deal_Approved_Date__c --></label>
+        <name>Deal_Approved_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deal_Forward__c --></label>
+        <name>Deal_Forward_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deal_ID__c --></label>
+        <name>Deal_ID_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deal_Slowing__c --></label>
+        <name>Deal_Slowing_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deal_Source__c --></label>
+        <name>Deal_Source_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deal_boosting__c --></label>
+        <name>Deal_boosting_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Decision_Role__c --></label>
+        <name>Decision_Role_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- DeliveryInstallationStatus__c --></label>
+        <name>DeliveryInstallationStatus_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Demo_Presentation_Date__c --></label>
+        <name>Demo_Presentation_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Discount_Approved__c --></label>
+        <name>Discount_Approved_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Discount__c --></label>
+        <name>Discount_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Distributor__c --></label>
+        <name>Distributor_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- ED_Close_Date_Delta__c --></label>
+        <name>ED_Close_Date_Delta_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- ED_Leading_Causes__c --></label>
+        <name>ED_Leading_Causes_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- ED_Outcome__c --></label>
+        <name>ED_Outcome_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- ED_Predicted_Close_Date__c --></label>
+        <name>ED_Predicted_Close_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- ED_Prescription__c --></label>
+        <name>ED_Prescription_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Body__c --></label>
+        <name>Email_Body_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email_Subject__c --></label>
+        <name>Email_Subject_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Engage_Legal__c --></label>
+        <name>Engage_Legal_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Exec_Meeting__c --></label>
+        <name>Exec_Meeting_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- ExpectedRevenue --></label>
+        <name>ExpectedRevenue__c</name>
+    </fields>
+    <fields>
+        <label><!-- External Account --></label>
+        <name>External_Account__c</name>
+        <relationshipLabel><!-- graxopportunityindex --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- External_ID__c --></label>
+        <name>External_ID_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- FiscalQuarter --></label>
+        <name>FiscalQuarter__c</name>
+    </fields>
+    <fields>
+        <label><!-- FiscalYear --></label>
+        <name>FiscalYear__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fiscal --></label>
+        <name>Fiscal__c</name>
+    </fields>
+    <fields>
+        <label><!-- ForecastCategoryName --></label>
+        <name>ForecastCategoryName__c</name>
+    </fields>
+    <fields>
+        <label><!-- ForecastCategory --></label>
+        <name>ForecastCategory__c</name>
+    </fields>
+    <fields>
+        <label><!-- Forwarded_Lead_ID__c --></label>
+        <name>Forwarded_Lead_ID_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAXCompanyName --></label>
+        <name>GRAXCompanyName__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAXTaskFlag2__c --></label>
+        <name>GRAXTaskFlag2_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAXTaskFlag__c --></label>
+        <name>GRAXTaskFlag_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAX_Execution_Unique_Key --></label>
+        <name>GRAX_Execution_Unique_Key__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAX_Execution_Unique_Keys --></label>
+        <name>GRAX_Execution_Unique_Keys__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAX_Version --></label>
+        <name>GRAX_Version__c</name>
+    </fields>
+    <fields>
+        <label><!-- HasOpenActivity --></label>
+        <name>HasOpenActivity__c</name>
+    </fields>
+    <fields>
+        <label><!-- HasOpportunityLineItem --></label>
+        <name>HasOpportunityLineItem__c</name>
+    </fields>
+    <fields>
+        <label><!-- HasOverdueTask --></label>
+        <name>HasOverdueTask__c</name>
+    </fields>
+    <fields>
+        <label><!-- Id --></label>
+        <name>Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Implementation_Start__c --></label>
+        <name>Implementation_Start_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- IndStatus__c --></label>
+        <name>IndStatus_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Interactive_Demo__c --></label>
+        <name>Interactive_Demo_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Internal_Pricing_Approvals__c --></label>
+        <name>Internal_Pricing_Approvals_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Intial_Estimated_Close_Date__c --></label>
+        <name>Intial_Estimated_Close_Date_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsClosed --></label>
+        <name>IsClosed__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsDeleted --></label>
+        <name>IsDeleted__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsExcludedFromTerritory2Filter --></label>
+        <name>IsExcludedFromTerritory2Filter__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsLocked --></label>
+        <name>IsLocked__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsPrivate --></label>
+        <name>IsPrivate__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsSplit --></label>
+        <name>IsSplit__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsWon --></label>
+        <name>IsWon__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastActivityDate --></label>
+        <name>LastActivityDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastActivityDate__c --></label>
+        <name>LastActivityDate_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedById --></label>
+        <name>LastModifiedById__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedById_grax_xf_user --></label>
+        <name>LastModifiedById_grax_xf_user__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedBy_Name --></label>
+        <name>LastModifiedBy_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedDate --></label>
+        <name>LastModifiedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastModifiedDate__c --></label>
+        <name>LastModifiedDate_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastReferencedDate --></label>
+        <name>LastReferencedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastStageChangeDate --></label>
+        <name>LastStageChangeDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- LastViewedDate --></label>
+        <name>LastViewedDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last_Activity_Subject__c --></label>
+        <name>Last_Activity_Subject_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last_Activity_Text__c --></label>
+        <name>Last_Activity_Text_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last_Activity_Type__c --></label>
+        <name>Last_Activity_Type_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- LeadSource --></label>
+        <name>LeadSource__c</name>
+    </fields>
+    <fields>
+        <label><!-- MainCompetitors__c --></label>
+        <name>MainCompetitors_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Margin__c --></label>
+        <name>Margin_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- MayEdit --></label>
+        <name>MayEdit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Name --></label>
+        <name>Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Name_of_Contact__c --></label>
+        <name>Name_of_Contact_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- NextStep --></label>
+        <name>NextStep__c</name>
+    </fields>
+    <fields>
+        <label><!-- No_Communication__c --></label>
+        <name>No_Communication_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opportunity_Product_Names__c --></label>
+        <name>Opportunity_Product_Names_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- OrderNumber__c --></label>
+        <name>OrderNumber_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- OwnerId --></label>
+        <name>OwnerId__c</name>
+    </fields>
+    <fields>
+        <label><!-- OwnerId_grax_xf_user --></label>
+        <name>OwnerId_grax_xf_user__c</name>
+    </fields>
+    <fields>
+        <label><!-- Owner_Name --></label>
+        <name>Owner_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- PartnerAccountId --></label>
+        <name>PartnerAccountId__c</name>
+    </fields>
+    <fields>
+        <label><!-- PartnerAccountId_grax_xf_account --></label>
+        <name>PartnerAccountId_grax_xf_account__c</name>
+    </fields>
+    <fields>
+        <label><!-- PartnerAccount_Name --></label>
+        <name>PartnerAccount_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pricebook2Id --></label>
+        <name>Pricebook2Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pricebook2Id_grax_xf_pricebook2 --></label>
+        <name>Pricebook2Id_grax_xf_pricebook2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pricebook2_Name --></label>
+        <name>Pricebook2_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary_Contact__c --></label>
+        <name>Primary_Contact_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary_Contact__c_grax_xf_contact --></label>
+        <name>Primary_Contact_c_grax_xf_contact__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary_Contact__r_Name --></label>
+        <name>Primary_Contact_r_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Probability --></label>
+        <name>Probability__c</name>
+    </fields>
+    <fields>
+        <label><!-- Products__c --></label>
+        <name>Products_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Project_Budget__c --></label>
+        <name>Project_Budget_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Project_Budgeted__c --></label>
+        <name>Project_Budgeted_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Project_Description__c --></label>
+        <name>Project_Description_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Project_Manager_Contact__c --></label>
+        <name>Project_Manager_Contact_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Project_Name__c --></label>
+        <name>Project_Name_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Projected_Durations__c --></label>
+        <name>Projected_Durations_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Projected_Finish__c --></label>
+        <name>Projected_Finish_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prospect_Unresponsive__c --></label>
+        <name>Prospect_Unresponsive_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Push_Counter__c --></label>
+        <name>Push_Counter_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Random_Number__c --></label>
+        <name>Random_Number_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Re_engaged__c --></label>
+        <name>Re_engaged_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reason_Lost__c --></label>
+        <name>Reason_Lost_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecordTypeId --></label>
+        <name>RecordTypeId__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecordTypeId_grax_xf_recordtype --></label>
+        <name>RecordTypeId_grax_xf_recordtype__c</name>
+    </fields>
+    <fields>
+        <label><!-- RecordType_Name --></label>
+        <name>RecordType_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Registration_Expiration__c --></label>
+        <name>Registration_Expiration_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Slowing_Reason__c --></label>
+        <name>Slowing_Reason_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- StageName --></label>
+        <name>StageName__c</name>
+    </fields>
+    <fields>
+        <label><!-- StageSortOrder --></label>
+        <name>StageSortOrder__c</name>
+    </fields>
+    <fields>
+        <label><!-- Stalled_Opportunity__c --></label>
+        <name>Stalled_Opportunity_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status_Value__c --></label>
+        <name>Status_Value_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- SyncedQuoteId --></label>
+        <name>SyncedQuoteId__c</name>
+    </fields>
+    <fields>
+        <label><!-- SyncedQuoteId_grax_xf_quote --></label>
+        <name>SyncedQuoteId_grax_xf_quote__c</name>
+    </fields>
+    <fields>
+        <label><!-- SyncedQuote_Name --></label>
+        <name>SyncedQuote_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- SystemModstamp --></label>
+        <name>SystemModstamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- Task_Overdue__c --></label>
+        <name>Task_Overdue_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Territory2Id --></label>
+        <name>Territory2Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Time_Consuming_Oppty__c --></label>
+        <name>Time_Consuming_Oppty_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- TopInsightId --></label>
+        <name>TopInsightId__c</name>
+    </fields>
+    <fields>
+        <label><!-- TotalOpportunityQuantity --></label>
+        <name>TotalOpportunityQuantity__c</name>
+    </fields>
+    <fields>
+        <label><!-- TrackingNumber__c --></label>
+        <name>TrackingNumber_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- URLsrc__c --></label>
+        <name>URLsrc_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- View_Forwarded_Lead__c --></label>
+        <name>View_Forwarded_Lead_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Winning_Competitor__c --></label>
+        <name>Winning_Competitor_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- Winning_Unlikely__c --></label>
+        <name>Winning_Unlikely_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- analyticsdemo_batch_id__c --></label>
+        <name>analyticsdemo_batch_id_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- cv__c --></label>
+        <name>cv_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- graxModifiedTime --></label>
+        <name>graxModifiedTime__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_Account_Name --></label>
+        <name>grax_Account_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_Campaign_Name --></label>
+        <name>grax_Campaign_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_Case__r_CaseNumber --></label>
+        <name>grax_Case_r_CaseNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_Coaching__r_Name --></label>
+        <name>grax_Coaching_r_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_Contract_ContractNumber --></label>
+        <name>grax_Contract_ContractNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_CreatedBy_Name --></label>
+        <name>grax_CreatedBy_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax__CurrentGenerators__c --></label>
+        <name>grax_CurrentGenerators_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax__DeliveryInstallationStatus__c --></label>
+        <name>grax_DeliveryInstallationStatus_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_LastModifiedBy_Name --></label>
+        <name>grax_LastModifiedBy_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax__MainCompetitors__c --></label>
+        <name>grax_MainCompetitors_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax__OrderNumber__c --></label>
+        <name>grax_OrderNumber_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_Owner_Name --></label>
+        <name>grax_Owner_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_PartnerAccount_Name --></label>
+        <name>grax_PartnerAccount_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_Pricebook2_Name --></label>
+        <name>grax_Pricebook2_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_Primary_Contact__r_Name --></label>
+        <name>grax_Primary_Contact_r_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_RecordType_Name --></label>
+        <name>grax_RecordType_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_SyncedQuote_Name --></label>
+        <name>grax_SyncedQuote_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax__TrackingNumber__c --></label>
+        <name>grax_TrackingNumber_c__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_account_xf --></label>
+        <name>grax_account_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_accountid_name --></label>
+        <name>grax_accountid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_campaign_xf --></label>
+        <name>grax_campaign_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_campaignid_name --></label>
+        <name>grax_campaignid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_case__c_name --></label>
+        <name>grax_case_c_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_case_xf --></label>
+        <name>grax_case_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_coaching__c_name --></label>
+        <name>grax_coaching_c_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_connectionreceivedid_name --></label>
+        <name>grax_connectionreceivedid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_connectionsentid_name --></label>
+        <name>grax_connectionsentid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_contact_to_email__c_name --></label>
+        <name>grax_contact_to_email_c_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_contact_xf --></label>
+        <name>grax_contact_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_contract_xf --></label>
+        <name>grax_contract_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_contractid_name --></label>
+        <name>grax_contractid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_createdbyid_name --></label>
+        <name>grax_createdbyid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_lastmodifiedbyid_name --></label>
+        <name>grax_lastmodifiedbyid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_opportunity_name --></label>
+        <name>grax_opportunity_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_opportunity_xf --></label>
+        <name>grax_opportunity_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_ownerid_name --></label>
+        <name>grax_ownerid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_partneraccountid_name --></label>
+        <name>grax_partneraccountid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_pricebook2_xf --></label>
+        <name>grax_pricebook2_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_pricebook2id_name --></label>
+        <name>grax_pricebook2id_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_primary_contact__c_name --></label>
+        <name>grax_primary_contact_c_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_project_manager_contact__c_name --></label>
+        <name>grax_project_manager_contact_c_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_quote_xf --></label>
+        <name>grax_quote_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_recordtype_xf --></label>
+        <name>grax_recordtype_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_recordtypeid_name --></label>
+        <name>grax_recordtypeid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_syncedquoteid_name --></label>
+        <name>grax_syncedquoteid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_territory2id_name --></label>
+        <name>grax_territory2id_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_topinsightid_name --></label>
+        <name>grax_topinsightid_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_user_xf --></label>
+        <name>grax_user_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_workcoaching_xf --></label>
+        <name>grax_workcoaching_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- grax_xf --></label>
+        <name>grax_xf__c</name>
+    </fields>
+    <fields>
+        <label><!-- graxid --></label>
+        <name>graxid__c</name>
+    </fields>
+    <fields>
+        <label><!-- graxorgid --></label>
+        <name>graxorgid__c</name>
+    </fields>
+    <fields>
+        <label><!-- of_Opp_Products__c --></label>
+        <name>of_Opp_Products_c__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

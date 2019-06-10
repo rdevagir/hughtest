@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>GRAX Dynamic Flow Trigger</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>GRAX Dynamic Flow Triggers</value>
+    </caseValues>
+    <fields>
+        <label><!-- Date Field Name --></label>
+        <name>Date_Field_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Flow Unique Name --></label>
+        <name>Flow_Unique_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Progressive Query? --></label>
+        <name>Progressive_Query__c</name>
+    </fields>
+    <fields>
+        <label><!-- Records Param Name --></label>
+        <name>Records_Param_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- SOQL Query --></label>
+        <name>SOQL_Query__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

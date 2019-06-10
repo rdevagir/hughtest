@@ -1,0 +1,618 @@
+<apex:component controller="GRAXFieldDisplayCtrl" layout="none" selfClosing="true">
+
+    <!-- Attribute Definition -->
+    <apex:attribute name="objName1" description="" required="true" assignTo="{!objName}" type="String"/>
+    <apex:attribute name="fieldName1" description="" required="true" assignTo="{!fieldName}" type="String"/>    
+    <apex:attribute name="currentValue1" description="" required="true" assignTo="{!currentValue}" type="String"/> 
+    <apex:attribute name="isEdit1" description="" required="true" assignTo="{!isEdit}" type="Boolean"/>
+    <apex:attribute name="inputNamePrefix" default="GRAXFieldDisplay:" description="" required="false" type="String"/>
+    
+    <style>
+        .bootstrap-datetimepicker-widget{
+            width: auto !important;
+        }
+    </style>
+    
+   <apex:outputPanel layout="none" rendered="{!AND(NOT(ISBLANK(fieldName)), NOT(fieldName == ' '))}">               
+
+        <apex:outputPanel rendered="{!IF(AND(contains('id;string;textarea;phone;url;email;currency;double;int;integer;percent;decimal',LOWER(cSObj.cSObjectFields[fieldName].fType)), NOT(contains('encrypted',LOWER(cSObj.cSObjectFields[fieldName].fType)))), true, false)}" layout="none">
+                <apex:outputPanel layout="none" rendered="{!AND(isEdit, cSObj.cSObjectFields[fieldName].isEditable, NOT(cSObj.cSObjectFields[fieldName].isRichText))}">
+                    <div class="{!IF(NOT(ISBLANK(cSObj.cSObjectFields[fieldName].errorMsg)),'slds-has-error','')}">                                                    
+                        <input type="text" name="{!inputNamePrefix}{!fieldName}" value="{!cSObj.cSObjectFields[fieldName].fValue}" class="slds-input {!IF(NOT(ISBLANK(cSObj.cSObjectFields[fieldName].errorMsg)),'error','')}" maxlength="255"/>
+                        <apex:outputPanel layout="block" styleClass="slds-form-element__help" rendered="{!NOT(ISBLANK(cSObj.cSObjectFields[fieldName].errorMsg))}"><strong>Error:</strong> {!cSObj.cSObjectFields[fieldName].errorMsg}</apex:outputPanel>
+                    </div>
+                </apex:outputPanel>
+                    
+                <apex:outputPanel layout="none" rendered="{!OR(NOT(isEdit), NOT(cSObj.cSObjectFields[fieldName].isEditable), NOT(!cSObj.cSObjectFields[fieldName].isRichText))}">                                
+                    <apex:outputText value="{!cSObj.cSObjectFields[fieldName].fValue}" />                                              
+                </apex:outputPanel>
+                
+                <apex:outputPanel layout="none" rendered="{!cSObj.cSObjectFields[fieldName].isRichText}">
+                    <div class="{!IF(NOT(ISBLANK(cSObj.cSObjectFields[fieldName].errorMsg)),'slds-has-error','')}">                                                    
+                        <input id="{!inputNamePrefix}{!fieldName}" name="{!inputNamePrefix}{!fieldName}" value="{!cSObj.cSObjectFields[fieldName].fValue}" class="slds-input {!IF(NOT(ISBLANK(cSObj.cSObjectFields[fieldName].errorMsg)),'error','')}" type="hidden"/>
+                        <div id="{!inputNamePrefix}{!fieldName}_editor" class="htmlOutput"></div>
+
+                        <script>
+                            $('#{!inputNamePrefix}{!fieldName}_editor').html($('#{!inputNamePrefix}{!fieldName}').val());
+                        </script>
+
+                        <apex:outputPanel layout="none" rendered="{!OR(NOT(isEdit), NOT(cSObj.cSObjectFields[fieldName].isEditable))}">                                
+                            <style>
+                                .htmlOutput {
+                                    border: 1px solid #dddbda;
+                                    border-radius: 0.25rem;
+                                    color: #706e6b;
+                                    overflow-y: auto;
+                                    min-height: 6rem;
+                                    max-height: 15rem;
+                                    padding: 1rem;
+                                    background-color: white;
+                                }
+                            </style>                                             
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="none" rendered="{!AND(isEdit, cSObj.cSObjectFields[fieldName].isEditable)}">
+                            <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+                            <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
+                            <link href="{!URLFOR($Resource.grax, '/quill.slds.css')}" rel="stylesheet" />
+
+                            <script>
+                                var quill = new Quill('#{!inputNamePrefix}{!fieldName}_editor', {
+                                    theme: 'snow',
+                                    modules: {
+                                        toolbar: [
+                                            ['bold', 'italic', 'underline', 'strike'],
+                                            [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+                                            ['clean']
+                                        ]
+                                    }
+                                });
+                
+                                quill.on('text-change', function(delta, oldDelta, source) {
+                                    if (source == 'user') {
+                                        $('#{!inputNamePrefix}{!fieldName}').val(quill.root.innerHTML);
+                                    }
+                                });
+                            </script>
+                        </apex:outputPanel>
+                    </div>
+                </apex:outputPanel>
+        </apex:outputPanel>   
+        
+       
+        <apex:outputPanel rendered="{!IF(LOWER(cSObj.cSObjectFields[fieldName].fType) == 'encryptedstring', true, false)}" layout="none">           
+                <apex:outputPanel layout="none" rendered="{!AND(isEdit, cSObj.cSObjectFields[fieldName].isEditable)}">                           
+                    <input type="text" name="{!inputNamePrefix}{!fieldName}" redisplay="true" value="{!cSObj.cSObjectFields[fieldName].fValue}" class="fieldValueInput form-control {!IF(NOT(ISBLANK(cSObj.cSObjectFields[fieldName].errorMsg)),'error','')}" maxlength="255"/>
+                    <apex:outputPanel layout="block" styleClass="errorMsg" rendered="{!NOT(ISBLANK(cSObj.cSObjectFields[fieldName].errorMsg))}"><strong>Error:</strong> {!cSObj.cSObjectFields[fieldName].errorMsg}</apex:outputPanel>                    
+                </apex:outputPanel>
+                
+                <apex:outputPanel layout="none" rendered="{!OR(NOT(isEdit), NOT(cSObj.cSObjectFields[fieldName].isEditable))}">
+                    <apex:outputText value="{!cSObj.cSObjectFields[fieldName].fValue}" />                                                                
+                </apex:outputPanel>           
+        </apex:outputPanel>
+       
+       <apex:outputPanel rendered="{!IF('time'=LOWER(cSObj.cSObjectFields[fieldName].fType), true, false)}" layout="none">                          
+            <apex:outputPanel layout="none">  
+                <apex:outputPanel layout="block" styleClass="slds-grid" rendered="{!AND(isEdit, cSObj.cSObjectFields[fieldName].isEditable)}">
+                    <div class="slds-combobox_container">
+                        <div id="{!inputNamePrefix}{!fieldName}_timeCombobox" class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-combobox-picklist slds-timepicker">
+                            <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right">
+                                <input id="{!inputNamePrefix}{!fieldName}" name="{!inputNamePrefix}{!fieldName}_time" class="slds-input slds-combobox__input slds-combobox__input-value" type="text" />
+                                <span class="slds-icon_container slds-icon-utility-clock slds-input__icon slds-input__icon_right">
+                                    <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#clock')}" class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default"></i>
+                                </span>
+                            </div>
+                            <ul id="{!inputNamePrefix}{!fieldName}_timeOptions" class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown--fluid slds-dropdown--length-5" role="presentation"></ul>
+                        </div>
+                    </div>
+
+                    <script>
+                        (function() {
+                            
+                            $('#{!inputNamePrefix}{!fieldName}').val('{!cSObj.cSObjectFields[fieldName].fValue}'));
+
+                            var $timeOptions = $('#{!inputNamePrefix}{!fieldName}_timeOptions');
+
+                            var $getTimeOptionLi = function(val) {
+                                var $li = $('<li>').addClass('slds-listbox__item');
+                                var $div = $('<div>').addClass('slds-media slds-listbox__option slds-listbox__option_plain slds-media_small slds-media_center');
+                                var $span = $('<span>').addClass('slds-media__body slds-truncate').text(val);
+
+                                $span.appendTo($div);
+                                $div.appendTo($li);
+
+                                $li.on('click', function(e) {
+                                    $('#{!inputNamePrefix}{!fieldName}').val(val + ':00').trigger('change');
+                                });
+
+                                return $li;
+                            };
+
+                            var getTimeValue = function(h, m) {
+                                return ('0' + (h == 0 ? 12 : h)).slice(-2) + ':' + ('0' + m).slice(-2);
+                            }
+
+                            for(var h = 0; h <= 24; h++) {
+                                $timeOptions.append($getTimeOptionLi(getTimeValue(h, 0)));
+                                $timeOptions.append($getTimeOptionLi(getTimeValue(h, 30)));
+                            }
+
+                            var $timeComboBox = $('#{!inputNamePrefix}{!fieldName}_timeCombobox');
+
+                            $('#{!inputNamePrefix}{!fieldName}').on('focusin focusout', function(e) {
+                                $timeComboBox.toggleClass('slds-is-open', e.type == 'focusin');
+                            });
+                        })();
+                    </script>
+                </apex:outputPanel>
+                
+               <apex:outputPanel layout="none" rendered="{!OR(NOT(isEdit), NOT(cSObj.cSObjectFields[fieldName].isEditable))}">
+                   <apex:outputPanel layout="none" rendered="{!OR(NOT(isEdit), NOT(cSObj.cSObjectFields[fieldName].isEditable))}">
+                        <apex:outputText value="{!cSObj.cSObjectFields[fieldName].fValue}"/>                   
+                    </apex:outputPanel>           
+                </apex:outputPanel>
+            </apex:outputPanel>  
+           
+        </apex:outputPanel>
+       
+        <apex:outputPanel rendered="{!IF('date'=LOWER(cSObj.cSObjectFields[fieldName].fType), true, false)}" layout="none">                          
+            <apex:outputPanel layout="none">                                                    
+                <apex:outputPanel layout="none" rendered="{!AND(isEdit, cSObj.cSObjectFields[fieldName].isEditable)}">                                                                                               
+                    <input type="hidden" name="{!inputNamePrefix}{!fieldName}" id="{!inputNamePrefix}{!fieldName}" value="{!cSObj.cSObjectFields[fieldName].fValue}" />
+
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right slds-form-element__date" id="{!inputNamePrefix}{!fieldName}_dateDiv">
+                        <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#event')}" class="slds-input__icon slds-icon-text-default"></i>
+                        <input type="text" name="{!inputNamePrefix}{!fieldName}_date" id="{!inputNamePrefix}{!fieldName}_date" class="slds-input" autocomplete="off"/>
+                    </div>
+
+                    <script>
+                        $(function() {
+                            var _date = '{!cSObj.cSObjectFields[fieldName].fValue}';
+
+                            var updateDateValue = function(m) {
+                                var val = null;
+
+                                if(m._isValid) {
+                                    val = m.format('L'); // MM/DD/YYYY
+                                }
+
+                                $('#{!inputNamePrefix}{!fieldName}').val(val);
+                            };
+
+                            $('#{!inputNamePrefix}{!fieldName}_date').val(null).datepicker({
+                                initDate: _date ? moment(_date) : null,
+                                format: 'L',
+                                onShow: function($datepicker) {
+                                    $('#aljs-prevButton').html('&#9666;');
+                                    $('#aljs-nextButton').html('&#9656;');
+                                },
+                                onSelect: function(x, val) {
+                                    $('#{!inputNamePrefix}{!fieldName}_date').trigger('change');
+                                }
+                            }).on('change', function(e) {
+                                updateDateValue(moment(e.target.value, 'L'));
+                            }).trigger('change');
+                            
+                            $(document).ready(function() {                           
+                                $('#{!inputNamePrefix}{!fieldName}_date').click();
+                                $('#{!inputNamePrefix}{!fieldName}_date').parent().parent().click();
+                                
+                                $('#{!inputNamePrefix}{!fieldName}_dateDiv .slds-input__icon').on('click', function(){                               
+                                    $('#{!inputNamePrefix}{!fieldName}_date').click();
+                                });                           
+                            });
+                        });
+                    </script>                                                                           
+                </apex:outputPanel>
+                
+               <apex:outputPanel layout="none" rendered="{!OR(NOT(isEdit), NOT(cSObj.cSObjectFields[fieldName].isEditable))}">
+                   <apex:outputPanel layout="none" rendered="{!OR(NOT(isEdit), NOT(cSObj.cSObjectFields[fieldName].isEditable))}">
+                        <apex:outputText html-data-id="{!inputNamePrefix}{!fieldName}" value="{!cSObj.cSObjectFields[fieldName].fValue}" styleClass="_dateField"/>                   
+                        <script>
+                            $(function() {
+                                $('._dateField').each(function() {
+                                    var $this = $(this);
+                                    var val = $this.text().trim();
+
+                                    var m = moment(val);
+                                    if(m._isValid) {
+                                        val = m.format('L');
+                                    }
+
+                                    $this.removeClass('_dateField').text(val);
+                                });
+                            })();
+                        </script>  
+                    </apex:outputPanel>           
+                </apex:outputPanel>
+            </apex:outputPanel>            
+        </apex:outputPanel>   
+        
+        <apex:outputPanel rendered="{!IF('datetime'=LOWER(cSObj.cSObjectFields[fieldName].fType), true, false)}" layout="none">           
+            <apex:outputPanel layout="none">
+                <apex:outputPanel layout="block" styleClass="slds-grid" rendered="{!AND(isEdit, cSObj.cSObjectFields[fieldName].isEditable)}">                                                                                               
+                    <input name="{!inputNamePrefix}{!fieldName}" id="{!inputNamePrefix}{!fieldName}" value="{!cSObj.cSObjectFields[fieldName].fValue}" type="hidden" autocomplete="off"/>   
+
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right slds-form-element__date slds-m-right_small" id="{!inputNamePrefix}{!fieldName}_dateDiv">
+                        <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#event')}" class="slds-input__icon slds-icon-text-default"></i>
+                        <input type="text" name="{!inputNamePrefix}{!fieldName}_date" id="{!inputNamePrefix}{!fieldName}_date" class="slds-input" autocomplete="off"/>
+                    </div>
+
+                    <div class="slds-combobox_container">
+                        <div id="{!inputNamePrefix}{!fieldName}_timeCombobox" class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-combobox-picklist slds-timepicker">
+                            <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right">
+                                <input id="{!inputNamePrefix}{!fieldName}_time" name="{!inputNamePrefix}{!fieldName}_time" class="slds-input slds-combobox__input slds-combobox__input-value" type="text" autocomplete="off"/>
+                                <span class="slds-icon_container slds-icon-utility-clock slds-input__icon slds-input__icon_right">
+                                    <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#clock')}" class="slds-icon slds-icon_x-small slds-icon-text-default"></i>
+                                </span>
+                            </div>
+                            <ul id="{!inputNamePrefix}{!fieldName}_timeOptions" class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown--fluid slds-dropdown--length-5" role="presentation"></ul>
+                        </div>
+                    </div>
+
+                    <script>
+                        $(function() {
+                            var updateDateTimeValue = function(dateTimeString) {
+                                var val = null;
+
+                                var m = moment(dateTimeString, 'L LT');
+                                if(m._isValid) {
+                                    val = m.format('L LT'); // MM/DD/YYYY hh:mm A
+                                }
+
+                                $('#{!inputNamePrefix}{!fieldName}').val(val);
+                            };
+
+                            var datetimeParts = '{!cSObj.cSObjectFields[fieldName].fValue}'.split(' ');
+
+                            $('#{!inputNamePrefix}{!fieldName}_date, #{!inputNamePrefix}{!fieldName}_date .slds-input__icon').val(datetimeParts[0]).datepicker({
+                                initDate: datetimeParts[0] ? moment(datetimeParts[0]) : null,
+                                format: 'L',
+                                onShow: function($datepicker) {
+                                    $('#aljs-prevButton').html('&#9666;');
+                                    $('#aljs-nextButton').html('&#9656;');
+                                },
+                                onSelect: function($datepicker) {
+                                    $('#{!inputNamePrefix}{!fieldName}_date').trigger('change');
+                                },
+                                onChange: function($datepicker) {
+                                    $('#{!inputNamePrefix}{!fieldName}_date').trigger('change');
+                                }
+                            });
+
+                            if(datetimeParts.length > 1) {
+                                $('#{!inputNamePrefix}{!fieldName}_time').val(datetimeParts[1] + (datetimeParts.length > 2 ? ' ' + datetimeParts[2] : ''));
+                            }
+
+                            $('#{!inputNamePrefix}{!fieldName}_date, #{!inputNamePrefix}{!fieldName}_time').on('change', function(e) {
+                                updateDateTimeValue($('#{!inputNamePrefix}{!fieldName}_date').val() + ' ' + $('#{!inputNamePrefix}{!fieldName}_time').val());
+                            }).trigger('change');
+
+                            var $timeOptions = $('#{!inputNamePrefix}{!fieldName}_timeOptions');
+
+                            var $getTimeOptionLi = function(val) {
+                                var $li = $('<li>').addClass('slds-listbox__item');
+                                var $div = $('<div>').addClass('slds-media slds-listbox__option slds-listbox__option_plain slds-media_small slds-media_center');
+                                var $span = $('<span>').addClass('slds-media__body slds-truncate').text(val);
+
+                                $span.appendTo($div);
+                                $div.appendTo($li);
+
+                                $li.on('click', function(e) {
+                                    $('#{!inputNamePrefix}{!fieldName}_time').val(val).trigger('change');
+                                });
+
+                                return $li;
+                            };
+
+                            var m = moment({hour: 0, minute: 0, seconds: 0, milliseconds: 0});
+                            for(var hh = 0; hh < 48; hh++) {
+                                m.add(30, 'minutes');
+                                
+                                $timeOptions.append($getTimeOptionLi(m.format('LT')));
+                            }
+
+                            var $timeComboBox = $('#{!inputNamePrefix}{!fieldName}_timeCombobox');
+
+                            $('#{!inputNamePrefix}{!fieldName}_time').on('focusin focusout', function(e) {                              
+                                $timeComboBox.toggleClass('slds-is-open', e.type == 'focusin');
+                            });                                                                                 
+                        });
+                        
+                        $(document).ready(function() {                           
+                            $('#{!inputNamePrefix}{!fieldName}_date').click();
+                            $('#{!inputNamePrefix}{!fieldName}_date').parent().parent().click();
+                            
+                            $('#{!inputNamePrefix}{!fieldName}_dateDiv .slds-input__icon').on('click', function(){                               
+                                $('#{!inputNamePrefix}{!fieldName}_date').click();                               
+                            });
+
+                            
+                            $('#{!inputNamePrefix}{!fieldName}_timeCombobox .slds-icon').on('click', function(){                              
+                                $('#{!inputNamePrefix}{!fieldName}_timeCombobox').addClass('slds-is-open');
+                            });                           
+                        });
+                        
+                    </script>
+                </apex:outputPanel>
+                
+               <apex:outputPanel layout="none" rendered="{!OR(NOT(isEdit), NOT(cSObj.cSObjectFields[fieldName].isEditable))}">
+                    <apex:outputText html-data-id="{!inputNamePrefix}{!fieldName}" value="{!cSObj.cSObjectFields[fieldName].fValue}" styleClass="_dateTimeField"/>
+                    <script>
+                        $(function() {
+                            $('._dateTimeField').each(function() {
+                                var $this = $(this);
+                                var val = $this.text().trim();
+
+                                var m = moment(val);
+                                if(m._isValid) {
+                                    val = m.format('L LT');
+                                }
+
+                                $this.removeClass('_dateTimeField').text(val);
+                            });
+                        })();
+                    </script>                
+               </apex:outputPanel>   
+            </apex:outputPanel>   
+        </apex:outputPanel>  
+        
+        
+        <apex:outputPanel rendered="{!IF(contains('boolean',LOWER(cSObj.cSObjectFields[fieldName].fType)), true, false)}" layout="none">                       
+            <apex:outputPanel layout="none" rendered="{!AND(isEdit, cSObj.cSObjectFields[fieldName].isEditable)}">
+                <label class="slds-checkbox_toggle slds-grid">
+                    <input id="{!inputNamePrefix}{!fieldName}" name="{!inputNamePrefix}{!fieldName}" type="hidden" />
+                    <apex:inputCheckbox value="{!cSObj.cSObjectFields[fieldName].fValue}"/>
+                    <span class="slds-checkbox_faux_container" aria-live="assertive">
+                        <span class="slds-checkbox_faux"></span>
+                    </span>
+                </label>
+
+                <script>
+                    $('#{!inputNamePrefix}{!fieldName} + input[type="checkbox"]').on('change', function(e) {
+                        $('#{!inputNamePrefix}{!fieldName}').val(e.target.checked);
+                    }).trigger('change');
+                </script>
+            </apex:outputPanel>
+
+            <apex:outputPanel layout="inline" rendered="{!OR(NOT(isEdit), NOT(cSObj.cSObjectFields[fieldName].isEditable))}">
+                <img alt="Checked" class="checkImg" title="Checked" src="/img/checkbox_{!IF(cSObj.cSObjectFields[fieldName].fValue == 'true', '', 'un')}checked.gif" width="21" height="16" />
+            </apex:outputPanel>
+        </apex:outputPanel>
+         
+        
+        <apex:outputPanel rendered="{!IF(AND('recordtypeid' != fieldName, contains('reference;',LOWER(cSObj.cSObjectFields[fieldName].fType))), true, false)}" layout="none">       
+            <apex:outputPanel layout="none" rendered="{!AND(isEdit, cSObj.cSObjectFields[fieldName].isEditable)}">  
+                
+                <apex:variable var="lookupUniqueId" value="{!fieldName & '_' & cSObj.sObjectName & '_'}"/>
+                
+                <div class="slds-form-element__control">
+                    <div class="slds-combobox-group slds-has-selection">
+                        <apex:outputPanel layout="none" rendered="{!cSObj.cSObjectFields[fieldName].isPolymorphic}">
+                            <div class="slds-combobox_object-switcher slds-combobox-addon_start">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-select_container">
+                                            <select class="slds-select slds-combobox__input lkpChk" name="{!lookupUniqueId}lkpNotReq_lktp" id="{!lookupUniqueId}lkpNotReq_lktp" style="position:static;">
+                                                <apex:repeat value="{!cSObj.cSObjectFields[fieldName].picklistOptions}" var="opt">
+                                                    <apex:outputPanel layout="none" rendered="{!cSObj.cSObjectFields[fieldName].cSObjRefField.fKeyPrefix <> opt.val}">
+                                                        <option value="{!opt.val}">{!opt.label}</option>
+                                                    </apex:outputPanel>
+                                                    <apex:outputPanel layout="none" rendered="{!cSObj.cSObjectFields[fieldName].cSObjRefField.fKeyPrefix == opt.val}">
+                                                        <option value="{!opt.val}" selected="selected">{!opt.label}</option>
+                                                    </apex:outputPanel>
+                                                </apex:repeat>                        
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+
+                        <div class="{!IF(cSObj.cSObjectFields[fieldName].isPolymorphic, 'slds-combobox_container slds-combobox-addon_end', 'slds-size_2-of-2')}">
+                            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right lookupInput">
+                                <input type="text" value="{!cSObj.cSObjectFields[fieldName].cSObjRefField.fRecordName}" id="{!lookupUniqueId}lkpNotReq" name="{!lookupUniqueId}lkpNotReq" onchange="getElementByIdCS(this.id+'_lkid').value='';getElementByIdCS(this.id+'_mod').value='1';" onfocus="getElementByIdCS('{!inputNamePrefix}{!fieldName}').value = getElementByIdCS(this.id+'_lkid').value;" class="lkpChk inputLookupField fieldValueInput slds-input {!IF(NOT(ISBLANK(cSObj.cSObjectFields[fieldName].errorMsg)),'error','')}" />                            
+                                <input id="{!inputNamePrefix}{!fieldName}" name="{!inputNamePrefix}{!fieldName}" value="{!cSObj.cSObjectFields[fieldName].cSObjRefField.fRecordId}" type="hidden" />
+                                <a class="slds-input__icon slds-input__icon_right slds-button slds-button_icon" title="Interviewer Lookup (New Window)" tabindex="3" onclick="setLastMousePosition(event)" id="{!lookupUniqueId}lkpNotReq_lkwgt" href="javascript:%20openLookup%28%27%2F_ui%2Fcommon%2Fdata%2FLookupPage%3Flkfm%3DeditPage%26lknm%3D{!lookupUniqueId}lkpNotReq%26lktp%3D%27%20%2B%20getElementByIdCS%28%27{!lookupUniqueId}lkpNotReq_lktp%27%29.value%2C670%2C%271%27%2C%27%26lksrch%3D%27%20%2B%20escapeUTF%28getElementByIdCS%28%27{!lookupUniqueId}lkpNotReq%27%29.value.substring%280%2C%2080%29%29%29">
+                                    <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" class="slds-button__icon slds-icon-text-light"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <apex:outputPanel layout="block" styleClass="slds-form-element__help {!IF(NOT(ISBLANK(cSObj.cSObjectFields[fieldName].errorMsg)),'error','')}" rendered="{!NOT(ISBLANK(cSObj.cSObjectFields[fieldName].errorMsg))}"><strong>Error:</strong> {!cSObj.cSObjectFields[fieldName].errorMsg}</apex:outputPanel>
+                
+                <input name="{!lookupUniqueId}lkpNotReq_lkid"   id="{!lookupUniqueId}lkpNotReq_lkid"   value="{!cSObj.cSObjectFields[fieldName].cSObjRefField.fRecordId}" type="hidden" />
+                <input name="{!lookupUniqueId}lkpNotReq_lkold"   id="{!lookupUniqueId}lkpNotReq_lkold"   value="null" type="hidden" />
+                <apex:outputPanel layout="none" rendered="{!!cSObj.cSObjectFields[fieldName].isPolymorphic}">
+                    <input class="lkpChk" name="{!lookupUniqueId}lkpNotReq_lktp"    id="{!lookupUniqueId}lkpNotReq_lktp"    value="{!cSObj.cSObjectFields[fieldName].cSObjRefField.fKeyPrefix}" type="hidden" />
+                </apex:outputPanel>
+                <input name="{!lookupUniqueId}lkpNotReq_lspf"    id="{!lookupUniqueId}lkpNotReq_lspf"    value="0" type="hidden" />
+                <input name="{!lookupUniqueId}lkpNotReq_lspfsub" id="{!lookupUniqueId}lkpNotReq_lspfsub" value="0" type="hidden" />
+                <input class="lkpChk" name="{!lookupUniqueId}lkpNotReq_mod"     id="{!lookupUniqueId}lkpNotReq_mod"     value="0" type="hidden" />                                                                      
+
+                <apex:outputPanel rendered="{!fieldName == 'ownerid'}" layout="none">
+                    <span id="{!lookupUniqueId}lkpOwner" sytle="display: none;">
+                        <apex:inputField value="{!cSObj.sObjectHelper['OwnerId']}" />             
+                    </span>
+                    
+                    <script>
+                        var $ownerLookup = $('#{!lookupUniqueId}lkpOwner');
+                        var $lookupTypeSelectContainer = $('.{!lookupUniqueId}lookupTypeSelectContainer.lkpChk');
+                        
+                        var $lookupTypeSelect = $ownerLookup.find('select');
+                        
+                        if($lookupTypeSelect.length > 0){                     
+                            $lookupTypeSelect.removeAttr('onchange').addClass('form-control').css('display', 'inline-block').css('width', '35%').css('padding', '5px');
+                            
+                            $lookupTypeSelect.on('change', null, function () {                           
+                               $('#{!lookupUniqueId}lkpNotReq_lktp').val(this.value); 
+                               $('#{!lookupUniqueId}lkpNotReq_mod').val('1');
+                            });                                                                                
+                            $lookupTypeSelect.appendTo($lookupTypeSelectContainer);
+                            $lookupTypeSelectContainer.removeClass('lkpChk');
+                                                                          
+                            $('#{!lookupUniqueId}lkpNotReq.lkpChk').css('display', 'inline-block').css('width', '65%').removeClass('lkpChk');
+                            $('#{!lookupUniqueId}lkpNotReq_lktp.lkpChk').val($lookupTypeSelect.find('option:selected').val()).removeClass('lkpChk');                                                 
+                        }
+                        
+                        $ownerLookup.remove();
+                    </script>
+                </apex:outputPanel> 
+              
+           </apex:outputPanel>
+           
+          <apex:outputPanel layout="none" rendered="{!OR(NOT(isEdit), NOT(cSObj.cSObjectFields[fieldName].isEditable))}">
+               <apex:outputLink target="_self" value="/{!cSObj.cSObjectFields[fieldName].fValue}">{!cSObj.cSObjectFields[fieldName].cSObjRefField.fRecordName}</apex:outputLink>               
+           </apex:outputPanel>             
+        </apex:outputPanel>  
+                          
+        
+        <apex:outputPanel rendered="{!IF(OR('recordtypeid' == fieldName, 'picklist'=LOWER(cSObj.cSObjectFields[fieldName].fType)), true, false)}" layout="none">                                     
+                <apex:outputPanel layout="none" rendered="{!AND(isEdit, cSObj.cSObjectFields[fieldName].isEditable)}">
+                    <apex:outputPanel layout="none">
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select name="{!inputNamePrefix}{!fieldName}" value="{!cSObj.cSObjectFields[fieldName].fValue}" class="slds-select">
+                                    <apex:repeat value="{!cSObj.cSObjectFields[fieldName].picklistOptions}" var="opt">
+                                        <apex:outputPanel layout="none" rendered="{!cSObj.cSObjectFields[fieldName].fValue <> opt.val}">
+                                            <option value="{!opt.val}">{!opt.label}</option>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel layout="none" rendered="{!cSObj.cSObjectFields[fieldName].fValue == opt.val}">
+                                            <option value="{!opt.val}" selected="selected">{!opt.label}</option>
+                                        </apex:outputPanel>
+                                    </apex:repeat>                        
+                                </select>
+                                <apex:outputPanel layout="block" styleClass="slds-form-element__help" rendered="{!NOT(ISBLANK(cSObj.cSObjectFields[fieldName].errorMsg))}"><strong>Error:</strong> {!cSObj.cSObjectFields[fieldName].errorMsg}</apex:outputPanel>
+                            </div>
+                        </div>       
+                    </apex:outputPanel>
+                </apex:outputPanel>                                   
+               
+              <apex:outputPanel layout="none" rendered="{!OR(NOT(isEdit), NOT(cSObj.cSObjectFields[fieldName].isEditable))}">
+                   <apex:outputText escape="false" value="{!cSObj.cSObjectFields[fieldName].fValue}" /> 
+                </apex:outputPanel>               
+        </apex:outputPanel>  
+    
+        <apex:outputPanel rendered="{!'multipicklist'=LOWER(cSObj.cSObjectFields[fieldName].fType)}" layout="none">                   
+               <apex:outputPanel layout="none" rendered="{!AND(isEdit, cSObj.cSObjectFields[fieldName].isEditable)}">                    
+                    <select id="{!inputNamePrefix}{!fieldName}" name="{!inputNamePrefix}{!fieldName}" value="{!cSObj.cSObjectFields[fieldName].multipicklistSelectedValues}" multiple="multiple" class="multipicklistSelect fieldValueInput not-ready form-control slds-hide">
+                        <apex:repeat value="{!cSObj.cSObjectFields[fieldName].picklistOptions}" var="opt">                            
+                            <option value="{!opt.val}" data-selected="{!opt.isSelected}">{!opt.label}</option>
+                        </apex:repeat>                        
+                    </select>
+                    
+                    <div class="slds-dueling-list">
+                        <div class="slds-dueling-list__column slds-dueling-list__column_responsive">
+                            <span class="slds-form-element__label">Available</span>
+                            <div class="slds-dueling-list__options">
+                                <ul class="slds-listbox slds-listbox_vertical" role="listbox" id="{!inputNamePrefix}{!fieldName}_options">
+                                    <apex:repeat value="{!cSObj.cSObjectFields[fieldName].picklistOptions}" var="opt">
+                                        <li role="presentation" class="slds-listbox__item" data-value="{!opt.val}">
+                                            <div class="slds-listbox__option_plain slds-media slds-media_small slds-media_inline">
+                                                <span class="slds-media__body">
+                                                    <span class="slds-truncate" title="{!opt.label}">{!opt.label}</span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </apex:repeat>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="slds-dueling-list__column">
+                            <button id="{!inputNamePrefix}{!fieldName}_ActionSelect" class="slds-button slds-button_icon slds-button_icon-container" title="Move Selection to Selected">
+                                <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#right')}" class="slds-button__icon"></i>
+                                <span class="slds-assistive-text">Move Selection to Selected</span>
+                            </button>
+                            <button id="{!inputNamePrefix}{!fieldName}_ActionRemove" class="slds-button slds-button_icon slds-button_icon-container" title="Move Selection to Available">
+                                <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#left')}" class="slds-button__icon"></i>
+                                <span class="slds-assistive-text">Move Selection to Available</span>
+                            </button>
+                        </div>
+                        <div class="slds-dueling-list__column slds-dueling-list__column_responsive">
+                            <span class="slds-form-element__label">Selected</span>
+                            <div class="slds-dueling-list__options">
+                                <ul class="slds-listbox slds-listbox_vertical" role="listbox" id="{!inputNamePrefix}{!fieldName}_selected"></ul>
+                            </div>
+                        </div>
+                    </div>
+    
+                    
+                    <script type="text/javascript">
+                    (function() {
+                        var $select = $('#{!inputNamePrefix}{!fieldName}');
+
+                        $select.find('[data-selected="true"]').attr('selected', true);
+
+                        var $options = $('#{!inputNamePrefix}{!fieldName}_options');
+                        var $selected = $('#{!inputNamePrefix}{!fieldName}_selected');
+
+                        $options.on('click', 'li', function(e) {
+                            var isSelected = $(this).attr('aria-selected') == 'true';
+
+                            $(this).attr('aria-selected', !isSelected);
+                        });
+
+                        $selected.on('click', 'li', function(e) {
+                            var isSelected = $(this).attr('aria-selected') == 'true';
+
+                            $(this).attr('aria-selected', !isSelected);
+                        });
+
+                        var optionsSelected = $select.val();
+
+                        var updateSelection = function() {
+                            var selection = [];
+                            $select.find('option').each(function() {
+                                var $this = $(this);
+                                var isSelected = $selected.find('[data-value="' + $this.val() + '"]').length > 0;
+
+                                $this.attr('selected', isSelected);
+
+                                if(isSelected) {
+                                    selection.push($this.val());
+                                }
+                            }).trigger('refresh');
+                        };
+
+                        $options.find('li').each(function() {
+                            var $this = $(this);
+
+                            if(optionsSelected.indexOf($this.val()) != -1) {
+                                $this.appendTo('#{!inputNamePrefix}{!fieldName}_selected');
+                            }
+                        });
+
+                        updateSelection();
+
+                        $('#{!inputNamePrefix}{!fieldName}_ActionSelect').on('click', function(e) {
+                            $options.find('li[aria-selected="true"]').appendTo('#{!inputNamePrefix}{!fieldName}_selected');
+
+                            updateSelection();
+
+                            e.preventDefault();
+                        });
+
+                        $('#{!inputNamePrefix}{!fieldName}_ActionRemove').on('click', function(e) {
+                            $selected.find('li[aria-selected="true"]').appendTo('#{!inputNamePrefix}{!fieldName}_options');
+
+                            updateSelection();
+
+                            e.preventDefault();
+                        });
+                    })();
+                    </script>
+                </apex:outputPanel>
+               
+              <apex:outputPanel layout="none" rendered="{!OR(NOT(isEdit), NOT(cSObj.cSObjectFields[fieldName].isEditable))}">
+                   <apex:outputText escape="false" value="{!cSObj.cSObjectFields[fieldName].fValue}" /> 
+              </apex:outputPanel>                                                  
+        </apex:outputPanel>   
+   </apex:outputPanel>    
+   
+   
+   <apex:outputPanel layout="none" rendered="{!NOT(AND(NOT(ISBLANK(fieldName)), NOT(fieldName == ' ')))}">                                
+        <apex:inputText disabled="true" styleClass="form-control"/>        
+    </apex:outputPanel>       
+</apex:component>

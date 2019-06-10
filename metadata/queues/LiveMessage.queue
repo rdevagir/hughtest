@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>LiveMessage</name>
+    <queueMembers>
+        <users>
+            <user>admin.u7zqv82wmw3v@harding.demo</user>
+            <user>bservice.zjj7ahlfxd4t@harding.demo</user>
+            <user>lservice.y9kqn0notkqk@harding.demo</user>
+            <user>sservice.3zpdul4u2pim@harding.demo</user>
+            <user>tservice.xg55fu4iugbg@harding.demo</user>
+        </users>
+    </queueMembers>
+    <queueRoutingConfig>Tier_1_Cases</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>LiveText__Conversation_Header__c</sobjectType>
+    </queueSobject>
+</Queue>

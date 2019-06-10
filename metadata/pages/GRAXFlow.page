@@ -1,0 +1,4 @@
+<apex:page controller="GRAXFlow" showHeader="true" tabStyle="GRAX_Intro__tab">
+<apex:pageMessages escape="false"/>
+<iframe height="600px" id="theIframe" name="theIframe" src="{!PropURLToDisplay}" width="100%" frameBorder="0"></iframe>
+</apex:page>

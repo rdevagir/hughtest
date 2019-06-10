@@ -1,0 +1,101 @@
+<apex:component controller="GRAXElasticRecordDisplayCtrl">
+    <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.grax, '/jquery.slds.js')}"/>
+
+    <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"/>
+    <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.23/moment-timezone-with-data-2012-2022.min.js"/>
+
+    <script>
+        var SF_DATETIME_REGEXP = /^((?:(?:19|20)\d{2})-(?:10|11|12|0?\d)-(?:30|31|(?:0|1|2)\d))((?:(?:T|\s)(?:(?:0|1|2)\d)(?:\:[0-5]\d)(?::[0-5]\d)?((?:(?:\.\d{3})?)?Z?(?:[+-](?:0|1|2)\d\:?[0-5]\d)?))?)$/;
+
+        /*var DATETIME_FORMAT = 'MM/DD/YYYY hh:mm A';
+        var DATE_FORMAT = 'MM/DD/YYYY';*/
+        var DATETIME_FORMAT = 'L';
+        var DATE_FORMAT = 'LT';
+
+        var getFormatedValue = function(val) {
+            if(typeof(val) === 'string') {
+                val = val.trim();
+            }
+
+            // If date/datetime value
+            if(SF_DATETIME_REGEXP.test(val)) {
+                var m = moment(val);
+
+                if(m.isValid()) {
+                    //val = m.tz(moment.tz.guess())...
+                    val = m.format(m._i.indexOf(':') != -1 ? DATETIME_FORMAT : DATE_FORMAT);
+                }
+            }
+
+            return val;
+        };
+    </script>
+
+    <apex:attribute name="id"
+		type="String"
+		required="false"
+        default="GRAXElasticRecordDisplay"
+        description="HTML div container ID" />
+
+    <apex:attribute name="objName1"
+        type="String"
+        required="true"
+        description="SObject Type of the Record"
+        assignTo="{!objName}" />
+
+    <apex:attribute name="recordId1"
+		type="String"
+		required="true"
+        default="{}"
+        description="Id of the Elastic Record"
+        assignTo="{!recordId}" />
+
+    <apex:attribute name="recordOrgId1"
+        type="String"
+        required="true"
+        default="{}"
+        description="OrgId of the Elastic Record"
+        assignTo="{!orgId}" />
+
+    <apex:repeat value="{!elasticFields}" var="elasticField">
+        <div class="slds-form-element slds-m-bottom_xx-small slds-p-top_xx-small">
+            <apex:outputLabel styleClass="slds-form-element__label" for="fieldValue" value="{!elasticField.name}"/>
+
+            <div class="slds-form-element__control slds-p-bottom_xx-small slds-border_bottom">
+                <apex:outputPanel layout="none" rendered="{!elasticField.hasSField}">
+                    <c:GRAXFieldDisplay objName1="{!objName}" fieldName1="{!elasticField.name}" currentValue1="{!elasticField.value}" isEdit1="false" />
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" rendered="{!!elasticField.hasSField && elasticField.type == 'boolean'}">
+                    <img alt="Checked" class="checkImg" title="Checked" src="/img/checkbox_{!IF(elasticField.value == 'true', '', 'un')}checked.gif" width="21" height="16" />
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" rendered="{!!elasticField.hasSField && elasticField.type <> 'boolean'}">
+                    <span id="{!id}_{!elasticField.name}_{!elasticField.type}" style="word-spacing:normal;word-wrap:break-word;"></span>
+                    
+                    <script>
+                        $('#{!id}_{!elasticField.name}_{!elasticField.type}').text(getFormatedValue('{!elasticField.value}'));
+                    </script>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="inline">
+                    &nbsp;
+                </apex:outputPanel>
+            </div>
+        </div>
+    </apex:repeat>
+
+    <script>
+        /*$('._dateField').each(function() {
+            var val = $(this).text();
+
+            $(this)
+                .removeClass('_dateField')
+                .attr({
+                    title: val
+                })
+                .text(getFormatedValue(val));
+        });*/
+    </script>
+</apex:component>

@@ -1,0 +1,639 @@
+<apex:component >
+    <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.grax, '/jquery.slds.js')}"/>
+
+    <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"/>
+
+    <apex:attribute name="id"
+		type="String"
+		required="false"
+        default="GRAXFilterGenerator"
+        description="HTML div container ID" />
+    <apex:attribute name="fieldVsTypeJSON"
+		type="String"
+		required="false"
+        default="{}"
+        description="JSON with a map name -> type" />
+    <apex:attribute name="fieldsStructJSON"
+		type="String"
+		required="false"
+        default="null"
+        description="JSON with a list of maps {id, label, type}" />
+    <apex:attribute name="jsCallback"
+		type="String"
+		required="false"
+        default="GRAXFilterGenerator_callback"
+        description="Name of the JavaScript callback" />
+
+    <style>
+        #{!id} td {
+            vertical-align: middle;
+        }
+
+        #{!id} .input-date {
+            position: relative;
+        }
+
+        #{!id} .input-date .clear-fix {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 3.5rem;
+        }
+
+        #{!id} .input-date .input-date_mask {
+            position: absolute;
+            left: 1px;
+            top: 1px;
+            pointer-events: none;
+            min-height: auto;
+            min-width: auto;
+            width: 98%;
+            height: auto;
+            box-shadow: none !important;
+            border-color: transparent;
+            box-sizing: border-box;
+            border-style: none;
+        }
+
+        #{!id} input[type="date"] {
+            -moz-appearance: text;
+        }
+
+        #{!id} input[type="date"]::-webkit-calendar-picker-indicator {
+            width: auto;
+            height: auto;
+            background: transparent;
+            color: transparent;
+            visibility: visible;
+            opacity: 1;
+            display: block;
+            position: absolute;
+            top:0;
+            right:0;
+            left:0;
+            bottom:0;
+        }
+
+        #{!id} input[type="date"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+
+    <style>
+        @media (max-width:30em) {
+            .slds-scope .slds-max-small-table_stacked,.slds-scope .slds-max-medium-table--stacked {
+                border:0
+            }
+            .slds-scope .slds-max-small-table_stacked thead,.slds-scope .slds-max-medium-table--stacked thead {
+                position:absolute!important;
+                margin:-1px!important;
+                border:0!important;
+                padding:0!important;
+                width:1px!important;
+                height:1px!important;
+                overflow:hidden!important;
+                clip:rect(0 0 0 0)!important
+            }
+            .slds-scope .slds-max-small-table_stacked th,.slds-scope .slds-max-medium-table--stacked th {
+                border-top:0
+            }
+            .slds-scope .slds-max-small-table_stacked tr,.slds-scope .slds-max-medium-table--stacked tr {
+                display:block;
+                border-top:2px solid rgb(221, 219, 218)
+            }
+            .slds-scope .slds-max-small-table_stacked th,.slds-scope .slds-max-small-table_stacked td,.slds-scope .slds-max-medium-table--stacked th,.slds-scope .slds-max-medium-table--stacked td {
+                display:block;
+                padding:.75rem;
+                max-width:100%;
+                width:100%;
+                clear:both;
+                white-space:normal;
+                overflow:hidden;
+                text-align:left
+            }
+            .slds-scope .slds-max-small-table_stacked th.slds-truncate,.slds-scope .slds-max-small-table_stacked td.slds-truncate,.slds-scope .slds-max-medium-table--stacked th.slds-truncate,.slds-scope .slds-max-medium-table--stacked td.slds-truncate {
+                max-width:100%
+            }
+            .slds-scope .slds-max-small-table_stacked th:before,.slds-scope .slds-max-small-table_stacked td:before,.slds-scope .slds-max-medium-table--stacked th:before,.slds-scope .slds-max-medium-table--stacked td:before {
+                font-size:.75rem;
+                line-height:1.25;
+                color:rgb(62, 62, 60);
+                text-transform:uppercase;
+                letter-spacing:.0625rem;
+                display:block;
+                padding-bottom:.25rem;
+                content:attr(data-label)
+            }
+            .slds-scope .slds-max-small-table_stacked tr>td:first-child,.slds-scope .slds-max-small-table_stacked tr>td:last-child,.slds-scope .slds-max-medium-table--stacked tr>td:first-child,.slds-scope .slds-max-medium-table--stacked tr>td:last-child {
+                padding:.75rem
+            }
+            .slds-scope .slds-max-small-table_stacked:not(.slds-no-row-hover) tbody tr:hover td,.slds-scope .slds-max-small-table_stacked:not(.slds-no-row-hover) tbody tr:hover th,.slds-scope .slds-max-medium-table--stacked:not(.slds-no-row-hover) tbody tr:hover td,.slds-scope .slds-max-medium-table--stacked:not(.slds-no-row-hover) tbody tr:hover th {
+                background-color:inherit!important;
+                box-shadow:none!important
+            }
+            .slds-scope .slds-max-small-table_stacked .slds-is-interactive .slds-button,.slds-scope .slds-max-medium-table--stacked .slds-is-interactive .slds-button {
+                visibility:visible
+            }
+            .slds-scope .slds-max-small-table_stacked .slds-cell-shrink,.slds-scope .slds-max-medium-table--stacked .slds-cell-shrink {
+                width:auto
+            }
+
+            .slds-scope .slds-max-small-table_stacked td:before,.slds-scope .slds-max-small-table_stacked th:before,.slds-scope .slds-max-medium-table--stacked td:before,.slds-scope .slds-max-medium-table--stacked th:before {
+                padding-bottom:.25rem
+            }
+
+            .slds-scope .slds-max-small-table_stacked-horizontal,.slds-scope .slds-max-medium-table--stacked-horizontal {
+                border:0
+            }
+            .slds-scope .slds-max-small-table_stacked-horizontal thead,.slds-scope .slds-max-medium-table--stacked-horizontal thead {
+                position:absolute!important;
+                margin:-1px!important;
+                border:0!important;
+                padding:0!important;
+                width:1px!important;
+                height:1px!important;
+                overflow:hidden!important;
+                clip:rect(0 0 0 0)!important
+            }
+            .slds-scope .slds-max-small-table_stacked-horizontal th,.slds-scope .slds-max-medium-table--stacked-horizontal th {
+                border-top:0
+            }
+            .slds-scope .slds-max-small-table_stacked-horizontal tr,.slds-scope .slds-max-medium-table--stacked-horizontal tr {
+                display:block;
+                border-top:2px solid rgb(221, 219, 218)
+            }
+            .slds-scope .slds-max-small-table_stacked-horizontal th,.slds-scope .slds-max-small-table_stacked-horizontal td,.slds-scope .slds-max-medium-table--stacked-horizontal th,.slds-scope .slds-max-medium-table--stacked-horizontal td {
+                display:block;
+                padding:.75rem;
+                max-width:100%;
+                width:100%;
+                clear:both;
+                white-space:normal;
+                overflow:hidden;
+                text-align:left
+            }
+            .slds-scope .slds-max-small-table_stacked-horizontal th.slds-truncate,.slds-scope .slds-max-small-table_stacked-horizontal td.slds-truncate,.slds-scope .slds-max-medium-table--stacked-horizontal th.slds-truncate,.slds-scope .slds-max-medium-table--stacked-horizontal td.slds-truncate {
+                max-width:100%
+            }
+            .slds-scope .slds-max-small-table_stacked-horizontal th:before,.slds-scope .slds-max-small-table_stacked-horizontal td:before,.slds-scope .slds-max-medium-table--stacked-horizontal th:before,.slds-scope .slds-max-medium-table--stacked-horizontal td:before {
+                font-size:.75rem;
+                line-height:1.25;
+                color:rgb(62, 62, 60);
+                text-transform:uppercase;
+                letter-spacing:.0625rem;
+                display:block;
+                padding-bottom:.25rem;
+                content:attr(data-label)
+            }
+            .slds-scope .slds-max-small-table_stacked-horizontal tr>td:first-child,.slds-scope .slds-max-small-table_stacked-horizontal tr>td:last-child,.slds-scope .slds-max-medium-table--stacked-horizontal tr>td:first-child,.slds-scope .slds-max-medium-table--stacked-horizontal tr>td:last-child {
+                padding:.75rem
+            }
+            .slds-scope .slds-max-small-table_stacked-horizontal:not(.slds-no-row-hover) tbody tr:hover td,.slds-scope .slds-max-small-table_stacked-horizontal:not(.slds-no-row-hover) tbody tr:hover th,.slds-scope .slds-max-medium-table--stacked-horizontal:not(.slds-no-row-hover) tbody tr:hover td,.slds-scope .slds-max-medium-table--stacked-horizontal:not(.slds-no-row-hover) tbody tr:hover th {
+                background-color:inherit!important;
+                box-shadow:none!important
+            }
+            .slds-scope .slds-max-small-table_stacked-horizontal .slds-is-interactive .slds-button,.slds-scope .slds-max-medium-table--stacked-horizontal .slds-is-interactive .slds-button {
+                visibility:visible
+            }
+            .slds-scope .slds-max-small-table_stacked-horizontal .slds-cell-shrink,.slds-scope .slds-max-medium-table--stacked-horizontal .slds-cell-shrink {
+                width:auto
+            }
+            .slds-scope .slds-max-small-table_stacked-horizontal td,.slds-scope .slds-max-medium-table--stacked-horizontal td {
+                text-align:right
+            }
+            .slds-scope .slds-max-small-table_stacked-horizontal td:before,.slds-scope .slds-max-medium-table--stacked-horizontal td:before {
+                float:left;
+                margin-top:.125rem
+            }
+            .slds-scope .slds-max-small-table_stacked-horizontal .slds-truncate,.slds-scope .slds-max-medium-table--stacked-horizontal .slds-truncate {
+                max-width:100%
+            }
+        }
+    </style>
+
+    <div id="{!id}">
+        <table class="slds-table slds-table_bordered slds-no-row-hover slds-max-small-table_stacked">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="slds-text-title_caps" scope="col">
+                        <div class="slds-truncate" title="Field">Field</div>
+                    </th>
+                    <th class="slds-text-title_caps" scope="col">
+                        <div class="slds-truncate" title="Operator">Operator</div>
+                    </th>
+                    <th class="slds-text-title_caps" scope="col">
+                        <div class="slds-truncate" title="Filter Value">Filter Value</div>
+                    </th>
+                    <th class="slds-text-title_caps" scope="col">
+                        <div class="slds-truncate" title="Is Active?">Is Active?</div>
+                    </th>
+                    <th class="slds-text-title_caps" scope="col">
+                        <div class="slds-truncate"></div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="{!id}_tbody"></tbody>
+        </table>
+
+        <div class="slds-p-top_medium">
+            <button id="{!id}_addFilter" class="slds-button slds-button--brand" type="button">Add Filter</button>
+        </div>
+    </div>
+
+    <script>
+        $(function() {
+            var normalizeFieldType = function(typeName) {
+                var nft;
+
+                switch (typeName.toLowerCase()) {
+                    case 'date':
+                    case 'datetime':
+                        nft = 'date';
+                        break;
+                    case 'boolean':
+                        nft = 'boolean';
+                        break;
+                    case 'double':
+                    case 'long':
+                    case 'percent':
+                    case 'currency':
+                    case 'number':
+                    case 'integer':
+                        nft = 'number';
+                        break;
+                    default:
+                        nft = 'text';
+                        break;
+                }
+
+                return nft;
+            };
+
+            var generatePicklist = function(options, defaultBlank) {
+                var $picklist = $('<select>');
+
+                if(defaultBlank) {
+                    $picklist.append(
+                        $('<option>')
+                            .text('-').val(null)
+                            .prop('disabled', true)
+                    );
+                }
+
+                var isStruct = options && options.length > 0 && options[0].id != null;
+
+                if(isStruct) {
+                    options.sort(function (a, b) {
+                        if (a.label > b.label) {
+                            return 1;
+                        }
+    
+                        if (a.label < b.label) {
+                            return -1;
+                        }
+                        
+                        return 0;
+                    });
+                } else {
+                    fields.sort();
+                }
+
+                $picklist.append(
+                    $.map(options, function(option, key) {
+                        if(isStruct) {
+                            return $('<option>').attr({
+                                value: option.id
+                            }).html(option.label);
+                        } else {
+                            return $('<option>').text(option);
+                        }
+                    })
+                );
+
+                $picklist.prop('selectedIndex', 0);
+
+                return $picklist;
+            };
+
+            var generateControlWrapper = function($control) {
+                $control
+                    .wrap('<div class="slds-form-element"><div class="slds-form-element__control"></div></div>');
+
+                return $control;
+            };
+
+            var generateDateControlWrapper = function($control) {
+                $control
+                    .wrap('<div class="slds-form-element"><div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right slds-form-element__date input-date"></div></div>');
+
+                return $control;
+            };
+
+            var generateInputWrapper = function($input) {
+                if($input.is('select')) {
+                    $input
+                        .addClass('slds-select')
+                        .wrap('<div class="slds-select_container"></div>')
+                }
+
+                if($input.is('[type="text"], [type="number"], [type="date"]')) {
+                    $input
+                        .addClass('slds-input');
+
+                    if($input.is('[type="number"]')) {
+                        $input
+                            .addClass('slds-input_counter');
+                    }
+                }
+
+
+                if($input.is('[type="date"]')) {
+
+                    $input.after(
+                        $('<i>').attr({
+                            'class': 'input-date_picker slds-button slds-button_icon slds-input__icon slds-input__icon_right',
+                            'data-icon': "{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#event')}"
+                        })
+                    );
+
+                    var $input_mask =  $('<input>').attr({
+                        'type': 'text',
+                        'class': 'slds-input input-date_mask'
+                    });
+
+                    $input.after($input_mask);
+
+                    $input.after(
+                        $('<div>').attr({
+                            'class': 'clear-fix'
+                        })
+                    );
+
+                    $input.on('change', function(e) {
+                        $input_mask.val(moment(e.target.value).format('L'));
+                    });
+
+                }
+
+
+                if($input.is('[type="checkbox"]')) {
+                    var inputId = (new Date()).getTime().toString();
+
+                    $input
+                        .attr({
+                            id: inputId
+                        })
+                        .wrap('<div class="slds-checkbox"></div>');
+
+                    var $checkbox_faux = $('<label>').attr({
+                        class: 'slds-checkbox__label',
+                        for: inputId
+                    }).append(
+                        $('<span>').attr({
+                            class: 'slds-checkbox_faux'
+                        })
+                    );
+
+                    $input.after($checkbox_faux);
+                }
+
+                return $input;
+            };
+
+            var generateInput = function(type) {
+                return (
+                    $('<input>').attr({
+                        type: TYPE_VS_INPUT[type]
+                    })
+                );
+            };
+
+            var TYPE_VS_OPERATORS = {
+                'text': ['==', '!=', 'contains', 'not contains'],
+                'date': ['==', '!=', '>', '<', '>=', '<='],
+                'number': ['==', '!=', '>', '<', '>=', '<='],
+                'long': ['==', '!=', '>', '<', '>=', '<='],
+                'boolean': ['==']
+            };
+
+            var TYPE_VS_INPUT = {
+                'text': 'text',
+                'date': 'date',
+                'number': 'number',
+                'long': 'number',
+                'boolean': 'checkbox'
+            };
+
+            var fieldsStructJSON = {!fieldsStructJSON};
+
+            var fieldVsTypeJSON;
+            var fields;
+
+            if(fieldsStructJSON) {
+                fieldVsTypeJSON = fieldsStructJSON.reduce(function(_ret, item) {
+                    _ret[item.id] = item.type;
+
+                    return _ret
+                }, {});
+
+                fields = fieldsStructJSON;
+            } else {
+                fieldVsTypeJSON = {!fieldVsTypeJSON};
+                fields = Object.keys(fieldVsTypeJSON);
+            }
+
+
+            var generateFilterColumn = function(label) {
+                return $('<td>').attr({
+                    'data-label': label
+                });
+            };
+
+            var filters = [];
+
+            var callbackFilters = function(filters) {
+                {!jsCallback}(
+                    $.grep(filters, function(filter) {
+                        return filter !== undefined && filter.isActive
+                    })
+                );
+            };
+
+            var isFilterComplete = function(filter) {
+                return (
+                    filter.field !== undefined &&
+                    filter.operator !== undefined &&
+                    filter.value !== undefined &&
+                    filter.type !== undefined &&
+                    filter.isActive !== undefined
+                );
+            };
+
+            var isLastRowCompleted = function() {
+                var lastFilterIndex = filters.lastIndexOf();
+
+                return lastFilterIndex === -1 || isFilterComplete(filters[lastFilterIndex]);
+            };
+
+            var updateFilter = function(i, key, val) {
+                if(filters[i] == undefined) {
+                    filters[i] = {
+                        isActive: true
+                    };
+                };
+
+                filters[i][key] = val;
+
+                if(
+                    (key === undefined && val === undefined)
+                    || isFilterComplete(filters[i])
+                ) {
+                    callbackFilters(filters);
+                }
+            };
+
+            var generateFilterRow = function(i) {
+                var $tr = $('<tr>').attr({
+                    class: 'slds-hint-parent'
+                });
+
+                var $td_field = generateFilterColumn('Field');
+                var $td_operator = generateFilterColumn('Operator');
+                var $td_filterValue = generateFilterColumn('Filter Value');
+                var $td_isActive = generateFilterColumn('Is Active?');
+                var $td_actions = generateFilterColumn('Actions');
+
+
+                var $isActive_input = generateInput('boolean')
+                    .prop('checked', true)
+                    .on('change', function(e) {
+                        updateFilter(i, 'isActive', e.target.checked);
+                    })
+                ;
+                $td_isActive.append($isActive_input);
+
+                generateControlWrapper($isActive_input);
+                generateInputWrapper($isActive_input);
+
+                $td_actions.append(
+                    $('<a>')
+                        .attr({
+                            href: 'javascript:void(0);',
+                            class: 'slds-button'
+                        })
+                        .append(
+                            $('<span>')
+                                .attr({
+                                    class: 'slds-hide_small'
+                                })
+                                .text('Remove Filter')
+                        )
+                        .append(
+                            $('<span>')
+                                .attr({
+                                    class: 'slds-show_small'
+                                })
+                                .text('x')
+                        )
+                        .on('click', function(e) {
+                            updateFilter(i, 'isActive', false);
+
+                            $tr.remove();
+
+                            e.preventDefault();
+                        })
+                );
+
+                $tr.append([
+                    $td_field,
+                    $td_operator,
+                    $td_filterValue,
+                    $td_isActive,
+                    $td_actions
+                ]);
+
+                var $fieldPicklist = generatePicklist(fields, true)
+                    .on('change', function(e) {
+                        var field = e.target.value;
+                        var type = normalizeFieldType(fieldVsTypeJSON[field]);
+                        var operators = TYPE_VS_OPERATORS[type];
+
+                        $fieldPicklist.attr({
+                            title: field
+                        });
+
+                        updateFilter(i, 'field', field);
+                        updateFilter(i, 'operator', operators[0]);
+
+                        var defaultValue = '';
+
+                        if(type == 'boolean') {
+                            defaultValue = false;
+                        }
+
+                        updateFilter(i, 'value', defaultValue);
+                        updateFilter(i, 'type', type);
+
+                        var $operatorPicklist = generatePicklist(operators)
+                            .on('change', function(e) {
+                                updateFilter(i, 'operator', e.target.value);
+                            })
+                        ;
+
+                        $td_operator.html($operatorPicklist);
+
+                        generateControlWrapper($operatorPicklist);
+                        generateInputWrapper($operatorPicklist);
+
+                        var $valueInput = generateInput(type)
+                            .on('change', function(e) {
+                                var val;
+
+                                if(type == 'boolean') {
+                                    val = e.target.checked;
+                                } else {
+                                    val = e.target.value;
+                                }
+
+                                updateFilter(i, 'value', val);
+                            });
+
+                        $td_filterValue.html($valueInput);
+
+                        if(type == 'date') {
+                            generateDateControlWrapper($valueInput);
+
+                            setTimeout(function() {
+                                renderSvgIcons();
+                            }, 1000);
+                        } else {
+                            generateControlWrapper($valueInput);
+                        }
+                        generateInputWrapper($valueInput);
+                    })
+                ;
+
+                $td_field.append($fieldPicklist);
+
+                generateControlWrapper($fieldPicklist);
+                generateInputWrapper($fieldPicklist);
+
+                return $tr;
+            };
+
+            var currentFilterIndex = 0;
+            $('#{!id}_addFilter').on('click', function(e) {
+                e.preventDefault();
+
+                if(!isLastRowCompleted()) return;
+
+                $('#{!id}_tbody').append(
+                    generateFilterRow(currentFilterIndex++)
+                );
+            });
+        });
+    </script>
+</apex:component>

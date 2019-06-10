@@ -1,0 +1,3 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+    <iframe src="{!'https://demohardingpoint200.my.salesforce.com/apex/GRAXTimeMachine?id=' + v.recordId + '&amp;isdtp=p1'}" width="100%" height="800" frameBorder="0"/>
+</aura:component>

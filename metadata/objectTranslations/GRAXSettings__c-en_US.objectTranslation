@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>GRAX Settings</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>GRAX Settings</value>
+    </caseValues>
+    <fields>
+        <help><!-- GRAX Settings : Heroku Setting ENGAGEMENTGRAPH_APITOKEN --></help>
+        <label><!-- ApiToken --></label>
+        <name>ApiToken__c</name>
+    </fields>
+    <fields>
+        <label><!-- BatchMaxExecutionNumber --></label>
+        <name>BatchMaxExecutionNumber__c</name>
+    </fields>
+    <fields>
+        <help><!-- Display Organization Name on the table --></help>
+        <label><!-- Display Organization Name --></label>
+        <name>Display_Organization_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Display Outside Records Only --></help>
+        <label><!-- Display Outside Records Only --></label>
+        <name>Display_Outside_Records_Only__c</name>
+    </fields>
+    <fields>
+        <label><!-- Enable Delete Tab --></label>
+        <name>EnableDeleteTab__c</name>
+    </fields>
+    <fields>
+        <label><!-- Enable Field Tracking --></label>
+        <name>EnableFieldTracking__c</name>
+    </fields>
+    <fields>
+        <label><!-- Enable Object Tracking --></label>
+        <name>EnableObjectTracking__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAX API Url --></label>
+        <name>GRAX_API_Url__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAX Cloud Path --></label>
+        <name>GRAX_Cloud_Path__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAX Flow URL --></label>
+        <name>GRAX_Flow_URL__c</name>
+    </fields>
+    <fields>
+        <help><!-- GRAX Settings : Heroku Setting ENGAGEMENTGRAPH_GATEWAYTOKEN --></help>
+        <label><!-- GatewayToken --></label>
+        <name>GatewayToken__c</name>
+    </fields>
+    <fields>
+        <label><!-- Graph DB Password --></label>
+        <name>Graph_DB_Password__c</name>
+    </fields>
+    <fields>
+        <help><!-- E.G. https://hobby-ilpalckeehocgbkeoncdnjal.dbs.graphenedb.com:24780 --></help>
+        <label><!-- Graph DB URL --></label>
+        <name>Graph_DB_URL__c</name>
+    </fields>
+    <fields>
+        <help><!-- Graph DB Username --></help>
+        <label><!-- Graph DB Username --></label>
+        <name>Graph_DB_Username__c</name>
+    </fields>
+    <fields>
+        <help><!-- Heroku Application Name --></help>
+        <label><!-- Heroku App Name --></label>
+        <name>Heroku_App_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- GRAX Settings : Heroku Setting ENGAGEMENTGRAPH_LICENSETOKEN --></help>
+        <label><!-- LicenseToken --></label>
+        <name>LicenseToken__c</name>
+    </fields>
+    <fields>
+        <label><!-- LogAllErrors --></label>
+        <name>LogAllErrors__c</name>
+    </fields>
+    <fields>
+        <label><!-- MaxNumberOfParentsOnHierarchyBackup --></label>
+        <name>MaxNumberOfParentsOnHierarchyBackup__c</name>
+    </fields>
+    <fields>
+        <help><!-- This value will be used to set the maximum number of records sent to GRAX in a single Payload. Values could be: 1, 2, 5, 10, 20, 25, 50, 100, 200, 400, 500, 1000, 2000 --></help>
+        <label><!-- MaxNumberOfRecordsPerPayload --></label>
+        <name>MaxNumberOfRecordsPerPayload__c</name>
+    </fields>
+    <fields>
+        <help><!-- Postgres URL used for Audit Trail --></help>
+        <label><!-- PostgresURL --></label>
+        <name>Postgres_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- QueryLimit --></label>
+        <name>QueryLimit__c</name>
+    </fields>
+    <fields>
+        <label><!-- QueryOrderBy --></label>
+        <name>QueryOrderBy__c</name>
+    </fields>
+    <fields>
+        <help><!-- GRAX Settings : Heroku Setting GRAPHENEDB_URL --></help>
+        <label><!-- graphdburl --></label>
+        <name>graphdburl__c</name>
+    </fields>
+    <fields>
+        <help><!-- s3accesskeyid used for Audit Tracking --></help>
+        <label><!-- s3accesskeyid --></label>
+        <name>s3accesskeyid__c</name>
+    </fields>
+    <fields>
+        <help><!-- s3bucket Used for GRAX Audit Trail --></help>
+        <label><!-- s3bucket --></label>
+        <name>s3bucket__c</name>
+    </fields>
+    <fields>
+        <label><!-- s3region --></label>
+        <name>s3region__c</name>
+    </fields>
+    <fields>
+        <help><!-- s3secretaccesskey used for GRAX Audit Trail --></help>
+        <label><!-- s3secretaccesskey --></label>
+        <name>s3secretaccesskey__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

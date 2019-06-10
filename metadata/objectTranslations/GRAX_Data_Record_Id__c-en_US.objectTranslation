@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>GRAX Data Record Id</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>GRAX Data Record Ids</value>
+    </caseValues>
+    <fields>
+        <label><!-- Can Delete GRAX Record? --></label>
+        <name>Can_Delete_GRAX_Record__c</name>
+    </fields>
+    <fields>
+        <label><!-- Error Description --></label>
+        <name>Error_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Execution Unique Key --></label>
+        <name>Execution_Unique_Key__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAX Data Record --></label>
+        <name>GRAX_Data_Record__c</name>
+        <relationshipLabel><!-- GRAX Data Record Ids --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Processed Child Index --></label>
+        <name>Processed_Child_Index__c</name>
+    </fields>
+    <fields>
+        <label><!-- SFDC Id --></label>
+        <name>SFDC_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Delete Error</masterLabel>
+            <translation><!-- Delete Error --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Deleted with Master Parent</masterLabel>
+            <translation><!-- Deleted with Master Parent --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sent to GRAX</masterLabel>
+            <translation><!-- Sent to GRAX --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Successfully Deleted</masterLabel>
+            <translation><!-- Successfully Deleted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>To be Deleted</masterLabel>
+            <translation><!-- To be Deleted --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- # of Attempts to Delete --></label>
+        <name>of_Attempts_to_Delete__c</name>
+    </fields>
+    <layouts>
+        <layout>Formato GRAX Data Record Id</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>GRAX Data Record Id Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

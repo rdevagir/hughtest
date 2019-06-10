@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object is the record which will be executed to back up/archive records from Salesforce. This record contains the objects, schedule frequency, start time, etc. of the back up/archive process.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Archive_Override_Approved_By__c</fullName>
+        <externalId>false</externalId>
+        <label>Archive Override Approved By</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Archive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Archive</description>
+        <externalId>false</externalId>
+        <label>Archive</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Can_Delete_GRAX_Records__c</fullName>
+        <externalId>false</externalId>
+        <formula>NOT(Is_Running__c)</formula>
+        <label>Can Delete GRAX Records?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Date_Field__c</fullName>
+        <description>Date_Field</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Salesforce field on the selected object from which the Start &amp; End Dates are being used</inlineHelpText>
+        <label>Date Field</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Execution_Unique_Key__c</fullName>
+        <externalId>false</externalId>
+        <label>Execution Unique Key</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Frequency_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Frequency Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Hours</fullName>
+                    <default>false</default>
+                    <label>Hours</label>
+                </value>
+                <value>
+                    <fullName>Days</fullName>
+                    <default>false</default>
+                    <label>Days</label>
+                </value>
+                <value>
+                    <fullName>Weeks</fullName>
+                    <default>false</default>
+                    <label>Weeks</label>
+                </value>
+                <value>
+                    <fullName>Months</fullName>
+                    <default>false</default>
+                    <label>Months</label>
+                </value>
+                <value>
+                    <fullName>Years</fullName>
+                    <default>false</default>
+                    <label>Years</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Frequency_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Frequency Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GRAX_Summary_Link__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK( $Setup.GRAXSettings__c.GRAX_Flow_URL__c + &quot;/grax-app/grax-data-lake/generateBackupSummary/&quot; + CASESAFEID(Id) + &quot;/&quot; + SUBSTITUTE( Execution_Unique_Key__c, &apos;/&apos;, &apos;%2F&apos;) + &quot;?orgid=&quot; + CASESAFEID( $Organization.Id) , &quot;Summary Link&quot;, &quot;_blank&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GRAX Summary Link</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Running__c</fullName>
+        <description>Field used to determine if the current Scheduled Process is in a &quot;running&quot; state</description>
+        <externalId>false</externalId>
+        <formula>ISPICKVAL (Status__c, &quot;Running&quot;)  ||
+ISPICKVAL (Status__c, &quot;Sending data to GRAX&quot;)  ||
+ISPICKVAL (Status__c, &quot;Deleting Salesforce records&quot;)  ||
+ISPICKVAL (Status__c, &quot;Pending send data to GRAX&quot;)  ||
+ISPICKVAL (Status__c, &quot;Starting Archive Process&quot;)</formula>
+        <label>Is Running</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>JobId__c</fullName>
+        <externalId>false</externalId>
+        <label>JobId</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Run_Date__c</fullName>
+        <description>Last_Run_Date</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Last time this Scheduled Process was run</inlineHelpText>
+        <label>Last Run Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Last_Start_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Start Time</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Next_Run_Date__c</fullName>
+        <description>Next_Run_Date</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Next date/time this Scheduled Process will execute</inlineHelpText>
+        <label>Next Run Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Object_Name__c</fullName>
+        <description>Object_Name</description>
+        <externalId>false</externalId>
+        <label>Object Name</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Progressive__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Progressive</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Rolling_Date__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Rolling Date</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Schedule_Type__c</fullName>
+        <description>Schedule_Type</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Frequency of when the Scheduled Process will run</inlineHelpText>
+        <label>Schedule Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Once</fullName>
+                    <default>false</default>
+                    <label>Once</label>
+                </value>
+                <value>
+                    <fullName>Daily</fullName>
+                    <default>false</default>
+                    <label>Daily</label>
+                </value>
+                <value>
+                    <fullName>Weekly</fullName>
+                    <default>false</default>
+                    <label>Weekly</label>
+                </value>
+                <value>
+                    <fullName>Monthly</fullName>
+                    <default>false</default>
+                    <label>Monthly</label>
+                </value>
+                <value>
+                    <fullName>Quarterly</fullName>
+                    <default>false</default>
+                    <label>Quarterly</label>
+                </value>
+                <value>
+                    <fullName>Semi-Annually</fullName>
+                    <default>false</default>
+                    <label>Semi-Annually</label>
+                </value>
+                <value>
+                    <fullName>Annually</fullName>
+                    <default>false</default>
+                    <label>Annually</label>
+                </value>
+                <value>
+                    <fullName>Custom</fullName>
+                    <default>false</default>
+                    <label>Custom</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Select_Criteria__c</fullName>
+        <description>Select_Criteria</description>
+        <externalId>false</externalId>
+        <label>Select Criteria</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Main Object not modified</fullName>
+                    <default>false</default>
+                    <label>Main Object not modified</label>
+                </value>
+                <value>
+                    <fullName>Main Object and Children not modified</fullName>
+                    <default>false</default>
+                    <label>Main Object and Children not modified</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Selected_Object_Hierarchy_JSON__c</fullName>
+        <description>Selected_Object_Hierarchy_JSON</description>
+        <externalId>false</externalId>
+        <label>Selected Object Hierarchy JSON</label>
+        <length>131072</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Send_Notifications__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Send Notifications</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Start_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Start Time</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>Status</description>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                    <label>Completed</label>
+                </value>
+                <value>
+                    <fullName>Running</fullName>
+                    <default>false</default>
+                    <label>Running</label>
+                </value>
+                <value>
+                    <fullName>Aborted</fullName>
+                    <default>false</default>
+                    <label>Aborted</label>
+                </value>
+                <value>
+                    <fullName>Error</fullName>
+                    <default>false</default>
+                    <label>Error</label>
+                </value>
+                <value>
+                    <fullName>Completed - Errors sending data</fullName>
+                    <default>false</default>
+                    <label>Completed - Errors sending data</label>
+                </value>
+                <value>
+                    <fullName>Sending data to GRAX</fullName>
+                    <default>false</default>
+                    <label>Sending data to GRAX</label>
+                </value>
+                <value>
+                    <fullName>Deleting Salesforce records</fullName>
+                    <default>false</default>
+                    <label>Deleting Salesforce records</label>
+                </value>
+                <value>
+                    <fullName>Pending send data to GRAX</fullName>
+                    <default>false</default>
+                    <label>Pending send data to GRAX</label>
+                </value>
+                <value>
+                    <fullName>Completed - Errors deleting records</fullName>
+                    <default>false</default>
+                    <label>Completed - Errors deleting records</label>
+                </value>
+                <value>
+                    <fullName>Starting Archive Process</fullName>
+                    <default>false</default>
+                    <label>Starting Archive Process</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Target_Date__c</fullName>
+        <description>Target_Date</description>
+        <externalId>false</externalId>
+        <label>Target Start Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Target_End_Date__c</fullName>
+        <description>Target_End_Date</description>
+        <externalId>false</externalId>
+        <label>Target End Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Target_End_Datetime__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date/Time from the field value in the &quot;Date Field&quot; from when this Scheduled Process will end.</inlineHelpText>
+        <label>Target End Datetime</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Target_Report__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>ID of the Salesforce report used for this process</inlineHelpText>
+        <label>Target Report</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Target_Start_Datetime__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date/Time from the field value in the &quot;Date Field&quot; from when this Scheduled Process will begin.</inlineHelpText>
+        <label>Target Start Datetime</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Tatal_Objects_Processed__c</fullName>
+        <externalId>false</externalId>
+        <label>Tatal Objects Processed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Objects_Processed__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Objects Processed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Objects_To_Process__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Objects To Process</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Records_Errors__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Records Errors</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Records_Sent__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Records Sent</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Records_To_Send__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Total Records To Send</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>currentElementIndex__c</fullName>
+        <externalId>false</externalId>
+        <label>currentElementIndex</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>type__c</fullName>
+        <externalId>false</externalId>
+        <label>type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Hierarchy</fullName>
+                    <default>true</default>
+                    <label>Hierarchy</label>
+                </value>
+                <value>
+                    <fullName>Multi-Object</fullName>
+                    <default>false</default>
+                    <label>Multi-Object</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>GRAX Schedule Process</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Object_Name__c</columns>
+        <columns>Next_Run_Date__c</columns>
+        <columns>Last_Run_Date__c</columns>
+        <columns>Status__c</columns>
+        <columns>Schedule_Type__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>GRAX-Proc-{0000000}</displayFormat>
+        <label>GRAX Schedule Process Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>GRAX Schedule Processes</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

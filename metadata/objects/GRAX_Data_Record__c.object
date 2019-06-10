@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object is related to the GRAX Schedule Process Object. These records contain the object and relationship to the Salesforce record(s) which will be backed up/archived from Salesforce.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Can_Delete_GRAX_Record__c</fullName>
+        <externalId>false</externalId>
+        <formula>Records_To_Process__c = 0 &amp;&amp;
+(
+  GRAX_Schedule_Process__c = null || 
+  ( 
+    NOT(ISPICKVAL(GRAX_Schedule_Process__r.type__c, &apos;Hierarchy&apos;)) ||
+    NOT(GRAX_Schedule_Process__r.Progressive__c)
+  ) &amp;&amp;
+  (
+    (
+      NOT(GRAX_Schedule_Process__r.Is_Running__c) &amp;&amp;
+      DATEVALUE(CreatedDate) &lt; TODAY() - 15
+    ) ||
+    (
+      GRAX_Schedule_Process__r.Execution_Unique_Key__c != Execution_Unique_Key__c &amp;&amp;
+      NOT(GRAX_Schedule_Process__r.Is_Running__c)
+    ) ||
+    (
+      Records_Failed_to_Delete__c = 0 &amp;&amp;
+      GRAX_Schedule_Process__r.Can_Delete_GRAX_Records__c &amp;&amp;
+      (
+        ISPICKVAL(Status__c, &apos;Sent Successful&apos;) ||
+        (
+          ISPICKVAL(Status__c, &apos;Not Sent&apos;) &amp;&amp;
+          NOT(GRAX_Schedule_Process__r.Is_Running__c)
+        )
+      ) &amp;&amp; 
+      (
+         ISBLANK(GRAX_Archive_Process__c) || 
+         GRAX_Archive_Process__r.Can_Delete_GRAX_Record__c
+      )
+    )
+  )
+)</formula>
+        <label>Can Delete GRAX Record?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Error_Message__c</fullName>
+        <description>Error_Message</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Description of the Error message received</inlineHelpText>
+        <label>Error Message</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Execution_Unique_Key__c</fullName>
+        <externalId>false</externalId>
+        <label>Execution Unique Key</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GRAX_Archive_Process__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>GRAX Archive Process</label>
+        <referenceTo>GRAX_Archive_Process__c</referenceTo>
+        <relationshipLabel>GRAX Data Records</relationshipLabel>
+        <relationshipName>GRAX_Data_Records</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>GRAX_Schedule_Process__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>GRAX_Schedule_Process</description>
+        <externalId>false</externalId>
+        <label>GRAX Schedule Process</label>
+        <referenceTo>GRAX_Schedule_Process__c</referenceTo>
+        <relationshipLabel>GRAX Data Records</relationshipLabel>
+        <relationshipName>GRAX_Data_Records</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Last_Sent_Date__c</fullName>
+        <description>Last_Sent_Date</description>
+        <externalId>false</externalId>
+        <label>Last Sent Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Overall_SFObject_Process_End_Time__c</fullName>
+        <description>Overall SFObject Process End Time</description>
+        <externalId>false</externalId>
+        <label>Overall SFObject Process End Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Overall_SFObject_Process_Start_Time__c</fullName>
+        <description>Overall SFObject Process Start Time</description>
+        <externalId>false</externalId>
+        <label>Overall SFObject Process Start Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Process_Object_Index__c</fullName>
+        <externalId>false</externalId>
+        <label>Process Object Index</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Records_Failed_to_Delete__c</fullName>
+        <externalId>false</externalId>
+        <label># Records Failed to Delete</label>
+        <summaryFilterItems>
+            <field>GRAX_Data_Record_Id__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Delete Error</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>GRAX_Data_Record_Id__c.of_Attempts_to_Delete__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>5</value>
+        </summaryFilterItems>
+        <summaryForeignKey>GRAX_Data_Record_Id__c.GRAX_Data_Record__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Records_Sent_to_GRAX__c</fullName>
+        <externalId>false</externalId>
+        <label># Records Sent to GRAX</label>
+        <summaryFilterItems>
+            <field>GRAX_Data_Record_Id__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Sent to GRAX</value>
+        </summaryFilterItems>
+        <summaryForeignKey>GRAX_Data_Record_Id__c.GRAX_Data_Record__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Records_Successfully_Deleted__c</fullName>
+        <externalId>false</externalId>
+        <label># Records Successfully Deleted</label>
+        <summaryFilterItems>
+            <field>GRAX_Data_Record_Id__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Deleted with Master Parent, Successfully Deleted</value>
+        </summaryFilterItems>
+        <summaryForeignKey>GRAX_Data_Record_Id__c.GRAX_Data_Record__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Records_To_Process__c</fullName>
+        <externalId>false</externalId>
+        <label># Records To Process</label>
+        <summaryForeignKey>GRAX_Data_Record_Id__c.GRAX_Data_Record__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Salesforce_ID__c</fullName>
+        <description>Salesforce_ID</description>
+        <externalId>false</externalId>
+        <inlineHelpText>List of ID&apos;s for all Salesforce records to be sent to Data Lake</inlineHelpText>
+        <label>Salesforce ID</label>
+        <length>131072</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Salesforce_Object__c</fullName>
+        <description>Salesforce_Object</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of Salesforce object which is being backed up</inlineHelpText>
+        <label>Salesforce Object</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Sched_Proc_Hierarchy_Unique_Key__c</fullName>
+        <description>Sched_Proc_Hierarchy_Unique_Key</description>
+        <externalId>false</externalId>
+        <label>Sched Proc Hierarchy Unique Key</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>Status</description>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Not Sent</fullName>
+                    <default>false</default>
+                    <label>Not Sent</label>
+                </value>
+                <value>
+                    <fullName>Error</fullName>
+                    <default>false</default>
+                    <label>Error</label>
+                </value>
+                <value>
+                    <fullName>Sent Successful</fullName>
+                    <default>false</default>
+                    <label>Sent Successful</label>
+                </value>
+                <value>
+                    <fullName>Not Processed - Queuable Jobs Full</fullName>
+                    <default>false</default>
+                    <label>Not Processed - Queuable Jobs Full</label>
+                </value>
+                <value>
+                    <fullName>Processing</fullName>
+                    <default>false</default>
+                    <label>Processing</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>of_Times_Sent__c</fullName>
+        <description>of_Times_Sent</description>
+        <externalId>false</externalId>
+        <label># of Times Sent</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>GRAX Data Record</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Status__c</columns>
+        <columns>Salesforce_Object__c</columns>
+        <columns>Error_Message__c</columns>
+        <columns>Last_Sent_Date__c</columns>
+        <columns>Records_To_Process__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <displayFormat>GRAX-{0000000}</displayFormat>
+        <label>GRAX Record Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>GRAX Data Records</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

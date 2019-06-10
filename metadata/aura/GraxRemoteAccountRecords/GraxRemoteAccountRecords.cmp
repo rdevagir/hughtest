@@ -1,0 +1,31 @@
+<aura:component implements="force:appHostable,force:hasRecordId,flexipage:availableForAllPageTypes" controller="GraxRemoteAccountController" access="global">
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <aura:attribute name="opportunityLabels" type="Object[]" default="[]"/>
+    <aura:attribute name="caseLabels" type="Object[]" default="[]"/>
+    <aura:attribute name="contactLabels" type="Object[]" default="[]"/>
+
+    <aura:attribute name="opportunityRecords" type="Object[]" default="[]"/>
+    <aura:attribute name="caseRecords" type="Object[]" default="[]"/>
+    <aura:attribute name="contactRecords" type="Object[]" default="[]"/>
+
+    <aura:attribute name="mainSettings" type="Object" default="{}"/>
+    <aura:attribute name="organizations" type="Object" default="{}"/>
+
+    <div class="slds-m-bottom_medium">
+        <div class="slds-text-heading_small">Contacts</div>
+        <lightning:datatable minColumnWidth="40px" data="{!v.contactRecords}" columns="{!v.contactLabels}" keyField="sfdcid"/>
+    </div>
+
+    <div class="slds-m-bottom_medium">
+        <div class="slds-text-heading_small">Cases</div>
+        <lightning:datatable minColumnWidth="40px" data="{!v.caseRecords}" columns="{!v.caseLabels}" keyField="sfdcid"/>
+    </div>
+
+    <div class="slds-m-bottom_medium">
+        <div class="slds-text-heading_small">Opportunities</div>
+        <lightning:datatable minColumnWidth="40px" data="{!v.opportunityRecords}" columns="{!v.opportunityLabels}" keyField="sfdcid"/>
+    </div>
+
+</aura:component>

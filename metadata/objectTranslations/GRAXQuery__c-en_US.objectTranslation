@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>GRAX : Object Configuration</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>GRAX : Object Configuration</value>
+    </caseValues>
+    <fields>
+        <help><!-- Only check this if you do NOT want to store data. If you have compliant data you want relationships but not data stored. --></help>
+        <label><!-- Do Not Store Data --></label>
+        <name>Do_Not_Store_Data__c</name>
+    </fields>
+    <fields>
+        <label><!-- Enable Audit Log --></label>
+        <name>Enable_Audit_Log__c</name>
+    </fields>
+    <fields>
+        <label><!-- Filter --></label>
+        <name>Filter__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAX Configured --></label>
+        <name>GRAX_Configured__c</name>
+    </fields>
+    <fields>
+        <label><!-- Hourly Synch Period --></label>
+        <name>Hourly_Synch_Period__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Synch --></label>
+        <name>Last_Synch__c</name>
+    </fields>
+    <fields>
+        <label><!-- ObjectName --></label>
+        <name>ObjectName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order By --></label>
+        <name>Order_By__c</name>
+    </fields>
+    <fields>
+        <label><!-- Selected Fields --></label>
+        <name>Selected_Fields__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Records Processed --></label>
+        <name>Total_Records_Processed__c</name>
+    </fields>
+    <fields>
+        <label><!-- graxconfig --></label>
+        <name>graxconfig__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

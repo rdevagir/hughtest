@@ -1,0 +1,8 @@
+<apex:page sidebar="true">
+       
+  <wave:dashboard dashboardId="0FK1I000000NkeeWAC" 
+        showTitle="true" 
+        height="800px" 
+        openLinksInNewWindow="true" 
+        />
+</apex:page>

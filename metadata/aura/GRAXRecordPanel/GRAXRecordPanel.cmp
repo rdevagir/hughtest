@@ -1,0 +1,48 @@
+<aura:component controller="GraxRecordViewController" access="global">
+
+    <aura:attribute name="recordId" access="public" type="Id" />
+    <aura:attribute name="fieldValues" access="public" type="object[]" default="[]"/>
+
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="loadRecordvalues" event="c:GRAXRecordChanged" action="{!c.handleLoadRecordvalues}"/>
+
+    <div class="slds-grid" style="height: 80vh; max-width: 420px; background: rgb(244, 246, 249); padding: 1rem;">
+
+        <div class="slds-panel slds-grid slds-grid_vertical slds-nowrap slds-scrollable">
+            <div class="slds-form slds-form_stacked slds-grow slds-scrollable_y">
+                <div class="slds-panel__section slds-border_bottom">
+                    <div class="slds-media">
+                        <div class="slds-media__body">
+                            <a href="{!'/' + v.selectedRecordId}" target="_blank">
+                                {!v.selectedRecordName}
+                            </a>
+                            <h2 class="slds-truncate slds-text-heading_small">
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-panel__section">
+                    <h3 class="slds-text-heading_small slds-m-bottom_medium">Information</h3>
+                    <ul>
+                        <aura:iteration items="{!v.fieldValues}" var="fieldValue">
+                            <li class="slds-form-element slds-hint-parent slds-border_bottom">
+                                <span class="slds-form-element__label">
+                                    {!fieldValue.label}
+                                </span>
+                                <div class="slds-form-element__control">
+                                    <span class="slds-form-element__static">
+                                        {!fieldValue.value}
+                                    </span>
+                                </div>
+                            </li>
+                        </aura:iteration>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</aura:component>

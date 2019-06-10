@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject></baseObject>
+    <category>opportunities</category>
+    <deployed>false</deployed>
+    <description>GRAX Account with Opportunities</description>
+    <label>GRAX Account with Opportunities</label>
+    <sections>
+        <masterLabel>graxaccountindex</masterLabel>
+    </sections>
+    <sections>
+        <masterLabel>graxopportunityindex</masterLabel>
+    </sections>
+</ReportType>

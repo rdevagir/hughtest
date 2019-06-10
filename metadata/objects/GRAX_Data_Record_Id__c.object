@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object contains the specific Salesforce record id which will be backed up/archived as part of the GRAX Scheduled process. These records are automatically deleted at the conclusion of a successful GRAX Scheduled Process.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>false</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <fields>
+        <fullName>Can_Delete_GRAX_Record__c</fullName>
+        <externalId>false</externalId>
+        <formula>GRAX_Data_Record__r.GRAX_Schedule_Process__c = null || 
+(
+  NOT(ISPICKVAL(GRAX_Data_Record__r.GRAX_Schedule_Process__r.type__c, &apos;Hierarchy&apos;)) ||
+  NOT(GRAX_Data_Record__r.GRAX_Schedule_Process__r.Progressive__c)
+) &amp;&amp;
+(
+  (
+    NOT(GRAX_Data_Record__r.GRAX_Schedule_Process__r.Is_Running__c) &amp;&amp;
+    DATEVALUE(CreatedDate) &lt; TODAY() - 15
+  ) ||
+  (
+    GRAX_Data_Record__r.GRAX_Schedule_Process__r.Execution_Unique_Key__c != Execution_Unique_Key__c
+  ) ||
+  (
+    NOT(ISPICKVAL(Status__c, &apos;Delete Error&apos;)) &amp;&amp;
+    GRAX_Data_Record__r.GRAX_Schedule_Process__r.Can_Delete_GRAX_Records__c &amp;&amp; 
+    (
+      ISPICKVAL(GRAX_Data_Record__r.Status__c, &apos;Sent Successful&apos;) ||
+      (
+        ISPICKVAL(GRAX_Data_Record__r.Status__c, &apos;Not Sent&apos;) &amp;&amp;
+        NOT(GRAX_Data_Record__r.GRAX_Schedule_Process__r.Is_Running__c)
+      )
+    ) &amp;&amp;
+    (
+       ISBLANK(GRAX_Data_Record__r.GRAX_Archive_Process__c) || 
+       GRAX_Data_Record__r.GRAX_Archive_Process__r.Can_Delete_GRAX_Record__c
+    )
+  )
+)</formula>
+        <label>Can Delete GRAX Record?</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Error_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Error Description</label>
+        <length>2000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Execution_Unique_Key__c</fullName>
+        <externalId>false</externalId>
+        <label>Execution Unique Key</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GRAX_Data_Record__c</fullName>
+        <externalId>false</externalId>
+        <label>GRAX Data Record</label>
+        <referenceTo>GRAX_Data_Record__c</referenceTo>
+        <relationshipLabel>GRAX Data Record Ids</relationshipLabel>
+        <relationshipName>GRAX_Data_Record_Ids</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Processed_Child_Index__c</fullName>
+        <description>Processed_Child_Index</description>
+        <externalId>false</externalId>
+        <label>Processed Child Index</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SFDC_Id__c</fullName>
+        <description>SFDC_Id</description>
+        <externalId>false</externalId>
+        <label>SFDC Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <description>Status</description>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>To be Deleted</fullName>
+                    <default>false</default>
+                    <label>To be Deleted</label>
+                </value>
+                <value>
+                    <fullName>Deleted with Master Parent</fullName>
+                    <default>false</default>
+                    <label>Deleted with Master Parent</label>
+                </value>
+                <value>
+                    <fullName>Successfully Deleted</fullName>
+                    <default>false</default>
+                    <label>Successfully Deleted</label>
+                </value>
+                <value>
+                    <fullName>Delete Error</fullName>
+                    <default>false</default>
+                    <label>Delete Error</label>
+                </value>
+                <value>
+                    <fullName>Sent to GRAX</fullName>
+                    <default>false</default>
+                    <label>Sent to GRAX</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>of_Attempts_to_Delete__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label># of Attempts to Delete</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>GRAX Data Record Id</label>
+    <nameField>
+        <displayFormat>GRAX-RecId-{000000000}</displayFormat>
+        <label>GRAX Data Record Id Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>GRAX Data Record Ids</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

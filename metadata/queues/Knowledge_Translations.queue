@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Knowledge_Translations</name>
+    <queueMembers>
+        <users>
+            <user>sdo_a2.cvl4p4aswl1i@harding.demo</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>KnowledgeArticleVersion</sobjectType>
+    </queueSobject>
+</Queue>

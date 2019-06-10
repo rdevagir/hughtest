@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>GRAX Account Reporting Setting</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>GRAX Account Reporting Settings</value>
+    </caseValues>
+    <fields>
+        <label><!-- Filter Key Id --></label>
+        <name>Filter_Key_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Filter Key --></label>
+        <name>Filter_Key__c</name>
+    </fields>
+    <fields>
+        <label><!-- Report ID --></label>
+        <name>Report_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- cacheResults --></label>
+        <name>cacheResults__c</name>
+    </fields>
+    <fields>
+        <label><!-- filterKeyIndex --></label>
+        <name>filterKeyIndex__c</name>
+    </fields>
+    <fields>
+        <label><!-- size --></label>
+        <name>size__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

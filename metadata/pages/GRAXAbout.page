@@ -1,0 +1,4 @@
+<apex:page controller="GRAXFlow" cache="false" showChat="false" showHeader="true" sidebar="false" tabStyle="GRAX_Intro__tab">
+    <apex:pageMessages escape="false"/>
+    <iframe height="700px" id="theIframe" name="theIframe" src="https://grax.io" width="100%" frameBorder="0"></iframe>
+</apex:page>

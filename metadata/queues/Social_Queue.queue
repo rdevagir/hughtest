@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Social_Queue</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>SupportAgents</publicGroup>
+        </publicGroups>
+        <users>
+            <user>sservice.3zpdul4u2pim@harding.demo</user>
+            <user>tservice.xg55fu4iugbg@harding.demo</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>SocialPost</sobjectType>
+    </queueSobject>
+</Queue>

@@ -1,0 +1,886 @@
+<apex:page controller="GRAXSearchCtrl" cache="false" showChat="false" showHeader="false" standardStylesheets="true" sidebar="true" applyHtmlTag="{!isEmbedded}" applyBodyTag="false" docType="html-5.0">
+    <apex:outputPanel rendered="{!isEmbedded}">
+        <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"/>
+        <apex:includeScript value="{!URLFOR($Resource.grax, '/jquery.slds.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.grax, '/jquery.sldsPillsCombobox.js')}"/>
+
+        <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"/>
+        <apex:includeScript value="{!URLFOR($Resource.grax, '/thirdparty/moment-timezone-with-data-2012-2022.min.js')}"/>
+
+        <script>
+            window.setCookie = function(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                var expires = "expires="+ d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            };
+
+            window.getCookie = function(cname) {
+                var name = cname + "=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var ca = decodedCookie.split(';');
+                for(var i = 0; i <ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            };
+        </script>
+        <!-- Import the Design System style sheet -->
+        <apex:slds />
+        <style>
+            .slds-form-element_separator {
+                border-bottom: 1px solid rgb(221, 219, 218);
+            }
+    
+            span.slds-truncate {
+                display: inline-block;
+            }
+
+            .slds-scope .slds-tree .slds-button {
+                display: none;
+            }
+
+            #GRAXSearchFilterGenerator > table {
+                font-size: 0.7rem;
+            }
+
+            #GRAXSearchFilterGenerator .slds-text-title_caps,
+            #GRAXSearchFilterGenerator .slds-text-title--caps {
+                letter-spacing: 0;
+                font-size: .7rem;
+                text-transform: capitalize;
+            }
+
+            #GRAXSearchFilterGenerator a.slds-button {
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+
+            #searchDatatableOutput .slds-th__action {
+                margin: -0.25rem;
+                cursor: pointer;
+            }
+
+            #GRAXSearchPreviewPanel .slds-panel {
+                position: fixed;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                z-index: 9999;
+
+                /* for chrome and safari*/
+                -webkit-animation-duration: 1s;
+                -webkit-animation-name: slidein;
+
+                /*for firefox*/
+                -moz-animation-duration: 1s;
+                -moz-animation-name: slidein;
+
+                /* for opera*/
+                -o-animation-duration: 1s;
+                -o-animation-name: slidein;
+
+                /* Standard syntax*/
+                animation-duration: 1s;
+                animation-name: slidein;
+            }
+
+            #GRAXSearchPreviewPanel .slds-panel.slideOut {
+                /* for chrome and safari*/
+                -webkit-animation-name: slideout;
+
+                /*for firefox*/
+                -moz-animation-name: slideout;
+
+                /* for opera*/
+                -o-animation-name: slideout;
+
+                /* Standard syntax*/
+                animation-name: slideout;
+            }
+
+            #GRAXSearchPreviewPanel .slds-panel > .overlay {
+                background: rgba(255, 255, 255, 0.75);
+                position: fixed;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+            }
+
+            @-webkit-keyframes slidein {
+                from {
+                    margin-left: 100%;
+                    width: 300%;
+                }
+
+                to {
+                    margin-left: 0%;
+                    width: 100%;
+                }
+            }
+
+            @-moz-keyframes slidein {
+                from {
+                    margin-left: 100%;
+                    width: 300%;
+                }
+
+                to {
+                    margin-left: 0%;
+                    width: 100%;
+                }
+            }
+
+            @-o-keyframes slidein {
+                from {
+                    margin-left: 100%;
+                    width: 300%;
+                }
+
+                to {
+                    margin-left: 0%;
+                    width: 100%;
+                }
+            }
+
+            @keyframes slidein {
+                from {
+                    margin-left: 100%;
+                    width: 300%;
+                }
+
+                to {
+                    margin-left: 0%;
+                    width: 100%;
+                }
+            }
+
+
+            @-webkit-keyframes slideout {
+                from {
+                    margin-left: 0%;
+                    width: 100%;
+                }
+
+                to {
+                    margin-left: 100%;
+                    width: 300%;
+                }
+            }
+
+            @-moz-keyframes slideout {
+                from {
+                    margin-left: 0%;
+                    width: 100%;
+                }
+
+                to {
+                    margin-left: 100%;
+                    width: 300%;
+                }
+            }
+
+            @-o-keyframes slideout {
+                from {
+                    margin-left: 0%;
+                    width: 100%;
+                }
+
+                to {
+                    margin-left: 100%;
+                    width: 300%;
+                }
+            }
+
+            @keyframes slideout {
+                from {
+                    margin-left: 0%;
+                    width: 100%;
+                }
+
+                to {
+                    margin-left: 100%;
+                    width: 300%;
+                }
+            }
+
+            .slds-button.small {
+                line-height: normal;
+            }
+        </style>
+    </apex:outputPanel>
+
+    <script>
+        var SF_DATETIME_REGEXP = /^((?:(?:19|20)\d{2})-(?:10|11|12|0?\d)-(?:30|31|(?:0|1|2)\d))((?:(?:T|\s)(?:(?:0|1|2)\d)(?:\:[0-5]\d)(?::[0-5]\d)?((?:(?:\.\d{3})?)?Z?(?:[+-](?:0|1|2)\d\:?[0-5]\d)?))?)$/;
+
+        var DATETIME_FORMAT = 'L LT';
+        var DATE_FORMAT = 'L';
+
+        moment.locale('{!userLocale}'.split('_').join('-'));
+        moment.tz.setDefault('{!userTimeZone}');
+
+        window.searchDataTableInit = function(results, columns) {
+            var $thead = $('#searchDatatableOutput > thead');
+            var $tbody = $('#searchDatatableOutput > tbody');
+
+            $tbody.empty();
+
+            if(!results || !columns) return;
+
+            $.each(results, function(i, item) {
+                var $tr = $('<tr>');
+                
+                $.each(columns, function(i, v) {
+                    var val = item[v];
+
+                    if(typeof(val) == 'string') {
+                        if(SF_DATETIME_REGEXP.test(val)) {
+                            var m = moment(val);
+
+                            if(m.isValid()) {
+                                val = m.tz(moment.tz.guess()).format(m._i.indexOf(':') != -1 ? DATETIME_FORMAT : DATE_FORMAT);
+                            }
+                        }
+                    }
+
+                    if(typeof(val) == 'boolean') {
+                        val = val ? 'true' : 'false';
+                    }
+
+                    $tr.append($('<td>').text(val).attr({
+                        title: item[v],
+                        'data-label': v
+                    }));
+                });
+
+                var $actions = $('<div>').attr({
+                    class: 'slds-dropdown-trigger slds-dropdown-trigger_click'
+                }).append(
+                    $('<a>').attr({
+                        class: 'slds-button small'
+                    }).append(
+                        $('<i>').attr({
+                            'data-icon': "{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#preview')}",
+                            class: 'slds-button__icon slds-show_small',
+                            title: 'Preview'
+                        })
+                    ).append(
+                        $('<span>').attr({
+                            class: 'slds-hide_small slds-p-left_xx-small'
+                        }).text('Preview')
+                    ).on('click', function(e) {
+                        e.preventDefault();
+
+                        previewRecord(item.attributes.type, item.Id, item.graxorgid);
+                    })
+                );
+
+                $tr.append($('<td>').append($actions));
+
+                $tbody.append($tr);
+            });
+
+            renderSvgIcons();
+        };
+
+        var paginatorFirstIcon = "{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#left')}";
+        var paginatorPrevIcon = "{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#chevronleft')}";
+        var paginatorNextIcon = "{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#chevronright')}";
+        var paginatorLastIcon = "{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#right')}";
+
+        window.renderSearchPaginator = function(totalRecords, pageLimit, currentIndex, pageSort, pageSortOrder) {
+            var $searchPaginator = $('#searchPaginator');
+
+            var isNarrow = false;
+            if(totalRecords > 10000) {
+                isNarrow = true;
+                totalRecords = 10000;
+            }
+
+            var totalPages = Math.ceil(totalRecords / pageLimit);
+
+            if (totalPages > 1) {
+                var $pages = $('<div class="slds-button-group" role="group" />');
+
+                var currentPage = currentIndex + 1;
+
+                var startPage, endPage;
+                if (totalPages <= 10) {
+                    // less than 10 total pages so show all
+                    startPage = 1;
+                    endPage = totalPages;
+                } else {
+                    // more than 10 total pages so calculate start and end pages
+                    if (currentPage <= 6) {
+                        startPage = 1;
+                        endPage = 10;
+                    } else if (isNarrow && (currentPage + 3) >= totalPages) {
+                        startPage = totalPages - 8;
+                        endPage = totalPages;
+                    } else if ((currentPage + 4) >= totalPages) {
+                        startPage = totalPages - 9;
+                        endPage = totalPages;
+                    } else {
+                        startPage = currentPage - 5;
+                        endPage = currentPage + 4;
+                    }
+                }
+
+                var pages = Array.from(Array((endPage + 1) - startPage).keys()).map(function(i) {
+                    return startPage + i;
+                });
+
+                var isFirstPage = currentPage === 1;
+                var isLastPage = currentPage === totalPages;
+
+                $pages.append('<a href="javascript:void(0);" onclick="graxSearchGoToPage(0, \'' + pageSort + '\', \'' + pageSortOrder + '\', true);" role="button" class="slds-button slds-button--neutral' + (isFirstPage ? ' noPointerEvents' : '') + '"' + (isFirstPage ? ' disabled' : '') + '><i data-icon="' + paginatorFirstIcon + '" class="slds-button__icon slds-button__icon--left"></i><span class="slds-show_medium"> First</span></a>');
+                $pages.append('<a href="javascript:void(0);" onclick="graxSearchGoToPage(' + (currentIndex - 1) + ', \'' + pageSort + '\', \'' + pageSortOrder + '\', true);" role="button" class="slds-button slds-button--neutral' + (isFirstPage ? ' noPointerEvents' : '') + '"' + (isFirstPage ? ' disabled' : '') + '><i data-icon="' + paginatorPrevIcon + '" class="slds-button__icon slds-button__icon--left"></i></a>');
+
+                pages.map(function(page, index) {
+                    $pages.append('<a href="javascript:void(0);" onclick="graxSearchGoToPage(' + (page - 1) + ', \'' + pageSort + '\', \'' + pageSortOrder + '\', true);" role="button" class="slds-button ' + (page == currentPage ? 'slds-button--brand noPointerEvents' : 'slds-button--neutral slds-show_medium') + '">' + page + '</a>');
+                });
+
+                if(isNarrow && currentPage >= (totalPages - 3)) {
+                    $pages.append('<a href="javascript:void(0);" title="The list is too long, try adding more filters to optimize the results." role="button" class="slds-button slds-button--neutral">&middot;&middot;&middot;</a>');
+                }
+
+                $pages.append('<a href="javascript:void(0);" onclick="graxSearchGoToPage(' + (currentIndex + 1) + ', \'' + pageSort + '\', \'' + pageSortOrder + '\', true);" role="button" class="slds-button slds-button--neutral' + (isLastPage ? ' noPointerEvents' : '') + '"' + (isLastPage ? ' disabled' : '') + '><i data-icon="' + paginatorNextIcon + '" class="slds-button__icon slds-button__icon--right"></i></a>');
+                $pages.append('<a href="javascript:void(0);" onclick="graxSearchGoToPage(' + (totalPages - 1) + ', \'' + pageSort + '\', \'' + pageSortOrder + '\', true);" role="button" class="slds-button slds-button--neutral' + (isLastPage ? ' noPointerEvents' : '') + '"' + (isLastPage ? ' disabled' : '') + '><span class="slds-show_medium">Last </span><i data-icon="' + paginatorLastIcon + '" class="slds-button__icon slds-button__icon--right"></i></a>');
+
+                $searchPaginator.html($pages);
+
+                renderSvgIcons();
+            } else {
+                $searchPaginator.empty();
+            }
+        };
+        
+        $(function() {
+            var $fieldlist = $('#search-fieldlist');
+
+            window.renderSearchFieldListSelector = function(data, selectedIndex) {
+                data = $.map(data, function(type, name) {
+                    return {
+                        id: name,
+                        label: name,
+                        isSelected: name == 'Id'
+                    };
+                });
+
+                data.sort(function (a, b) {
+                    if (a.label > b.label) {
+                        return 1;
+                    }
+
+                    if (a.label < b.label) {
+                        return -1;
+                    }
+                    
+                    return 0;
+                });
+            };
+
+            var $retrieveHistory = $('#retrieveHistory');
+            $retrieveHistory.on('click', function(e) {
+                renderHistoryTable();
+
+                e.preventDefault();
+            });
+
+        });
+    </script>
+
+    <div class="{!IF(isEmbedded, 'slds-scope', 'slds-tabs_scoped__content')}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <apex:form id="form-search">
+            <apex:actionFunction action="{!changeIndexToQuery}" name="changeIndexToQuery" immediate="true" reRender="searchFilterPanelOuput, initializeFieldPicklist" oncomplete="showGlobalSpinner(false);">
+                <apex:param name="indexToQueryValue" value="" />
+            </apex:actionFunction>
+
+            <apex:actionFunction action="{!updateSearchDataTable}" name="updateSearchDataTable" immediate="true" reRender="searchTable" oncomplete="showGlobalSpinner(false, true);">
+                <apex:param name="selectedFields" value="Id" />
+                <apex:param name="filterSearchTerm" value="" />
+                <apex:param name="page" value="0" />
+                <apex:param name="sort" value="" />
+                <apex:param name="sortOrder" value="" />
+            </apex:actionFunction>
+
+            <apex:actionFunction action="{!previewRecord}" name="getPreviewRecord" immediate="true" reRender="previewRecordOutput" oncomplete="showGlobalSpinner(false);">
+                <apex:param name="objName" value="" />
+                <apex:param name="recordId" value="" />
+                <apex:param name="orgId" value="" />
+            </apex:actionFunction>
+
+            <div class="{!IF(isEmbedded, 'slds-p-horizontal_x-small', '')}">
+                
+                <div id="tab-search_search">
+                    <div class="slds-section slds-is-open">
+                        <h3 class="slds-section__title">
+                            <button aria-controls="search_indexToQuery-section" aria-expanded="true" class="slds-button slds-section__title-action">
+                                <i class="slds-section__title-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                <span class="slds-truncate" title="Select the GRAX Table">Select the GRAX Table</span>
+                            </button>
+                        </h3>
+                        <div aria-hidden="false" class="slds-section__content" id="search_indexToQuery-section">
+                            <div class="slds-grid slds-grid_vertical-align-center">
+                                <div class="slds-col slds-grow-none slds-m-right_small">
+                                    <div class="slds-form-element">
+                                        <div class="slds-form-element__control">
+                                            <apex:outputPanel layout="block" styleClass="slds-select_container">
+                                                <select id="search-objectList" class="slds-select search-objectList" disabled="disabled">
+                                                    <option value="" disabled="disabled" selected="selected">-- SELECT GRAX TABLE --</option>
+                                                </select>
+                                            </apex:outputPanel>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div class="slds-p-top_large slds-show_medium"></div>-->
+
+                    <div class="slds-section">
+                        <h3 class="slds-section__title">
+                            <button aria-controls="search_fields-section" aria-expanded="false" class="slds-button slds-section__title-action">
+                                <i class="slds-section__title-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                <span class="slds-truncate" title="Search GRAX Table">Search GRAX Table</span>
+                            </button>
+                        </h3>
+                        <div aria-hidden="true" class="slds-section__content slds-is-relative" id="search_fields-section">
+                            <input type="hidden" id="search-fieldlist" />
+                            <div id="fieldSelection">      
+                                <div class="slds-form-element" >
+                                    <label class="slds-form-element__label" for="combobox-fields">Tables</label>
+                                    <div clas="slds-form-element__control">
+                                        <div class="slds-combobox_container">
+                                            <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" aria-expanded="false" aria-haspopup="listbox" role="combobox">
+                                                <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                                    <input id="selectedFields" type="hidden" />
+                                                    <input type="text" class="slds-input slds-combobox__input" id="combobox-fields" aria-autocomplete="list" aria-controls="listbox-fields" autoComplete="off" role="textbox" placeholder="Search..." />
+                                                    <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                                                        <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" class="slds-button__icon"></i>
+                                                    </span>
+                                                </div>
+                                                <div id="listbox-fields" class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                                                    <ul class="slds-listbox slds-listbox_vertical" role="presentation"></ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="slds-listbox_selection-group" style="height: auto;">
+                                            <ul id="selectedFieldsPills" class="slds-listbox slds-listbox_horizontal" role="listbox" aria-label="Selected Fields:" aria-orientation="horizontal"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+
+                    <!--<div class="slds-p-top_large slds-show_medium"></div>-->
+
+                    <apex:outputPanel styleClass="slds-section" layout="block">
+                        <h3 class="slds-section__title">
+                            <button aria-controls="search_filter-section" aria-expanded="false" class="slds-button slds-section__title-action">
+                                <i class="slds-section__title-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                <span class="slds-truncate" title="Filter Records">Filter Records</span>
+                            </button>
+                        </h3>
+                        <div aria-hidden="true" class="slds-section__content slds-is-relative" id="search_filter-section">
+                            <apex:outputPanel layout="none" id="searchFilterPanelOuput">
+                                <c:GRAXFilterGenerator id="GRAXSearchFilterGenerator"
+                                    fieldVsTypeJSON="{!fieldsJSON}"
+                                    jsCallback="window.setSearchFilterQuery" />
+                            </apex:outputPanel>
+
+                            <div class="slds-grid slds-grid_vertical-align-center slds-hide">
+                                <div class="slds-col slds-m-right_small">
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label" for="search-filter-search-term">Search Term</label>
+                                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                                            <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"></i>
+                                            <input id="search-filter-search-term" class="slds-input" placeholder="Search" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel id="searchDatatable" layout="block">
+                        <div class="slds-section">
+                            <h3 class="slds-section__title">
+                                <button aria-controls="searchDatatableOutput-section" aria-expanded="false" class="slds-button slds-section__title-action">
+                                    <i class="slds-section__title-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                    <span class="slds-truncate" title="GRAX Stored Records">GRAX Stored Records</span>
+                                </button>
+                            </h3>
+                            <div aria-hidden="true" class="slds-section__content" id="searchDatatableOutput-section">
+                                <div class="slds-clearfix slds-p-bottom_medium">
+                                    <div class="slds-clearfix">
+                                        <div class="slds-float_left">
+                                            <button id="search-retrieveRecords" class="slds-button slds-button_brand">Retrieve</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <apex:outputPanel id="searchTable" layout="block">
+                                    <apex:outputPanel layout="none" rendered="{!isRetrieved}">
+                                        <apex:outputPanel rendered="{!hasResults}">
+                                            <table id="searchDatatableOutput" class="slds-table slds-table_bordered slds-table_cell-buffer slds-max-small-table_stacked">
+                                                <thead>
+                                                    <tr class="slds-text-title_caps">
+                                                        <apex:repeat var="f" value="{!selectedFieldsList}">
+                                                            <th scope="col" class="slds-text-title_caps slds-is-sortable {!IF(pageSort == f, 'slds-is-sorted slds-is-sorted_' + pageSortOrder, '')}">
+                                                                <div class="slds-th__action" role="button" tabindex="0" onclick="graxSearchGoToPage({!page}, '{!f}', '{!IF(pageSort == f, IF(pageSortOrder == 'asc', 'desc', 'asc'), 'asc')}', true);">
+                                                                    <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                                                        <span class="slds-truncate" title="{!f}">{!f}</span>
+                                                                        <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                                                            <i data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#arrowdown')}" class="slds-icon slds-icon-text-default slds-is-sortable__icon"></i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </th>
+                                                        </apex:repeat>
+                                                        
+                                                        <th scope="col">
+                                                            <span class="slds-assistive-text">Actions</span>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+
+                                            <script>
+                                                searchDataTableInit({!retrievedRecordsJSON}, '{!selectedFields}'.split(','));
+                                            </script>
+                                        </apex:outputPanel>
+
+                                        <apex:outputPanel layout="block" rendered="{!!hasResults}" styleClass="slds-text-align_center">
+                                            No records were found in GRAX
+                                        </apex:outputPanel>
+
+                                        <apex:outputPanel layout="block" rendered="{!hasResults}">
+                                            <div id="searchPaginator" class="-x-small-buttons--horizontal slds-p-top_small"></div>
+    
+                                            <script>
+                                                window.renderSearchPaginator({!totalRecords}, {!pageLimit}, {!page}, '{!pageSort}', '{!pageSortOrder}');
+                                            </script>
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+
+                    
+                </div>
+            </div>
+        </apex:form>
+
+        <div id="search-globalSpinner" class="slds-spinner_container slds-is-fixed slds-hide">
+            <div role="status" class="slds-spinner slds-spinner_large slds-spinner_brand">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    
+        <div id="GRAXSearchPreviewPanel">
+            <apex:outputPanel id="previewRecordOutput">
+                <apex:form rendered="{!NOT(ISBLANK(previewRecordId))}">
+                    <div class="slds-panel slds-is-open" aria-hidden="false">
+                        <div class="overlay"></div>
+
+                        <div class="slds-panel__header">
+                            <button class="slds-button slds-button_icon slds-button_icon-small slds-panel__back" title="Collapse Panel">
+                                <i class="slds-button__icon" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#back')}"></i>
+                                <span class="slds-assistive-text">Collapse Panel</span>
+                            </button>
+
+                            <h2 class="slds-panel__header-title slds-text-heading_small slds-truncate" title="{!previewRecordId}">
+                                {!previewRecordId}
+                            </h2>
+
+                            <button class="slds-button slds-button_icon slds-button_icon-small slds-panel__close" title="Collapse Panel">
+                                <i class="slds-button__icon" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#close')}"></i>
+                                <span class="slds-assistive-text">Collapse Panel</span>
+                            </button>
+                        </div>
+
+                        <div class="slds-panel__body">
+                            <c:GRAXElasticRecordDisplay objName1="{!previewRecordObjName}" recordId1="{!previewRecordId}" recordOrgId1="{!previewRecordOrgId}" />
+                        </div>
+                    </div>
+
+                    <script>
+                        renderSvgIcons();
+                    </script>
+                </apex:form>
+            </apex:outputPanel>
+        </div>
+        
+        
+    </div>
+    
+	<apex:outputPanel id="initializeFieldPicklist" layout="block" style="display: none;">
+        <apex:outputPanel rendered="{!NOT(ISBLANK(fieldJsonString))}">
+            <script>
+                var fieldsJson = {!fieldJsonString};
+            	
+                if (window.renderFieldSelection !== undefined ) {
+                    renderFieldSelection(fieldsJson);
+                } else { renderFieldList(fieldsJson); }
+            
+            </script>
+        </apex:outputPanel>
+    </apex:outputPanel>
+    <script>
+        $(function() {
+            var $objectList = $('.search-objectList');
+            var $fieldlist = $('#search-fieldlist');
+            var $filterSearchTerm = $('#search-filter-search-term');
+
+            var sanitizeElasticFilterValue = function(filterValue) {
+                return filterValue
+                    .replace(/[\*\+\-=~><\"\?^\${}\(\)\:\!\/[\]\\\s]/g, '\\$&') // replace single character special characters
+                    .replace(/\|\|/g, '\\||') // replace ||
+                    .replace(/\&\&/g, '\\&&') // replace &&
+                    .replace(/AND/g, '\\A\\N\\D') // replace AND
+                    .replace(/OR/g, '\\O\\R') // replace OR
+                    .replace(/NOT/g, '\\N\\O\\T'); // replace NOT
+            };
+            
+            window.renderFieldList = function(fieldOptions) {
+                if(fieldOptions.length == 0) return;
+                showGlobalSpinner(true);
+                
+                function getFieldSelection() {                            
+                    var selectedFields = $.parseJSON(window.getCookie($objectList.val() + 'Fields_S') || '["Id"]');
+                    if (selectedFields.length == 0) {
+                        selectedFields = $.parseJSON('["Id"]');
+                    }
+                    return selectedFields.map(function(item) {
+                        return {
+                            id: item
+                        }
+                    });
+                };
+                $fieldlist.sldsPillsCombobox({
+                    comboboxSelector: '#combobox-fields',
+                    listboxItemsSelector: '#listbox-fields',
+                    selectedItemsPillsSelector: '#selectedFieldsPills',
+                    pillRemoveIcon: "{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#close')}",
+                    options: fieldOptions,
+                    selection: getFieldSelection()
+                }, function(setSelection, clearSelection, setOptions) {
+                    window.renderFieldSelection = function(data) {
+                        var selectedFields = getFieldSelection();
+                        
+                        clearSelection(false);
+                        setOptions(data);
+                        
+                        if(selectedFields.length > 0) {
+                            setSelection(selectedFields);
+                        }
+                    };
+                }).on('changeSelection', function(e) {
+                    window.setCookie($objectList.val() + 'Fields_S', e.target.value);
+                });
+                
+                showGlobalSpinner(false); 
+            };
+
+            var getFilterQuery = function(filters) {
+                var queryConditions = [];
+
+                $.each(filters, function(i, filter) {
+                    var condition = '';
+
+                    var hasValue = Boolean(filter.value);
+
+                    if((filter.operator == '!=' && hasValue) || (filter.operator == '==' && !hasValue) || filter.operator == 'not contains') {
+                        condition += 'NOT ';
+                    }
+
+                    condition += '(';
+
+                    if(filter.type == 'boolean' && !Boolean(filter.value)) {
+                        condition += 'NOT ';
+                    }
+
+                    if(hasValue) {
+                        condition += 'doc.' + filter.field + ':';
+                    } else {
+                        condition += '_exists_:';
+                    }
+
+                    if(filter.operator == '==' || filter.operator == '!=') {
+                        if(!hasValue) {
+                            condition += 'doc.' + filter.field;
+                        } else if(filter.type == 'boolean') {
+                            condition += 'true';
+                        } else if(filter.type == 'number') {
+                            condition += parseFloat(filter.value);
+                        } else if(filter.type == 'date') {
+                            condition += moment(filter.value).format('YYYY-MM-DD');
+                        } else if(hasValue) {
+                            condition += '"' + filter.value + '"';
+                        }
+                    } else if(filter.operator == 'contains' || filter.operator == 'not contains') {
+                        condition += '*' + sanitizeElasticFilterValue(filter.value.toLowerCase()) + '*';
+                    } else if(filter.type == 'date') {
+                        condition += filter.operator + moment(filter.value).format('YYYY-MM-DD');
+                    } else {
+                        condition += filter.operator + sanitizeElasticFilterValue(filter.value);
+                    }
+                    
+                    condition += ')';
+
+                    queryConditions.push(condition);
+                });
+
+                return queryConditions.length > 0 ? queryConditions.join(' AND ') : null;
+            };
+
+            window.setSearchFilterQuery = function(filters) {
+                $filterSearchTerm.val(getFilterQuery(filters));
+            };
+
+            var $globalSpinner = $('#search-globalSpinner, #globalSpinner').first();
+
+            var globalSpinnerCounter = 0;
+            window.showGlobalSpinner = function(state, scrollIntoView) {
+                globalSpinnerCounter += (state ? 1 : -1);
+        
+                if(globalSpinnerCounter < 0) {
+                    globalSpinnerCounter = 0;
+                }
+
+                if(scrollIntoView) {
+                    setTimeout(function() {
+                        var searchTable = document.getElementById("searchDatatableOutput");
+
+                        if(globalSpinnerCounter == 0 && searchTable) {
+                            searchTable.scrollIntoView();
+                        }
+                    }, 100);
+                }
+
+                $globalSpinner.toggleClass('slds-hide', globalSpinnerCounter == 0);
+            };
+
+            window.addSearchObjectListOptions = function(options, isMasterRestore) {
+                options.sort(function (a, b) {
+                    if (a.label > b.label) {
+                        return 1;
+                    }
+
+                    if (a.label < b.label) {
+                        return -1;
+                    }
+                    
+                    return 0;
+                });
+
+                $.each(options, function(i, item) {
+                    var $option = $('<option>').attr('value', item.id);
+                    
+                    $option.text(item.label);
+
+                    $objectList.append($option).prop('disabled', false);
+                });
+            };
+
+            $objectList.on('change', function(e) {
+                showGlobalSpinner(true);
+                
+                changeIndexToQuery(e.target.value);
+
+                searchDataTableInit(null, null);
+                window.renderSearchPaginator(0);
+
+                $('[aria-controls="search_indexToQuery-section"][aria-expanded="true"]').trigger('click');
+                $('[aria-controls="search_fields-section"][aria-expanded="false"]').trigger('click');
+                $('[aria-controls="search_filter-section"][aria-expanded="false"]').trigger('click');
+                $('[aria-controls="searchDatatableOutput-section"][aria-expanded="false"]').trigger('click');
+            });
+
+
+            window.graxSearchGoToPage = function(page, sort, sortOrder, isSortable) {
+                if(isSortable === false) return;
+
+                var selectedFields = $fieldlist.val();
+
+                if(!sort) {
+                    sort = JSON.parse(selectedFields || '[]')[0];
+                }
+
+                if(selectedFields) {
+                    showGlobalSpinner(true);
+
+                    updateSearchDataTable(selectedFields, $filterSearchTerm.val(), page || 0, sort, sortOrder || 'asc');
+                
+                    return true;
+                } else {
+                    alert('No fields selected.');
+
+                    return false;
+                }
+            };
+
+            var $retrieveRecords = $("#search-retrieveRecords");
+
+            $retrieveRecords.on('click', function(e) {
+                if(graxSearchGoToPage(0)) {
+                    $('[aria-controls="search_indexToQuery-section"][aria-expanded="true"]').trigger('click');
+                    $('[aria-controls="search_fields-section"][aria-expanded="true"]').trigger('click');
+                    $('[aria-controls="search_filter-section"][aria-expanded="true"]').trigger('click');
+                    $('[aria-controls="searchDatatableOutput-section"][aria-expanded="false"]').trigger('click');
+                }
+
+                e.preventDefault();
+            });
+            
+            addSearchObjectListOptions({!graxIndexes}, true);
+        
+            renderSvgIcons();
+
+            window.previewRecord = function() {
+                showGlobalSpinner(true);
+
+                getPreviewRecord.apply(null, arguments);
+            };
+
+            var $GRAXSearchPreviewPanel = $('#GRAXSearchPreviewPanel');
+
+            $GRAXSearchPreviewPanel.on('submit', 'form', function(e) {
+                e.preventDefault();
+
+                return false;
+            })
+
+            $GRAXSearchPreviewPanel.on('click', '.slds-panel__back, .slds-panel__close', function(e) {
+                e.preventDefault();
+
+                var $panel = $GRAXSearchPreviewPanel.find('.slds-panel');
+
+                $panel.addClass('slideOut');
+
+                setTimeout(function() {
+                    $panel.remove();
+                }, 1000);
+            });
+        });
+    </script>
+    
+</apex:page>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Large Object</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Large Objects</value>
+    </caseValues>
+    <fields>
+        <label><!-- Autonumber --></label>
+        <name>Autonumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- Execution Unique Key --></label>
+        <name>Execution_Unique_Key__c</name>
+    </fields>
+    <fields>
+        <label><!-- GRAX Schedule Process --></label>
+        <name>GRAX_Schedule_Process__c</name>
+        <relationshipLabel><!-- Large Objects --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Some Datetime --></label>
+        <name>Some_Datetime__c</name>
+    </fields>
+    <fields>
+        <label><!-- Some Number --></label>
+        <name>Some_Number__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

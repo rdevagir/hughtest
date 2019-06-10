@@ -1,0 +1,148 @@
+<apex:page controller="GRAXDeploy" showChat="false" showHeader="false">
+<h1>GRAX Deployment &amp; Configuration</h1>
+<BR/>
+<p> 
+	Welcome to the GRAX Deployment and Configuration. If you have already 
+	deployed the GRAX to Heroku simply skip Step #1 or feel free to create
+	a new App.
+</p>
+
+ <apex:form id="form">
+ 	<style type="text/css">
+ 		.objectTitleWidth { width: 200px; white-space: nowrap; }
+        .objectSelectWidth { width: 600px; }
+        .labelWidth { width: 200px; text-align: left; align: left;}
+        .graxButton {display: block; width: 200px; text-align: center;}
+    </style>
+ 
+ 	<apex:pageBlock id="block1">
+ 		<apex:pageMessages escape="false"/>
+ 		<apex:pageBlockSection title="GRAX Configuration">
+ 			<apex:pageBlockSectionItem >
+ 				<apex:pageBlockSection columns="2" id="updatesettings"> 		
+ 					<apex:pageBlockSectionItem >
+ 						<b>Authorize</b>
+ 					</apex:pageBlockSectionItem>
+ 					<apex:pageBlockSectionItem >
+ 						<apex:commandButton id="authorizeheroku" value="Authorize GRAX for Heroku" action="{!AuthorizeHeroku}" styleClass="graxButton"  disabled="{!disableeverything}"/>
+ 					</apex:pageBlockSectionItem>
+ 				
+ 				 	<apex:pageBlockSectionItem >
+ 						<b>Create</b>
+ 					</apex:pageBlockSectionItem>
+ 					<apex:pageBlockSectionItem >
+ 						<apex:commandButton id="deploy" value="Create Heroku Application" action="{!DeployGraxApp}" styleClass="graxButton"  disabled="{!disableeverything}"/>
+ 					</apex:pageBlockSectionItem>
+ 					
+ 					<apex:pageBlockSectionItem >
+ 						<b>Select</b>
+ 					</apex:pageBlockSectionItem>
+ 					<apex:pageBlockSectionItem >
+ 						 <apex:selectList id="objectlist" value="{!graxapp}" multiselect="false" size="1" disabled="{!appselectdisabled || disableeverything}">
+						 	<apex:selectOptions value="{!graxapps}"/>
+						 	<apex:actionSupport reRender="form" event="onchange"/>
+						 </apex:selectList>
+ 					</apex:pageBlockSectionItem>
+ 					
+ 					<apex:pageBlockSectionItem >
+ 						<b>{!actiontext}</b>
+ 					</apex:pageBlockSectionItem>
+ 					<apex:pageBlockSectionItem >
+						<apex:commandButton id="updatesettings" value="{!actionbuttontext}" action="{!UpdateCustomSettings}" styleClass="graxButton"/>
+ 					</apex:pageBlockSectionItem>
+ 					
+ 				</apex:pageBlockSection>
+ 			</apex:pageBlockSectionItem>
+ 		</apex:pageBlockSection>
+ 		
+ 		<apex:pageBlockSection title="GRAX Settings" id="graxsettingsblock">
+ 			<apex:pageBlockSectionItem >
+ 				<apex:pageBlockSection columns="1"> 			
+ 				
+ 					<apex:pageBlockSectionItem >
+ 						<apex:outputLabel for="appname" value="Heroku App" style="objectTitleWidth"/>
+ 						<apex:inputTextarea id="appname" value="{!graxsetting_graxapp}" cols="150" rows="1" disabled="true"/>
+ 					</apex:pageBlockSectionItem>
+ 				 	
+ 					<apex:pageBlockSectionItem >
+ 						<apex:outputLabel for="apitoken" value="API" style="objectTitleWidth"/>
+ 						<apex:inputTextarea id="apitoken" value="{!graxsetting_apitoken}" cols="150" rows="1" disabled="true"/>
+ 					</apex:pageBlockSectionItem>
+
+ 					<apex:pageBlockSectionItem >
+ 						<apex:outputLabel for="gatewaytoken" value="Gateway" style="objectTitleWidth"/>
+ 						<apex:inputTextarea id="gatewaytoken" value="{!graxsetting_gatewaytoken}" cols="150" rows="1" disabled="true"/>
+ 					</apex:pageBlockSectionItem>
+ 					
+ 					<apex:pageBlockSectionItem >
+ 						<apex:outputLabel for="licensetoken" value="License" style="objectTitleWidth"/>
+ 						<apex:inputTextarea id="licensetoken" value="{!graxsetting_licensetoken}" cols="150" rows="1" disabled="true"/>
+ 					</apex:pageBlockSectionItem>
+ 					
+ 					<apex:pageBlockSectionItem >
+ 						<apex:outputLabel for="graphdburl" value="URL" style="objectTitleWidth"/>
+ 						<apex:inputTextarea id="graphdburl" value="{!graxsetting_graphdburl}" cols="150" rows="1" disabled="true"/>
+ 					</apex:pageBlockSectionItem>
+ 					
+ 					<apex:pageBlockSectionItem >
+ 						<apex:outputLabel for="flowurl" value="Flow" style="objectTitleWidth"/>
+ 						<apex:inputTextarea id="flowurl" value="{!graxsetting_flowurl}" cols="150" rows="1" disabled="true"/>
+ 					</apex:pageBlockSectionItem>
+ 					
+ 					<apex:pageBlockSectionItem >
+ 						<apex:outputLabel for="apiurl" value="API Url" style="objectTitleWidth"/>
+ 						<apex:inputTextarea id="apiurl" value="{!graxsetting_apiurl}" cols="150" rows="1"/>
+ 					</apex:pageBlockSectionItem>
+ 						
+ 				</apex:pageBlockSection>
+ 			</apex:pageBlockSectionItem>
+ 		</apex:pageBlockSection>
+ 		
+ 		<apex:pageBlockSection title="GRAX Audit Settings" id="graxauditsettingsblock">
+ 			<apex:pageBlockSectionItem >
+ 				<apex:pageBlockSection columns="1"> 	
+ 					<apex:pageBlockSectionItem >
+ 						<apex:outputLabel for="s3accesskey" value="S3 Access Key" style="objectTitleWidth"/>
+ 						<apex:inputTextarea id="s3accesskey" value="{!graxsetting_s3accesskey}" cols="150" rows="1"  disabled="{!disableeverything}"/>
+ 					</apex:pageBlockSectionItem>
+ 					
+ 					<apex:pageBlockSectionItem >
+ 						<apex:outputLabel for="s3secret" value="S3 Secret" style="objectTitleWidth"/>
+ 						<apex:inputTextarea id="s3secret" value="{!graxsetting_s3secret}" cols="150" rows="1"  disabled="{!disableeverything}"/>
+ 					</apex:pageBlockSectionItem>
+ 					
+ 					<apex:pageBlockSectionItem >
+ 						<apex:outputLabel for="s3bucket" value="S3 Bucket" style="objectTitleWidth"/>
+ 						<apex:inputTextarea id="s3bucket" value="{!graxsetting_s3bucket}" cols="150" rows="1"  disabled="{!disableeverything}"/>
+ 					</apex:pageBlockSectionItem>
+ 					
+ 					<apex:pageBlockSectionItem >
+ 						<apex:outputLabel for="s3region" value="S3 Region" style="objectTitleWidth"/>
+ 						<apex:inputTextarea id="s3region" value="{!graxsetting_s3region}" cols="150" rows="1"  disabled="{!disableeverything}"/>
+ 					</apex:pageBlockSectionItem>
+ 					
+ 				</apex:pageBlockSection>
+ 			</apex:pageBlockSectionItem>
+ 		</apex:pageBlockSection>
+ 		
+ 		
+ 		<apex:pageBlockSection title="GRAX Debugging" id="debugging">
+			<apex:pageBlockSectionItem >
+				<apex:pageBlockSection columns="1">
+					<apex:pageBlockSectionItem >
+						<b>GRAX Configuration</b>
+						<apex:inputTextarea id="graxconfig" value="{!graxconfig}" cols="100" rows="5" />
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem >
+						<b>GRAX App Configuration</b>
+						<apex:inputTextarea id="graxappconfig" value="{!GRAXAppConfig}" cols="100" rows="5">
+						</apex:inputTextarea>
+					</apex:pageBlockSectionItem>
+				</apex:pageBlockSection>
+			</apex:pageBlockSectionItem>
+		</apex:pageBlockSection>
+		<script> twistSection(document.getElementById('{!$Component.block1.debugging}').getElementsByTagName('img')[0]) </script>
+ 	</apex:pageBlock>
+	
+ </apex:form>
+</apex:page>

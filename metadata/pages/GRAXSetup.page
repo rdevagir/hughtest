@@ -1,0 +1,1434 @@
+<apex:page controller="GRAXSetupCtrl" cache="false" showChat="false" showHeader="true" standardStylesheets="false" sidebar="true" applyHtmlTag="{!$User.UIThemeDisplayed == 'Theme4d'}" applyBodyTag="{!$User.UIThemeDisplayed == 'Theme4d'}" docType="html-5.0" tabStyle="GRAX_DEPLOY__tab">
+<div xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"/>
+  <apex:includeScript value="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js"/>
+  <!--<apex:includeScript value="{!URLFOR($Resource.grax, '/thirdparty/jquery-3.3.1.slim.min.js')}"/>-->
+  <!--<apex:includeScript value="{!URLFOR($Resource.grax, '/thirdparty/moment.min.js')}"/>-->
+  <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"/>
+  <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.23/moment-timezone-with-data-2012-2022.min.js"/>
+  <apex:includeScript value="{!URLFOR($Resource.aljs, '/jquery.aljs-init.min.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.aljs, '/jquery.aljs-datepicker.min.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.grax, '/jquery.slds.js')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.grax, '/jquery.sldsTree.js')}"/>
+  
+  <!--<apex:stylesheet value="https://www.lightningdesignsystem.com/_next/static/style.css"/>-->
+    
+  <!-- Import the Design System style sheet -->
+  <apex:slds />
+
+  <script>
+    var $sf = function(id) {
+        return $(document.getElementById(id));
+    };
+
+    window.radioChange = function(input, hiddenId) {
+        $(document.getElementById(hiddenId)).val(input.value).trigger('change');
+    };
+  </script>
+
+  <style type="text/css">
+    body {
+        height: 100vh;
+    }
+    
+    label.error {
+        color: red;
+        font-weight: bold;
+    }
+    .unlock_button:disabled,
+    .cancel_button:disabled,
+    .authorizeotherheroku:disabled {
+        display: none;
+    }
+    #authorize_help,
+    #selectapp_help,
+    #audit_help,
+    #remote_site,
+    #schedule_job_help,
+    #apextriggers_help {
+        position: fixed;
+        margin-top: 1rem;
+    }
+    #field_properties_scrollable {
+        height: 20.1rem;
+        height: 50vh;
+    }
+    .nopointerevents {
+        pointer-events: none;
+    }
+    select.objectlist > option:disabled {
+        display: none;
+        visibility: hidden;
+    }
+
+    .deploy_button:disabled + #remote_site_warning, .schedule_button:disabled + #schedule_job_warning{
+        display: none;
+    }
+    
+
+    #flowIframe {
+        width: 100%;
+        height: 600px;
+        height: 90vh;
+    }
+
+    .slds-nubbin_top-right {
+        margin-left: 1rem;
+    }
+    .slds-nubbin_top-left {
+        margin-left: -1rem;
+    }
+    .slds-popover__body {
+        white-space: normal;
+    }
+
+    .slds-nubbin_top-right.slds-hide,
+    .slds-nubbin_top-left.slds-hide,
+    .slds-nubbin_bottom-right.slds-hide,
+    .slds-nubbin_bottom-left.slds-hide {
+        display: block!important;
+        visibility: hidden;
+    }
+
+    [data-load="true"][data-loading="true"] {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+    [data-load="true"] + [role="status"] {
+        display: none;
+    }
+    [data-load="true"][data-loading="true"] + [role="status"] {
+        display: block;
+    }
+
+    span.slds-button {
+        cursor: default;
+    }
+      
+    .copyToClipboard_button{
+        float: right !important;
+        margin-right: 35px !important;
+        margin-bottom: -20px !important;
+        margin-top: 3px !important;
+    }
+
+    .site {
+        font-size: .875rem;
+        line-height: 1.71429;
+        color: #5876a3;
+    }
+
+    .site .site-code_action-bar {
+        display: flex;
+        justify-content: flex-end;
+        font-size: .8125rem;
+    }
+
+    .site .site-code_action-bar > div {
+        border-left: 1px solid #dddbda;
+        padding: 0 .5rem;
+    }
+
+    .site .site-code_action-bar > div {
+        border-left: 1px solid #dddbda;
+        padding: 0 .5rem;
+    }
+
+    .site .site-code_toggle {
+        font-weight: 700;
+    }
+  </style>
+
+<div>
+
+    <apex:outputPanel layout="block" id="messagesPanel" style="margin-bottom: 20px;">
+        <apex:outputPanel layout="block" rendered="{!NOT(ISBLANK(infoMessage)) && infoMessage <> ''}" style="margin-top:20px;">
+            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info" role="alert" id='alertNotificationInfo'>
+              <span class="slds-assistive-text">Info</span>
+              <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-medium">
+                <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                  <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#info')}"></use>
+                </svg>
+              </span>
+              &nbsp;
+              <h2><apex:outputText value="{!infoMessage}" escape="false" /></h2>
+              <div class="slds-notify__close">
+                <button class="slds-button slds-button_icon slds-button_icon-small slds-button_icon-inverse" id="closeAlertBtn" title="Close" onclick="$('#alertNotificationInfo').hide()">
+                  <svg class="slds-button__icon" aria-hidden="true">
+                    <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#close')}"></use>
+                  </svg>
+                  <span class="slds-assistive-text">Close</span>
+                </button>
+              </div>              
+            </div>
+        </apex:outputPanel>
+
+        <apex:outputPanel layout="block" rendered="{!NOT(ISBLANK(warningMessage)) && warningMessage <> ''}" style="margin-top:20px;">
+            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert" id="alertNotificationWarning">
+              <span class="slds-assistive-text">Warning</span>
+              <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-medium">
+                <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                  <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#warning')}"></use>
+                </svg>
+              </span>
+              &nbsp;
+              <h2><apex:outputText value="{!warningMessage}" escape="false" /></h2>
+            </div>
+        </apex:outputPanel>
+
+        <apex:outputPanel layout="block" rendered="{!errorMessages.size > 0}">
+            <apex:repeat value="{!errorMessages}" var="errorMessage">
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert" style="margin-top:20px;">
+                  <span class="slds-assistive-text">Error</span>
+                  <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-medium">
+                    <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                      <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#error')}"></use>
+                    </svg>
+                  </span>
+                  &nbsp;
+                  <h2><apex:outputText value="{!errorMessage}" escape="false" /></h2>
+                </div>
+            </apex:repeat>
+    </apex:outputPanel>
+
+    </apex:outputPanel>
+    
+<apex:outputPanel id="mainPanel">
+  <div class="slds-scope">
+    <div class="slds-tabs_scoped">
+        <ul class="slds-tabs_scoped__nav" role="tablist" id="tabs">
+            <apex:outputPanel layout="none" rendered="{!gp.isAdmin}">
+                <li class="slds-tabs_scoped__item" title="Configuration" role="presentation">
+                    <a class="slds-tabs_scoped__link" href="javascript:void(0);" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-configuration" id="tab-configuration__item">
+                        Configuration
+                    </a>
+                </li>
+            </apex:outputPanel>
+            <!--<li class="slds-tabs_scoped__item" title="Connect" role="presentation">
+                <a class="slds-tabs_scoped__link" href="javascript:void(0);" role="tab" tabindex="0" aria-selected="false" aria-controls="tab-connect" id="tab-connect__item">
+                    Connect
+                </a>
+            </li>-->
+            <apex:outputPanel layout="none" rendered="{!isconfigured && disableeverything && gp.isAdmin}">
+                <li class="slds-tabs_scoped__item" title="Bulk Load" role="presentation">
+                    <a class="slds-tabs_scoped__link" href="javascript:void(0);" data-iframe="GRAXOrgWideBackupIframe" role="tab" tabindex="0" aria-selected="false" aria-controls="tab-orgwidebackup" id="tab-orgwidebackup__item">
+                        Bulk Load
+                    </a>
+                </li>
+            </apex:outputPanel>
+            <!--  
+            <li class="slds-tabs_scoped__item" title="Audit Trail" role="presentation">
+                <a class="slds-tabs_scoped__link" href="javascript:void(0);" role="tab" tabindex="0" aria-selected="false" aria-controls="tab-audittrail" id="tab-audittrail__item">
+                    Audit Trail
+                </a>
+            </li>
+            -->   
+            <!-- 
+            <li class="slds-tabs_scoped__item" title="Flow" role="presentation">
+                <a class="slds-tabs_scoped__link" href="javascript:void(0);" role="tab" tabindex="0" aria-selected="false" aria-controls="tab-flow" id="tab-flow__item">
+                    Flow
+                </a>
+            </li>
+            -->
+            <apex:outputPanel layout="none" rendered="{!isconfigured && disableeverything && gp.ifHasBackupPagePermission}">
+                <li class="slds-tabs_scoped__item" title="Schedule" role="presentation">
+                    <a class="slds-tabs_scoped__link" href="javascript:void(0);" role="tab" tabindex="0" aria-selected="false" aria-controls="tab-archiving" id="tab-archiving__item">
+                        Schedule
+                    </a>
+                </li>
+            </apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!isconfigured && disableeverything && gp.ifHasRestorePagePermission}">
+                <li class="slds-tabs_scoped__item" title="Search" role="presentation">
+                    <a class="slds-tabs_scoped__link" href="javascript:void(0);" role="tab" tabindex="0" aria-selected="false" aria-controls="tab-restore" id="tab-restore__item">
+                        Search
+                    </a>
+                </li>
+            </apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!isconfigured && disableeverything && gp.isAdmin}">
+                <li class="slds-tabs_scoped__item" title="Data Management" role="presentation">
+                    <a class="slds-tabs_scoped__link" href="javascript:void(0);" data-iframe="GRAXDataManagementApp" role="tab" tabindex="0" aria-selected="false" aria-controls="tab-management" id="tab-management__item">
+                        Data Management
+                    </a>
+                </li>
+                <li class="slds-tabs_scoped__item" title="Logs" role="presentation">
+                    <a class="slds-tabs_scoped__link" href="javascript:void(0);" data-iframe="GRAXLoggingApp" role="tab" tabindex="0" aria-selected="false" aria-controls="tab-logs" id="tab-logs__item">
+                        Logs
+                    </a>
+                </li>
+            </apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!gp.isAdmin && gxs.graxConfig.EnableDeleteTab__c}">
+                <li class="slds-tabs_scoped__item" title="Datalake Delete" role="presentation">
+                    <a class="slds-tabs_scoped__link" href="javascript:void(0);" data-iframe="GRAXDeleteApp" role="tab" tabindex="0" aria-selected="false" aria-controls="tab-delete" id="tab-delete__item">
+                        Datalake Delete
+                    </a>
+                </li>
+            </apex:outputPanel>
+            <!--<li class="slds-tabs_scoped__item" title="Support" role="presentation">
+                <a class="slds-tabs_scoped__link" href="javascript:void(0);" role="tab" tabindex="0" aria-selected="false" aria-controls="tab-support" id="tab-support__item">
+                    Support
+                </a>
+            </li>-->
+            <apex:outputPanel layout="none" rendered="{!gp.isAdmin}">
+                <li class="slds-tabs_scoped__item" title="Help" role="presentation">
+                    <a class="slds-tabs_scoped__link" href="javascript:void(0);" role="tab" tabindex="0" aria-selected="false" aria-controls="tab-help" id="tab-help__item">
+                        Help
+                    </a>
+                </li>
+            </apex:outputPanel>
+        </ul>
+
+        <apex:outputPanel layout="none" rendered="{!gp.isAdmin}">
+            <div id="tab-configuration" class="slds-tabs_scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-configuration__item">
+                <apex:form id="form-configuration">
+                    <div class="slds-section slds-is-open slds-is-relative">
+                        <h3 class="slds-section__title slds-theme_shade">
+                            <span class="slds-truncate slds-p-horizontal_small" title="Authorize Heroku">Authorize Heroku</span>
+                            <button class="slds-button slds-button_icon slds-button slds-button_icon" aria-describedby="authorize_help" title="Help">
+                                <i class="slds-button__icon" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#info')}"></i>
+                                <span class="slds-assistive-text">Help</span>
+                            </button>
+                        </h3>
+                        <div aria-hidden="false" class="slds-section__content">
+                            <apex:outputPanel layout="block" rendered="{!!isauthorized}">
+                                <apex:commandButton id="authorizeheroku" value="Authorize" action="{!AuthorizeHeroku}" styleClass="slds-button slds-button_brand"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="block" rendered="{!isauthorized}">
+                                <div class="slds-grid slds-grid_vertical-align-center">
+                                    <div class="slds-col slds-grow-none slds-m-right_small">
+                                        <span class="slds-button slds-button_neutral nopointerevents">
+                                            <i class="slds-button__icon" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#check')}"></i>
+                                            Connected
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="slds-col slds-grow-none">
+                                        <apex:commandButton id="authorizeotherheroku" value="Authorize a different Heroku Account" action="{!AuthorizeHeroku}" styleClass="slds-button slds-button_brand authorizeotherheroku _blank" disabled="{!disableeverything}"/>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                        </div>
+                    </div>
+
+                    <div class="slds-section slds-is-open slds-is-relative slds-p-top_large">
+                        <h3 class="slds-section__title slds-theme_shade">
+                            <span class="slds-truncate slds-p-horizontal_small" title="Select your Heroku Application">Select your GRAX Application</span>
+                            <button class="slds-button slds-button_icon slds-button slds-button_icon" aria-describedby="selectapp_help" title="Help">
+                                <i class="slds-button__icon" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#info')}"></i>
+                                <span class="slds-assistive-text">Help</span>
+                            </button>
+                        </h3>
+                        <div aria-hidden="false" class="slds-section__content">
+                            <div class="slds-grid slds-grid_vertical-align-center">
+                                <div class="slds-col slds-grow-none slds-m-right_small">
+                                    <div class="slds-form-element">
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-select_container">
+                                                <apex:selectList id="objectlist" styleClass="slds-select" value="{!graxapp}" multiselect="false" size="1" disabled="{!appselectdisabled || disableeverything}">
+                                                    <apex:selectOptions value="{!graxapps}"/>
+                                                    <apex:actionSupport reRender="deploy,apitoken,appname,gatewaytoken,apiurl,licensetoken,graphdburl,postgresurl,flowurl,graxconfig,graxappconfig" event="onchange"/>
+                                                </apex:selectList>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="slds-col slds-grow-none">
+                                    <apex:commandButton id="deploy" value="Create New GRAX App" action="{!DeployGraxApp}" styleClass="slds-button slds-button_brand _blank deploy_button" disabled="{!disableeverything}"/>
+                                    <button id="remote_site_warning" class="slds-button slds-button_icon slds-button slds-button_icon" aria-describedby="remote_site" title="Warning!">
+                                        <i class="slds-button__icon slds-icon-text-warning slds-icon_small" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#warning')}"></i>
+                                        <span class="slds-assistive-text">Warning!</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="slds-section slds-p-top_large">
+                        <h3 class="slds-section__title">
+                            <button aria-controls="section-advanced" aria-expanded="false" class="slds-button slds-section__title-action">
+                                <i class="slds-section__title-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                <span class="slds-truncate" title="Advanced">Advanced Settings</span>
+                            </button>
+                        </h3>
+                        <div aria-hidden="true" class="slds-section__content" id="section-advanced">
+                            <ul class="slds-accordion" id="graxsettingsblock">
+                                <li class="slds-accordion__list-item">
+                                    <section class="slds-accordion__section">
+                                        <div class="slds-accordion__summary">
+                                            <h3 class="slds-text-heading_small slds-accordion__summary-heading">
+                                                <button aria-controls="accordion-grax-settings" aria-expanded="false" class="slds-button slds-button_reset slds-accordion__summary-action">
+                                                    <i class="slds-accordion__summary-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                                    <span class="slds-truncate" title="GRAX Settings">GRAX Settings</span>
+                                                </button>
+                                            </h3>
+                                        </div>
+
+                                        <div aria-hidden="true" class="slds-accordion__content" id="accordion-grax-settings">
+                                            <div class="slds-form-element">
+                                                <apex:outputLabel for="appname" value="Heroku App" styleClass="slds-form-element__label"/>
+                                                <div class="slds-form-element__control">
+                                                    <apex:inputText id="appname" value="{!gxs.graxConfig.Heroku_App_Name__c}" size="150" styleClass="slds-input" disabled="true"/>
+                                                </div>
+                                            </div>
+            
+                                            <div class="slds-form-element">
+                                                <apex:outputLabel for="apitoken" value="API" styleClass="slds-form-element__label"/>
+                                                <div class="slds-form-element__control">
+                                                    <apex:inputText id="apitoken" value="{!gxs.graxConfig.ApiToken__c}" size="150" styleClass="slds-input" disabled="true"/>
+                                                </div>
+                                            </div>
+            
+                                            <div class="slds-form-element">
+                                                <apex:outputLabel for="gatewaytoken" value="Gateway" styleClass="slds-form-element__label"/>
+                                                <div class="slds-form-element__control">
+                                                    <apex:inputText id="gatewaytoken" value="{!gxs.graxConfig.GatewayToken__c}" size="150" styleClass="slds-input" disabled="true"/>
+                                                </div>
+                                            </div>
+            
+                                            <div class="slds-form-element">
+                                                <apex:outputLabel for="licensetoken" value="License" styleClass="slds-form-element__label"/>
+                                                <div class="slds-form-element__control">
+                                                    <apex:inputText id="licensetoken" value="{!gxs.graxConfig.LicenseToken__c}" size="150" styleClass="slds-input" disabled="true"/>
+                                                </div>
+                                            </div>
+                                            <!--
+                                            <div class="slds-form-element">
+                                                <apex:outputLabel for="graphdburl" value="Graph Database URL (Optional)" styleClass="slds-form-element__label"/>
+                                                <div class="slds-form-element__control">
+                                                    <apex:inputText id="graphdburl" value="{!gxs.graxConfig.graphdburl__c}" size="150" styleClass="slds-input" disabled="true"/>
+                                                </div>
+                                            </div>
+                                            -->
+                                            <!-- 
+                                            <div class="slds-form-element">
+                                                    <apex:outputLabel for="postgresurl" value="Postgres URL" styleClass="slds-form-element__label"/>
+                                                    <div class="slds-form-element__control">
+                                                        <apex:inputText id="postgresurl" value="{!gxs.graxConfig.Postgres_URL__c}" size="150" styleClass="slds-input" disabled="true"/>
+                                                    </div>
+                                            </div>
+                                            -->         
+    <!--       
+                                            <div class="slds-form-element">
+                                                <apex:outputLabel for="flowurl" value="Flow" styleClass="slds-form-element__label"/>
+                                                <div class="slds-form-element__control">
+                                                    <apex:inputText id="flowurl" value="{!gxs.graxConfig.GRAX_Flow_URL__c}" size="150" styleClass="slds-input" disabled="true"/>
+                                                </div>
+                                            </div>
+    -->  
+                                            <div class="slds-form-element">
+                                                <apex:outputLabel for="apiurl" value="GRAX API Url" styleClass="slds-form-element__label"/>
+                                                <div class="slds-form-element__control">
+                                                    <apex:inputText id="apiurl" value="{!gxs.graxConfig.GRAX_API_Url__c}" size="150" styleClass="slds-input"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </li>
+                            </ul>
+        
+                            <!--<ul class="slds-accordion" id="debugging">
+                                <li class="slds-accordion__list-item">
+                                    <section class="slds-accordion__section">
+                                        <div class="slds-accordion__summary">
+                                            <h3 class="slds-text-heading_small slds-accordion__summary-heading">
+                                                <button aria-controls="accordion-debugging" aria-expanded="false" class="slds-button slds-button_reset slds-accordion__summary-action">
+                                                    <i class="slds-accordion__summary-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                                    <span class="slds-truncate" title="GRAX Debugging">GRAX Debugging</span>
+                                                </button>
+                                            </h3>
+                                        </div>
+
+                                        <div aria-hidden="true" class="slds-accordion__content" id="accordion-debugging">
+                                            <div class="slds-form-element">
+                                                <apex:outputLabel for="graxconfig" value="GRAX Configuration" styleClass="slds-form-element__label"/>
+                                                <div class="slds-form-element__control">
+                                                    <apex:inputTextarea id="graxconfig" value="{!graxconfig}" cols="100" rows="5" styleClass="slds-input" />
+                                                </div>
+                                            </div>
+
+                                            <div class="slds-form-element">
+                                                <apex:outputLabel for="graxappconfig" value="GRAX App Configuration" styleClass="slds-form-element__label"/>
+                                                <div class="slds-form-element__control">
+                                                    <apex:inputTextarea id="graxappconfig" value="{!GRAXAppConfig}" cols="100" rows="5" styleClass="slds-input" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </li>
+                            </ul>-->
+
+                            <apex:inputHidden id="graxappconfig" value="{!GRAXAppConfig}" />
+
+                            <ul class="slds-accordion" id="datalake">
+                                <li class="slds-accordion__list-item">
+                                    <section class="slds-accordion__section">
+                                        <div class="slds-accordion__summary">
+                                            <h3 class="slds-text-heading_small slds-accordion__summary-heading">
+                                                <button aria-controls="accordion-datalake" aria-expanded="false" class="slds-button slds-button_reset slds-accordion__summary-action">
+                                                    <i class="slds-accordion__summary-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                                    <span class="slds-truncate" title="GRAX Data Lake">GRAX Data Lake</span>
+                                                </button>
+                                            </h3>
+                                        </div>
+
+                                        <div aria-hidden="true" class="slds-accordion__content" id="accordion-datalake">
+                                            <div class="slds-form-element">
+                                                <label class="slds-checkbox_toggle slds-grid">
+                                                    <span class="slds-form-element__label slds-m-bottom_none">Enable Delete Tab?</span>
+                                                    <apex:inputCheckbox id="enabledeletetab" value="{!gxs.graxConfig.EnableDeleteTab__c}" disabled="{!disableeverything}" />
+                                                    <span class="slds-checkbox_faux_container" aria-live="assertive">
+                                                        <span class="slds-checkbox_faux"></span>
+                                                        <span class="slds-checkbox_on">Yes</span>
+                                                        <span class="slds-checkbox_off">No</span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-section slds-p-top_large">
+                        <h3 class="slds-section__title">
+                            <button aria-controls="section-schedule" aria-expanded="false" class="slds-button slds-section__title-action">
+                                <i class="slds-section__title-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                <span class="slds-truncate" title="Schedule">APEX Scheduled Jobs</span>
+                            </button>
+                        </h3>
+                        <div aria-hidden="true" class="slds-section__content" id="section-schedule">
+                            <apex:outPutPanel rendered="{!NOT(ISBLANK(scheduledJobsContextUserName))}">
+                                <p>The scheduled jobs are currently running with the user: <b>{!scheduledJobsContextUserName}</b>.</p><br/>
+                            </apex:outPutPanel>
+                            <apex:commandButton id="scheduleJobBtnId" value="Activate Scheduled Jobs" action="{!saveScheduleJobs}" styleClass="slds-button slds-button_brand schedule_button" disabled="{!disableeverything}"/>
+                    
+                            <button id="schedule_job_warning" class="slds-button slds-button_icon slds-button slds-button_icon" aria-describedby="schedule_job_help" title="Warning!">
+                                <i class="slds-button__icon slds-icon-text-warning slds-icon_small" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#warning')}"></i>
+                                <span class="slds-assistive-text">Warning!</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="slds-section slds-p-top_large">
+                        <h3 class="slds-section__title">
+                            <div aria-controls="section-apextriggers" aria-expanded="false" class="slds-button slds-section__title-action">
+                                <i class="slds-section__title-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                <span class="slds-truncate slds-p-right_small" title="APEX Trigger(s)">APEX Trigger(s)</span>
+                                <button class="slds-button slds-button_icon slds-button slds-button_icon" aria-describedby="apextriggers_help" title="Help">
+                                    <i class="slds-button__icon" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#info')}"></i>
+                                    <span class="slds-assistive-text">Help</span>
+                                </button>
+                            </div>
+                        </h3>
+                        <div aria-hidden="true" class="slds-section__content" id="section-apextriggers">
+                            <p>Select the object below</p>
+
+                            <div class="slds-grid slds-grid_vertical-align-center slds-p-top_xx-small">
+                                <div class="slds-col slds-grow-none slds-m-right_small">
+                                    <div class="slds-form-element">
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-select_container">
+                                                <apex:selectList id="triggerobjectlist" value="{!objToQuery}" multiselect="false" size="1" styleClass="slds-select triggerobjectlist">
+                                                    <apex:selectOptions value="{!items}"/>
+                                                    <apex:actionSupport reRender="deploytrigger" event="onchange" oncomplete="reRendered();"/>
+                                                </apex:selectList>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="slds-col slds-grow-none">
+                                    <button id="showTriggerExampleButton" class="slds-button slds-button_brand">
+                                        <span>Show Example</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-clearfix slds-p-vertical_large">
+                        <div class="slds-clearfix">
+                            <apex:outputPanel styleClass="slds-float_right" rendered="{!isauthorized}">
+                                <apex:commandButton id="updatesettings" value="Unlock" action="{!UpdateCustomSettings}" styleClass="slds-button slds-button_neutral unlock_button" disabled="{!!disableeverything}"/>
+                                <apex:commandButton id="cancel" value="Cancel" action="{!CancelReload}" styleClass="slds-button slds-button_neutral cancel_button" disabled="{!disableeverything}"/>
+                                <apex:commandButton id="save" value="Save" action="{!UpdateCustomSettings}" styleClass="slds-button slds-button_brand" disabled="{!disableeverything}" onclick="showGlobalSpinner(true);"/>
+                                <apex:commandButton id="saveandnext" value="Save & Next" action="{!UpdateCustomSettings}" reRender="form-configuration, objectlist, deploy, updatesettings, cancel, save, saveandnext" styleClass="slds-button slds-button_brand configsaveandnext slds-hide" disabled="{!disableeverything}"/>
+                            </apex:outputPanel>
+                        </div>
+                    </div>
+
+                    <div class="slds-popover slds-popover_tooltip slds-nubbin_top-left slds-rise-from-ground slds-hide" role="tooltip" id="authorize_help" aria-hidden="true">
+                        <div class="slds-popover__body">
+                            The GRAX cloud is powered by a Heroku application hosted on your Heroku environment.
+                            <br />
+                            First you will need to connect the Salesforce GRAX application with Heroku.
+                        </div>
+                    </div>
+
+                    <div class="slds-popover slds-popover_tooltip slds-nubbin_top-left slds-rise-from-ground slds-hide" role="tooltip" id="selectapp_help" aria-hidden="true">
+                        <div class="slds-popover__body">
+                            Unless you already created a GRAX application in another Salesforce instance,
+                            create a new GRAX application. Once complete with Heroku application wizard,
+                            select your new application here.
+                        </div>
+                    </div>
+
+                    <div class="slds-popover slds-popover_tooltip slds-nubbin_top-left slds-rise-from-ground slds-hide" role="tooltip" id="remote_site" aria-hidden="true">
+                        <div class="slds-popover__body">
+                            Please ensure that a Remote Site Setting record matching the API Url value is created before using the app.
+                        </div>
+                    </div>
+                    
+                    <div class="slds-popover slds-popover_tooltip slds-nubbin_top-left slds-rise-from-ground slds-hide" role="tooltip" id="schedule_job_help" aria-hidden="true">
+                        <div class="slds-popover__body">
+                            When you click this button, the required APEX Scheduled Jobs will be added to the queue and GRAX processes will run as your user.
+                        </div>
+                    </div>
+
+                    <div class="slds-popover slds-popover_tooltip slds-nubbin_top-left slds-rise-from-ground slds-hide" role="tooltip" id="apextriggers_help" aria-hidden="true">
+                        <div class="slds-popover__body">
+                            After clicking "Show Example", sample trigger code will be displayed.<br/>
+                            The trigger is used to backup records on an object immediately after create, update, or delete.<br/>
+                            This functionality is used for the Object Time Machine to view real-time results.
+                        </div>
+                    </div>
+
+                    <section id="triggerDeployModal" role="dialog" tabindex="-1" aria-labelledby="modal-deploy-trigger" aria-modal="true" aria-describedby="modal-deploy-trigger-content" class="slds-modal slds-hide">
+                        <div class="slds-modal__container">
+                            <header class="slds-modal__header">
+                                <button data-toggle="modal" data-target="#triggerDeployModal" class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                                    <i class="slds-button__icon slds-button__icon_large" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#close')}"></i>
+                                    <span class="slds-assistive-text">Close</span>
+                                </button>
+
+                                <h2 id="modal-deploy-trigger" class="slds-text-heading_medium slds-hyphenate">Create Trigger</h2>
+                            </header>
+                            
+                            <div class="slds-modal__content slds-p-around_medium">
+                                <!--
+                                <div class="slds-section slds-is-relative">
+                                    <h3 class="slds-section__title">
+                                        <div aria-controls="section-triggermockup" aria-expanded="false" class="slds-button slds-section__title-action">
+                                            <i class="slds-section__title-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                            <span class="slds-truncate slds-p-right_small" title="Trigger Mockup">Trigger Mockup</span>
+                                        </div>
+                                    </h3>
+                                    <div aria-hidden="true" class="slds-section__content" id="section-triggermockup">
+                                        
+                                        
+                                        <div class="slds-p-around_medium" id="modal-deploy-trigger-content">
+                                            <div id="accordion-trigger-example">
+                                                <div class="slds-form-element">
+                                                    <div class="slds-form-element__control">
+                                                        <button class="copyToClipboard_button slds-button slds-button_icon slds-button slds-button_icon" title="Copy to Clipboard" onclick="copyToClipboard('triggerExample'); return false;">
+                                                            <i class="slds-button__icon" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#copy_to_clipboard')}"></i>
+                                                            <span class="slds-assistive-text">Copy to Clipboard</span>
+                                                        </button>
+                                                        <textarea id="triggerExample" class="slds-textarea" readonly="readonly" style="height: 210px; padding-top: 17px;"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                -->
+                                <div class="slds-section slds-is-relative">
+                                    <h3 class="slds-section__title">
+                                        
+                                        <div   class="slds-button slds-section__title-action">
+                                            <span class="slds-truncate slds-p-right_small" title="Sample Test Class">Trigger Mockup</span>
+                                        </div>
+                                        
+                                        <div class="site" >
+                                            <div class="site-code_action-bar">
+                                                <div class="site-code_copy">
+                                                    <button class="slds-button slds-button_icon slds-button slds-button_icon" title="Copy to Clipboard" onclick="copyToClipboard('triggerExampleCode'); return false;">
+                                                        <i class="slds-button__icon" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#copy_to_clipboard')}"></i>
+                                                        <span class="slds-assistive-text">Copy to Clipboard</span>
+                                                        
+                                                    </button>
+                                                </div>
+                                                <div class="site-code_toggle" style="width: 120px;" >
+                                                    <button class="slds-button slds-section__title-action" aria-controls="section-triggermockup" aria-expanded="false" aria-live="polite">Show Code</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </h3>
+                                    <div id="triggerExampleCodeCopy" ></div>
+                                    <div aria-hidden="true" class="slds-section__content" id="section-triggermockup">
+                                        
+                                        <div class="slds-p-around_medium" id="modal-deploy-sample-test-content">
+                                            <div id="accordion-sample-test-example">
+                                                <div class="slds-form-element">
+                                                    <div class="slds-form-element__control">
+                                                        <div id="triggerExampleCode" readonly="readonly" ></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                                <div class="slds-section slds-is-relative">
+                                    <h3 class="slds-section__title">
+                                        
+                                        <div   class="slds-button slds-section__title-action">
+                                            <span class="slds-truncate slds-p-right_small" title="Sample Test Class">Sample Test Class</span>
+                                        </div>
+                                        
+                                        <div class="site" >
+                                            <div class="site-code_action-bar">
+                                                <div class="site-code_copy">
+                                                    <button class="slds-button slds-button_icon slds-button slds-button_icon" title="Copy to Clipboard" onclick="copyToClipboard('sampleTestExampleCode'); return false;">
+                                                        <i class="slds-button__icon" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#copy_to_clipboard')}"></i>
+                                                        <span class="slds-assistive-text">Copy to Clipboard</span>
+                                                        
+                                                    </button>
+                                                </div>
+                                                <div class="site-code_toggle" style="width: 120px;" >
+                                                    <button class="slds-button slds-section__title-action" aria-controls="section-sampletestclass" aria-expanded="false" aria-live="polite">Show Code</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </h3>
+                                    <div id="sampleTestExampleCodeCopy" ></div>
+                                    <div aria-hidden="true" class="slds-section__content" id="section-sampletestclass">
+                                        
+                                        <div class="slds-p-around_medium" id="modal-deploy-sample-test-content">
+                                            <div id="accordion-sample-test-example">
+                                                <div class="slds-form-element">
+                                                    <div class="slds-form-element__control">
+                                                        <div id="sampleTestExampleCode" readonly="readonly" ></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <footer class="slds-modal__footer">
+                                <span class="slds-button slds-button_neutral" data-toggle="modal" data-target="#triggerDeployModal">Close</span>
+                            </footer>
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-hide"></div>
+                </apex:form>
+            </div>
+        </apex:outputPanel>
+
+        <!--<div id="tab-connect" class="slds-tabs_scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-connect__item">
+            <apex:form id="form-connect">
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title slds-theme_shade">
+                        <span class="slds-truncate slds-p-horizontal_small" title="Select SalesForce object">Select SalesForce object</span>
+                    </h3>
+                    <div aria-hidden="false" class="slds-section__content">
+                        <div class="slds-grid slds-grid_vertical-align-center">
+                            <div class="slds-col slds-grow-none slds-m-right_small">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-select_container">
+                                            <apex:selectList id="objectlist" value="{!objToQuery}" multiselect="false" size="1" styleClass="slds-select objectlist" disabled="{!NOT(isconfigured)}">
+                                                <apex:selectOptions value="{!items}"/>
+                                                <apex:actionSupport reRender="auditenabled, field_properties, defaultFields, defaultFilter, defaultProcessingOrder, graxconfig, deploytrigger, savequery, processhistory" event="onchange" oncomplete="reRendered();showGlobalSpinner(false);"/>
+                                            </apex:selectList>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-section slds-is-open slds-p-top_large">
+                    <h3 class="slds-section__title slds-theme_shade">
+                        <span class="slds-truncate slds-p-horizontal_small" title="Selected fields for GRAX">GRAX - Selected Fields</span>
+                    </h3>
+                    <div aria-hidden="false" class="slds-section__content">
+                        <apex:outputPanel layout="inline" styleClass="slds-checkbox">
+                            <apex:inputCheckbox value="{!auditenabled}" id="auditenabled" styleClass="auditenabledcheckbox" />
+                            <apex:outputLabel styleClass="slds-checkbox__label" for="auditenabled">
+                                <span class="slds-checkbox_faux"></span>
+                                <span class="slds-form-element__label">Enable Audit Trail</span>
+                            </apex:outputLabel>
+                        </apex:outputPanel>
+
+                        <div class="slds-scrollable_y slds-m-top_small" id="field_properties_scrollable">
+                            <apex:dataTable value="{!fieldProperties}" var="f" id="field_properties" styleClass="slds-table slds-table_bordered slds-table_cell-buffer">        
+                                <apex:column >
+                                    <apex:facet name="header"></apex:facet>
+                                    <apex:outputPanel layout="inline" styleClass="slds-checkbox">
+                                        <apex:inputCheckbox value="{!f.fieldselected}" id="checkedone" disabled="{!f.disabled}" />
+                                        <apex:outputLabel styleClass="slds-checkbox__label" for="checkedone">
+                                            <span class="slds-checkbox_faux"></span>
+                                        </apex:outputLabel>
+                                    </apex:outputPanel>
+                                </apex:column>
+            
+                                <apex:column >
+                                    <apex:facet name="header">Field Name</apex:facet>
+                                    <apex:outputText value="{!f.fieldname}"/>
+                                </apex:column>
+            
+                                <apex:column >
+                                    <apex:facet name="header">Field Type</apex:facet>
+                                    <apex:outputText value="{!f.fieldtype}"/>
+                                </apex:column>
+            
+                                <apex:column >
+                                    <apex:facet name="header">Referenced To</apex:facet>
+                                    <apex:outputText value="{!f.referenceto}"/>
+                                </apex:column>
+            
+                                <apex:column >
+                                    <apex:facet name="header">Message</apex:facet>
+                                    <apex:outputText value="{!f.message}"/>
+                                </apex:column>
+
+                                <apex:column >
+                                    <apex:facet name="header">
+                                        <span class="slds-p-right_small" title="Display changed values in SF.">Display changed values in SF.</span>
+                                        <button class="slds-button slds-button_icon slds-button slds-button_icon" aria-describedby="audit_help" title="Help">
+                                            <i class="slds-button__icon" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#info')}"></i>
+                                            <span class="slds-assistive-text">Help</span>
+                                        </button>
+                                    </apex:facet>
+                                    <apex:outputPanel layout="inline" styleClass="slds-checkbox">
+                                        <apex:inputCheckbox value="{!f.fieldauditenabled}" id="fieldauditenabled" styleClass="fieldauditenabled" disabled="{!f.disabled || !auditenabled}" />
+                                        <apex:outputLabel styleClass="slds-checkbox__label" for="fieldauditenabled">
+                                            <span class="slds-checkbox_faux"></span>
+                                        </apex:outputLabel>
+                                    </apex:outputPanel>
+                                </apex:column>
+                            </apex:dataTable>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-section slds-p-top_large">
+                    <h3 class="slds-section__title">
+                        <button aria-controls="connect-advanced" aria-expanded="false" class="slds-button slds-section__title-action">
+                            <i class="slds-section__title-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                            <span class="slds-truncate" title="Advanced">Advanced</span>
+                        </button>
+                    </h3>
+                    <div aria-hidden="true" class="slds-section__content" id="connect-advanced">
+                        <div class="slds-form-element">
+                            <apex:outputLabel for="defaultFields" value="Select" styleClass="slds-form-element__label"/>
+                            <div class="slds-form-element__control">
+                                <apex:inputTextarea id="defaultFields" value="{!defaultfields}" cols="100" rows="5" styleClass="slds-input" disabled="true"/>
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element">
+                            <apex:outputLabel for="defaultFilter" value="From {!objToQuery} Where" styleClass="slds-form-element__label"/>
+                            <div class="slds-form-element__control">
+                                <apex:inputTextarea id="defaultFilter" value="{!defaultfilter}" cols="100" rows="5" styleClass="slds-input" disabled="{!NOT(isconfigured)}"/>
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element">
+                            <apex:outputLabel for="defaultProcessingOrder" value="Order By" styleClass="slds-form-element__label"/>
+                            <div class="slds-form-element__control">
+                                <apex:inputTextarea id="defaultProcessingOrder" value="{!defaultprocessordering}" cols="100" rows="5" styleClass="slds-input" disabled="{!NOT(isconfigured)}"/>
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element">
+                            <apex:outputLabel for="graxconfig" value="GRAX JSON Configuration" styleClass="slds-form-element__label"/>
+                            <div class="slds-form-element__control">
+                                <apex:inputTextarea id="graxconfig" value="{!graxconfig}" cols="100" rows="5" styleClass="slds-input" disabled="true"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-clearfix slds-p-vertical_large">
+                    <div class="slds-clearfix">
+                        <apex:outputPanel styleClass="slds-float_right" rendered="{!isauthorized}">
+                            <button id="cancel_connect" class="slds-button slds-button_neutral" disabled="disabled">Cancel</button>
+                            <apex:commandButton id="savequery" value="Save" action="{!SaveSelection}" reRender="deploytrigger" oncomplete="connectSave();reRendered();" styleClass="slds-button slds-button_neutral" disabled="{!disablesave}"/>
+                            <apex:commandButton id="processhistory" value="Save & Process History - {!objToQuery}" action="{!Synchronize}" reRender="deploytrigger" oncomplete="connectSave();reRendered();" styleClass="slds-button slds-button_brand configsaveandnext" disabled="{!disablesynch}"/>
+                        </apex:outputPanel>
+                    </div>
+                </div>
+
+                <div class="slds-popover slds-popover_tooltip slds-nubbin_top-right slds-rise-from-ground slds-hide" role="tooltip" id="audit_help" aria-hidden="true">
+                    <div class="slds-popover__body">
+                        Due to HIPPA Regulations, please note that these field values will be stored and displayed in Salesforce.
+                    </div>
+                </div>
+
+                <section id="triggerDeployModal" role="dialog" tabindex="-1" aria-labelledby="modal-deploy-trigger" aria-modal="true" aria-describedby="modal-deploy-trigger-content" class="slds-modal slds-hide">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button data-toggle="modal" data-target="#triggerDeployModal" class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                                <i class="slds-button__icon slds-button__icon_large" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#close')}"></i>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+
+                            <h2 id="modal-deploy-trigger" class="slds-text-heading_medium slds-hyphenate">Create Trigger</h2>
+                        </header>
+
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-deploy-trigger-content">
+                            <p class="slds-text-heading_small">Do you want to create the trigger?</p>
+                            <p>This is necessary only the first time</p>
+                            <section class="slds-accordion__section">
+                                <div class="slds-accordion__summary">
+                                    <h3 class="slds-text-heading_small slds-accordion__summary-heading">
+                                        <button aria-controls="accordion-trigger-example" aria-expanded="false" class="slds-button slds-button_reset slds-accordion__summary-action">
+                                            <i class="slds-accordion__summary-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                            <span class="slds-truncate" title="Trigger Example">Trigger Example</span>
+                                        </button>
+                                    </h3>
+                                </div>
+
+                                <div aria-hidden="true" class="slds-accordion__content" id="accordion-trigger-example">
+                                    <div class="slds-form-element">
+                                        <div class="slds-form-element__control">
+                                            <textarea id="triggerExample" class="slds-textarea" readonly="readonly" style="height: 210px;"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <footer class="slds-modal__footer">
+                            <span class="slds-checkbox">
+                                <input id="deploy-modal-checkbox" type="checkbox" />
+                                <label class="slds-checkbox__label" for="deploy-modal-checkbox">
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">Don&#39;t show this message again.</span>
+                                </label>
+                            </span>
+
+                            <span class="slds-button slds-button_neutral" data-toggle="modal" data-target="#triggerDeployModal">Skip</span>
+                            <span class="slds-button slds-button_destructive" data-toggle="modal" data-target="#triggerDeployModal">I have already created the trigger.</span>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-hide"></div>
+            </apex:form>
+        </div>-->
+
+        <apex:outputPanel layout="none" rendered="{!isconfigured && disableeverything && gp.isAdmin}">
+            <div id="tab-orgwidebackup" class="slds-tabs_scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-orgwidebackup__item">
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title slds-theme_shade">
+                        <span class="slds-truncate slds-p-horizontal_small" title="File Upload">File Upload</span>
+                    </h3>
+                    <div aria-hidden="false" class="slds-section__content">
+                        <p>Process to be used when uploading a CSV file of external non-Salesforce data. Do not use for loading Salesforce data, as this should be done using the "Schedule" tab.<br />For full details: <a href="https://documentation.grax.io/docs/bulk-data-loads" target="_blank">https://documentation.grax.io/docs/bulk-data-loads</a></p>
+
+                        <div class="slds-p-vertical_small">
+                            <apex:include pageName="GRAXOrgWideBackup"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </apex:outputPanel>
+        <!-- 
+        <div id="tab-audittrail" class="slds-tabs_scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-audittrail__item">
+                <apex:form id="form-audittrail">
+                    
+                     <div class="slds-section slds-is-open slds-is-relative">
+                    <h3 class="slds-section__title slds-theme_shade">
+                        <span class="slds-truncate slds-p-horizontal_small" title="Authorize Heroku">Audit Trail Settings</span>
+                        <button class="slds-button slds-button_icon slds-button slds-button_icon" aria-describedby="authorize_help" title="Help">
+                            <i class="slds-button__icon" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#info')}"></i>
+                            <span class="slds-assistive-text">Help</span>
+                        </button>
+                    </h3>
+                    
+                    <div aria-hidden="false" class="slds-section__content">
+                            <ul class="slds-accordion" id="graxauditsettingsblock">
+                            <li class="slds-accordion__list-item">
+                                <section class="slds-accordion__section slds-is-open">                                  
+                                       <div class="slds-accordion__summary">
+                                        <h3 class="slds-text-heading_small slds-accordion__summary-heading">
+                                            <button aria-controls="accordion-grax-audit-settings" aria-expanded="false" class="slds-button slds-button_reset slds-accordion__summary-action">
+                                                <i class="slds-accordion__summary-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                                <span class="slds-truncate" title="GRAX Audit Settings">GRAX Field Tracking Settings</span>
+                                            </button>
+                                        </h3>
+                                       </div>
+
+                                       <div aria-hidden="false" class="slds-accordion__content" id="accordion-grax-audit-settings">
+                                       <div class="slds-form-element">
+                                        <div class="slds-size_1-of-2">
+                                          <div class="slds-form-element">
+                                            <label class="slds-checkbox_toggle slds-grid">
+                                              <span class="slds-form-element__label slds-m-bottom_none">Enable Field Tracking</span>
+                                              <input type="checkbox" name="fieldtrackingcheckbox" aria-describedby="toggle-desc" value="on" checked="checked"/>
+                                              <span id="toggle-desc" class="slds-checkbox_faux_container" aria-live="assertive">
+                                                <span class="slds-checkbox_faux"></span>
+                                                <span class="slds-checkbox_on">Enabled</span>
+                                                <span class="slds-checkbox_off">Disabled</span>
+                                              </span>
+                                            </label>
+                                          </div>
+                                        </div>
+                                       </div>
+                                       
+                                       <div class="slds-form-element">
+                                            <apex:outputLabel for="postgresurl" value="Postgres URL" styleClass="slds-form-element__label"/>
+                                             <div class="slds-form-element__control">
+                                                <apex:inputText id="postgresurl" value="{!gxs.graxConfig.Postgres_URL__c}" size="150" styleClass="slds-input"/>
+                                            </div>
+                                           </div>
+                                           
+                                          <div class="slds-form-element">
+                                          <label class="slds-form-element__label" for="select-01">Partition Frequency</label>
+                                          <div class="slds-form-element__control">
+                                            <div class="slds-select_container">
+                                              <select class="slds-select" id="select-01">
+                                                <option value="daily">Daily</option>
+                                                <option value="weekly">Weekly</option>
+                                                <option value="monthly" selected="true">Monthly</option>
+                                              </select>
+                                            
+                                            </div>
+                                          </div>
+                                        </div>
+                                        
+                                        <div class="slds-form-element">
+                                                <div class="slds-clearfix">
+                                                <apex:outputPanel styleClass="slds-float_left" rendered="{!isauthorized}">
+                                                    <apex:commandButton id="dropfieldaudit" value="Drop Partitions" action="{!DropParitions}" styleClass="slds-button slds-button_neutral cancel_button" disabled="{!NOT(disablefielauditddeploy)}"/>
+                                                    <apex:commandButton id="deployfieldaudit" value="Deploy Partitions" action="{!CreateParitions}" styleClass="slds-button slds-button_neutral"  disabled="{!disablefielauditddeploy}"/>
+                                                </apex:outputPanel>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </section>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div aria-hidden="false" class="slds-section__content">
+                            <ul class="slds-accordion" id="graxauditsettingsblock">
+                            <li class="slds-accordion__list-item">
+                                <section class="slds-accordion__section slds-is-open">                                  
+                                       <div class="slds-accordion__summary">
+                                        <h3 class="slds-text-heading_small slds-accordion__summary-heading">
+                                            <button aria-controls="accordion-grax-audit-settings" aria-expanded="false" class="slds-button slds-button_reset slds-accordion__summary-action">
+                                                <i class="slds-accordion__summary-action-icon slds-button__icon slds-button__icon_left" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#switch')}"></i>
+                                                <span class="slds-truncate" title="GRAX Audit Settings">GRAX Object Tracking Settings</span>
+                                            </button>
+                                        </h3>
+                                       </div>
+
+                                       <div aria-hidden="false" class="slds-accordion__content" id="accordion-grax-audit-settings">
+                                       
+                                       <div class="slds-form-element">
+                                        <div class="slds-size_1-of-2">
+                                          <div class="slds-form-element">
+                                            <label class="slds-checkbox_toggle slds-grid">
+                                              <span class="slds-form-element__label slds-m-bottom_none">Enable Object Tracking</span>
+                                              <input type="checkbox" name="objecttrackingcheckbox" aria-describedby="toggle-desc" value="on" checked="checked"/>
+                                              <span id="toggle-desc" class="slds-checkbox_faux_container" aria-live="assertive">
+                                                <span class="slds-checkbox_faux"></span>
+                                                <span class="slds-checkbox_on">Enabled</span>
+                                                <span class="slds-checkbox_off">Disabled</span>
+                                              </span>
+                                            </label>
+                                          </div>
+                                        </div>
+                                       </div>
+                                      
+                                        <div class="slds-form-element">
+                                            <apex:outputLabel for="s3accesskey" value="S3 Access Key" styleClass="slds-form-element__label"/>
+                                            <div class="slds-form-element__control">
+                                                <apex:inputText id="s3accesskey" value="{!gxs.graxConfig.s3accesskeyid__c}" size="150" styleClass="slds-input"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="slds-form-element">
+                                            <apex:outputLabel for="s3secret" value="S3 Secret" styleClass="slds-form-element__label"/>
+                                            <div class="slds-form-element__control">
+                                                <apex:inputText id="s3secret" value="{!gxs.graxConfig.s3secretaccesskey__c}" size="150" styleClass="slds-input"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="slds-form-element">
+                                            <apex:outputLabel for="s3bucket" value="S3 Bucket" styleClass="slds-form-element__label"/>
+                                            <div class="slds-form-element__control">
+                                                <apex:inputText id="s3bucket" value="{!gxs.graxConfig.s3bucket__c}" size="150" styleClass="slds-input"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="slds-form-element">
+                                            <apex:outputLabel for="s3region" value="S3 Region" styleClass="slds-form-element__label"/>
+                                            <div class="slds-form-element__control">
+                                                <apex:inputText id="s3region" value="{!gxs.graxConfig.s3region__c}" size="150" styleClass="slds-input"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="slds-clearfix slds-p-vertical_large">
+                            <div class="slds-clearfix">
+                        <apex:outputPanel styleClass="slds-float_right" rendered="{!isauthorized}">
+                            <apex:commandButton id="cancel_audittrail" value="Cancel" action="{!CancelReload}" styleClass="slds-button slds-button_neutral cancel_button"/>
+                            <apex:commandButton id="save_audittrail" value="Save" action="{!UpdateAuditTrail}" styleClass="slds-button slds-button_neutral"/>
+                        </apex:outputPanel>
+                            </div>
+                        </div>
+                </div>
+                 </apex:form>
+        </div>
+-->
+        <div id="tab-flow" class="slds-tabs_scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-flow__item">
+            <iframe id="flowIframe" name="flowIframe" data-src="{!PropURLToDisplay_Flow}" frameBorder="0"></iframe>
+        </div>
+
+        <apex:outputPanel layout="none" rendered="{!isconfigured && disableeverything && gp.ifHasBackupPagePermission}">
+            <div id="tab-archiving" class="slds-hide" role="tabpanel" aria-labelledby="tab-archiving__item">
+                <apex:include pageName="GRAXBackup"/>
+            </div>
+        </apex:outputPanel>
+
+        <apex:outputPanel layout="none" rendered="{!isconfigured && disableeverything && gp.ifHasRestorePagePermission}">
+            <div id="tab-restore" class="slds-hide" role="tabpanel" aria-labelledby="tab-restore__item">
+                <apex:include pageName="GRAXRestore"/>
+            </div>
+        </apex:outputPanel>
+
+        <apex:outputPanel layout="none" rendered="{!isconfigured && disableeverything && gp.isAdmin}">
+            <div id="tab-management" class="slds-hide" role="tabpanel" aria-labelledby="tab-management__item">
+                <apex:include id="GRAXManagementApp_include" pageName="GRAXManagementApp"/>
+            </div>
+
+            <div id="tab-logs" class="slds-hide" role="tabpanel" aria-labelledby="tab-logs__item">
+                <apex:include id="GRAXLoggingApp_include" pageName="GRAXLoggingApp"/>
+            </div>
+        </apex:outputPanel>
+
+        <apex:outputPanel layout="none" rendered="{!gp.isAdmin && gxs.graxConfig.EnableDeleteTab__c}">
+            <div id="tab-delete" class="slds-hide" role="tabpanel" aria-labelledby="tab-delete__item">
+                <apex:include id="GRAXDeleteApp_include" pageName="GRAXDeleteApp" rendered="{!gxs.graxConfig.EnableDeleteTab__c}"/>
+            </div>
+        </apex:outputPanel>
+
+        <!--<div id="tab-support" class="slds-hide" role="tabpanel" aria-labelledby="tab-restore__item">
+            <apex:include pageName="GRAXSupport"/>
+        </div>-->
+
+        <apex:outputPanel layout="none" rendered="{!gp.isAdmin}">
+            <div id="tab-help" class="slds-tabs_scoped__content slds-hide" role="tabpanel" aria-labelledby="tab-help__item" data-ps="admin">
+                <div class="slds-tabs_default">
+                    <ul class="slds-tabs_default__nav" role="tablist">
+                        <li class="slds-tabs_default__item slds-is-active" title="Help" role="presentation">
+                            <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" aria-selected="true" aria-controls="tab-help_help" id="tab-help_help__item">Support</a>
+                        </li>
+                        <li class="slds-tabs_default__item" title="Documentation" role="presentation">
+                            <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" aria-selected="false" aria-controls="tab-help_docs" id="tab-help_docs__item">Documentation</a>
+                        </li>
+                    </ul>
+                             
+                    <iframe id="GRAXSupportForm" height="600" width="100%" style="border: 0;" src="/apex/GRAXSupportForm"></iframe>  
+                    <div id="tab-help_docs" class="slds-tabs_default__content slds-hide" role="tabpanel" aria-labelledby="tab-help_docs__item">
+                        <style>
+                            #GRAXDocumentation {
+                                width: 100%!important;
+                                min-height: 100vh;
+                                border: 0; 
+                            }
+                        </style>
+                        
+                        <iframe id="GRAXDocumentation" height="100%" src="javascript:void(0);" scrolling="yes"></iframe>
+                    </div>
+                </div>
+            </div>
+        </apex:outputPanel>
+    </div>
+
+    <div id="globalSpinner" class="slds-spinner_container slds-is-fixed slds-hide">
+        <div role="status" class="slds-spinner slds-spinner_large slds-spinner_brand">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div>
+
+  </div>
+</apex:outputPanel>  
+  <!-- / REQUIRED SLDS WRAPPER -->
+
+  <script>
+    var $globalSpinner = $('#globalSpinner');
+
+    $(function() {
+        // Datetimes
+        moment.locale('{!userLocale}'.split('_').join('-'));
+        moment.tz.setDefault('{!userTimeZone}');
+
+        // HELPERS
+
+        window.setCookie = function(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        };
+
+        window.getCookie = function(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        };
+
+
+        // Init
+        $('#deploy-modal-checkbox').prop('checked', getCookie('skipDeployTriggerMessage') != '');
+
+        $('#tabs > li > a').first().focus().trigger('click');
+        $('#tab-help_help__item').on('focus', function(e) {
+            $('#GRAXSupportForm').show();
+        });
+        $('#tab-help_docs__item').on('focus', function(e) {
+            $('#GRAXSupportForm').hide();
+        });
+
+        $('#tab-help_docs__item').one('click', function(e) {
+            showGlobalSpinner(true);
+
+            $('#GRAXDocumentation').attr({
+                src: 'https://documentation.grax.io/docs'
+            }).on('load', function() {
+                showGlobalSpinner(false);
+            });
+        });
+
+        $('#tab-management__item, #tab-logs__item, #tab-delete__item, #tab-orgwidebackup__item').on('click', function(e) {
+            var $iframe = $('#' + $(e.target).attr('data-iframe'));
+
+            if(!$iframe.attr('src')) {
+                showGlobalSpinner(true);
+
+                $iframe.attr({
+                    src: $iframe.attr('data-src')
+                }).on('load', function() {
+                    showGlobalSpinner(false);
+                });
+            }
+        });
+
+        // START EVENT HANDLERS
+        $(document)
+        
+        // ACTIONS
+
+        // Save and next.
+        .on('click', '.configsaveandnext', function() {
+            goToTab('connect');
+        })
+
+        // Audit toggler
+        .on('change', 'input.auditenabledcheckbox', function(e) {
+            $('input.fieldauditenabled').prop('disabled', !e.target.checked);
+        })
+
+        // Flow tab activation (load/reload)
+        .on('click', '#tab-flow__item', function(e) {
+            $('#flowIframe').attr('src', function() {
+                return $(this).data('src');
+            });
+        })
+
+        // Toggle Deploy Trigger cookie
+        .on('change', '#deploy-modal-checkbox', function(e) {
+            var objectListValue = $('.objectlist').val();
+            var objectsInCookie = getCookie('skipDeployTriggerMessage').split(',');
+
+            var objectListIndex = objectsInCookie.indexOf(objectListValue);
+
+            if(objectListIndex != -1) {
+                objectsInCookie.splice(objectListIndex, 1);
+            } else {
+                objectsInCookie.push(objectListValue);
+            }
+
+
+            setCookie('skipDeployTriggerMessage', objectsInCookie.join(','), 365);
+        })
+
+        // Connect cancel button
+        .on('change', '.objectlist', function(e) {
+            $('#cancel_connect').attr('disabled', !e.target.value);
+        })
+        .on('click', '#cancel_connect', function(e) {
+            if(!e.target.disabled) {
+                $('.objectlist').val(null).trigger('change');
+            }
+
+            _preventDefault(e);
+        })
+        
+        ; // END EVENT HANDLERS
+
+
+        $('.objectlist').on('change', function(e) {
+            showGlobalSpinner(true);
+        });
+
+        window.reRendered = function() {
+            renderSvgIcons();
+
+            $('a._blank').attr('target', '_blank');
+            $('button._blank, input._blank').attr('formtarget', '_blank');
+
+            $(document).trigger('reRendered');
+        };
+
+        window.showTriggerExampleObject = function(sobjectName) {
+            if(!sobjectName) {
+                sobjectName = '<SOBJECT>';
+            }
+            /*
+            $('#triggerExample').val(
+                'trigger GRAXTriggerExample on ' + sobjectName + ' (after update, after insert, after delete, after undelete) {\n' +
+                '    // -------------------------------------------------\n' +
+                '    // https://GRAX.io/\n' +
+                '    // Support Contact - Support At HardingPoint.com\n' +
+                '    // -------------------------------------------------\n' +
+                '    try {\n' +
+                '        String url = \'\';\n' +
+                '        String content = {!nsPrefix}GRAXApi.jsonContent(Trigger.new, Trigger.old);\n' +
+                '        {!nsPrefix}GRAXCloud.callout(url, content);\n' +
+                '    } catch(exception ex) {\n' +
+                '        // Handle all exceptions want to avoid breaking customers salesforce.\n' +
+                '        System.debug(\'[GRAX Trigger ' + sobjectName + '] \' + ex.getMessage());\n' +
+                '    }\n' +
+                '}'
+            );*/
+            
+            $('#triggerExampleCode').html(
+                '<div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #708">trigger</span> GRAXTriggerExample on '+sobjectName+' (after <span style="color: #708">update</span>, after <span style="color: #708">insert</span>, after <span style="color: #708">delete</span>, after <span style="color: #708">undelete</span>) {\n'+
+                '    <span style="color: #888888">// -------------------------------------------------</span>\n'+
+                '    <span style="color: #888888">// https://GRAX.io/</span>\n'+
+                '    <span style="color: #888888">// Support Contact - Support At HardingPoint.com</span>\n'+
+                '    <span style="color: #888888">// -------------------------------------------------</span>\n'+
+                '    <span style="color: #008800; font-weight: bold">try</span> {\n'+
+                '        <span style="color: #888888">// Please change the 3rd parameter to "false" if you want to execute this process asynchronously (Queueable job)</span>\n' +
+                '        {!nsPrefix}GRAXApi.jsonContentCallout(Trigger.<span style="color: #008800; font-weight: bold">new</span>, Trigger.old, true);\n'+
+                '    } <span style="color: #008800; font-weight: bold">catch</span>(exception ex) {\n'+
+                '        <span style="color: #888888">// Handle all exceptions from environment.</span>\n'+
+                '        System.debug(<span style="color: #A11;">&#39;</span>[GRAX Trigger '+sobjectName+'] <span style="color: #A11;">&#39;</span> + ex.getMessage());\n'+
+                '    }\n'+
+                '}\n'+
+                '</pre></div>'
+            );
+            /*
+            $('#sampleTestExampleCopy').val(
+                '@IsTest\n' +
+                'static void GRAX' + sobjectName + 'TestmethodExample (){\n' +
+                '    // -------------------------------------------------\n' +
+                '    // https://GRAX.io/\n' +
+                '    // Support Contact - Support At HardingPoint.com\n' +
+                '    // -------------------------------------------------\n' +
+                '    @IsTest\n' +
+                '    static void Test(){\n' +
+                '        ' + sobjectName + ' rec = new ' + sobjectName + '( [insert fields with their values here] );\n' +
+                '        insert rec;\n' +
+                '    }\n' +
+                '}'
+            );*/
+            
+            $('#sampleTestExampleCode').html(
+                '<div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">@IsTest\n' +
+                '   <span style="color: #008800; font-weight: bold">static</span> <span style="color: #008800; font-weight: bold">void</span> GRAX'+sobjectName+'TestmethodExample (){\n' +
+                '   <span style="color: #888888">// -------------------------------------------------</span>\n' +
+                '   <span style="color: #888888">// https://GRAX.io/</span>\n' +
+                '   <span style="color: #888888">// Support Contact - Support At HardingPoint.com</span>\n' +
+                '   <span style="color: #888888">// -------------------------------------------------</span>\n' +
+                '   @IsTest\n' +
+                '   <span style="color: #008800; font-weight: bold">static</span> <span style="color: #008800; font-weight: bold">void</span> <span style="color: #0066BB; font-weight: bold">Test</span>(){\n' +
+                '       '+sobjectName+' rec = <span style="color: #008800; font-weight: bold">new</span> '+sobjectName+'( <span style="font-weight: bold;" >[insert fields with their values here]</span> );\n' +
+                '       insert rec;\n' +
+                '   }\n' +
+                '}' +
+                '</pre></div>'
+            );
+            
+            $('#triggerDeployModal').trigger('modaltoggle');
+        };
+
+        $('#showTriggerExampleButton').on('click', function(e) {
+            e.preventDefault();
+
+            showTriggerExampleObject($('.triggerobjectlist').val());
+
+            return false;
+        })
+        
+        window.connectSave = function() {
+            var $objectlist = $('.objectlist');
+
+            var sobjectName = $objectlist.val();
+
+            if(getCookie('skipDeployTriggerMessage').split(',').indexOf(sobjectName) == -1) {
+                $('#deploy-modal-checkbox').prop('checked', false);
+
+                showTriggerExampleObject(sobjectName);
+            }
+
+            $objectlist.trigger('change');
+        };
+
+        var globalSpinnerCounter = 0;
+        window.showGlobalSpinner = function(state) {
+            //console.trace();
+            //console.log(state);
+
+            globalSpinnerCounter += (state ? 1 : -1);
+    
+            if(globalSpinnerCounter < 0) {
+                globalSpinnerCounter = 0;
+            }
+
+            $globalSpinner.toggleClass('slds-hide', globalSpinnerCounter == 0);
+        };
+        
+        window.copyToClipboard = function CopyToClipboard(containerid) {
+            var codeText = $( '#'+containerid );
+            var copyText = $( '#'+containerid+'Copy' );
+            
+            copyText.html( codeText.html() );
+            
+            var range = document.createRange();
+            range.selectNode( copyText[0] );
+            window.getSelection().removeAllRanges(); // clear current selection
+            window.getSelection().addRange(range); // to select text
+            document.execCommand("copy");
+            window.getSelection().removeAllRanges();// to deselect
+            
+            copyText.html('');
+            
+        }
+        
+        window.reRendered();
+    });
+  </script>
+</div>
+</div>
+</apex:page>

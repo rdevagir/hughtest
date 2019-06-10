@@ -1,0 +1,217 @@
+<apex:component controller="GRAXAttachmentPreviewCtrl">
+    <apex:attribute name="graxorgid1"
+        type="String"
+        required="true"
+        description="Org Id"
+        assignTo="{!graxorgid}" />
+
+    <apex:attribute name="objectType1"
+        type="String"
+        required="true"
+        description="Attachment / ContentDocumentLink"
+        assignTo="{!objectType}" />
+
+    <apex:attribute name="recordId1"
+        type="String"
+        required="true"
+        description="Attachment Record ID"
+        assignTo="{!recordId}" />
+
+    <apex:attribute name="name1"
+        type="String"
+        required="true"
+        description="File Name to display - download"
+        assignTo="{!name}" />
+
+    <apex:attribute name="mimeType1"
+        type="String"
+        required="true"
+        description="Attachment mime/type"
+        assignTo="{!mimeType}" />
+
+    <apex:attribute name="size1"
+        type="Integer"
+        required="false"
+        description="Attachment size in bytes"
+        assignTo="{!size}" />
+
+    <apex:includeScript value="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.grax, '/jquery.slds.js')}"/>
+
+    <apex:slds />
+
+    <style>
+        #GRAXAttachmentPreviewCtrl_iframe,
+        #GRAXAttachmentPreviewCtrl_image,
+        #GRAXAttachmentPreviewCtrl_span {
+            position: relative;
+            background: #fff;
+            border: 0;
+            flex: 2;
+        }
+
+        #GRAXAttachmentPreviewCtrl_image > img {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        #GRAXAttachmentPreviewCtrl_span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+    <div>
+        <section role="dialog" tabindex="-1" aria-labelledby="GRAXAttachmentPreview" aria-modal="true" aria-describedby="GRAXAttachmentPreview" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" data-toggle="modal" data-target="#GRAXAttachmentPreview">
+                        <i class="slds-button__icon slds-button__icon_large" data-icon="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#close')}"></i>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="GRAXAttachmentPreview" class="slds-text-heading_medium slds-hyphenate">
+                        {!name}
+                    </h2>
+                </header>
+                <iframe id="GRAXAttachmentPreviewCtrl_iframe" class="slds-hide"></iframe>
+                <div id="GRAXAttachmentPreviewCtrl_image" class="slds-hide">
+                    <img />
+                </div>
+                <div id="GRAXAttachmentPreviewCtrl_span" class="slds-hide"></div>
+                <footer class="slds-modal__footer">
+                    <a id="GRAXAttachmentPreviewCtrl_a" class="slds-button slds-button_brand" href="{!downloadUrl}" target="_blank">
+                        Download
+                    </a>
+                </footer>
+            </div>
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open"></div>
+
+        <div id="GRAXAttachmentPreviewCtrl_globalSpinner" class="slds-spinner_container slds-is-fixed slds-hide">
+            <div role="status" class="slds-spinner slds-spinner_large slds-spinner_brand">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function() {
+            var $globalSpinner = window.$globalSpinner || $('#GRAXAttachmentPreviewCtrl_globalSpinner');
+
+            var globalSpinnerCounter = 0;
+            var showGlobalSpinner = window.showGlobalSpinner || function(state) {
+                globalSpinnerCounter += (state ? 1 : -1);
+        
+                if(globalSpinnerCounter < 0) {
+                    globalSpinnerCounter = 0;
+                }
+
+                $globalSpinner.toggleClass('slds-hide', globalSpinnerCounter == 0);
+            };
+
+
+            var $iframe = $('#GRAXAttachmentPreviewCtrl_iframe');
+            var $image = $('#GRAXAttachmentPreviewCtrl_image');
+            var $span = $('#GRAXAttachmentPreviewCtrl_span');
+
+            var maxDownloadSize = {!maxDownloadSize};
+
+            var SFTypeToMimeType = {
+                'JPG': 'image/jpeg',
+                'PNG': 'image/png',
+                'PDF': 'application/pdf',
+                'GIF': 'image/gif',
+                'TEXT': 'text/plain',
+                'JSON': 'text/json'
+            }
+
+            var mimeTypes = [
+                'text/',
+                'image/',
+                'video/',
+                'audio/',
+                'application/pdf'
+            ];
+
+            var mimeType = '{!mimeType}';
+
+            if(mimeType.indexOf('/') === -1) {
+                mimeType = SFTypeToMimeType[mimeType] || 'application/octet-stream';
+            }
+            
+            var downloadUrl = '{!downloadUrl}';
+            var downloadSize = {!size};
+
+            if(downloadSize > maxDownloadSize) {
+                $span
+                    .text('File too large to preview. You can download it to see its content.')
+                    .removeClass('slds-hide');            
+            } else if(mimeType && (mimeTypes.indexOf(mimeType) !== -1 || mimeTypes.indexOf(mimeType.split('/')[0] + '/') !== -1)) {
+                showGlobalSpinner(true);
+
+                var $load_frame = $iframe;
+                var $load_frame_container = $iframe;
+
+                if(mimeType.startsWith('image')) {
+                    $load_frame = $image.find('img');
+                    $load_frame_container = $image;
+                }
+                
+                $load_frame_container.removeClass('slds-hide');
+                
+                var ajaxRequest = new XMLHttpRequest();
+                ajaxRequest.open('GET', downloadUrl, true);
+                ajaxRequest.responseType = 'blob';
+
+                ajaxRequest.onload = function(e) {
+                    if (this.status === 200) {
+                        var blob = new Blob([e.target.response], {
+                            type: mimeType
+                        });
+
+                        var url = URL.createObjectURL(blob);
+
+                        $load_frame.attr({
+                            src: url
+                        }).on('load', function(e) {
+                            setTimeout(function() {
+                                window.URL.revokeObjectURL(url);
+                            }, 10000);
+                        });
+                    } else {
+                        $load_frame_container.addClass('slds-hide');
+                        $span.text('File Not Found').removeClass('slds-hide');
+                    }
+
+                    showGlobalSpinner(false);
+                };
+
+                ajaxRequest.send();
+            } else {
+                if(!mimeType) {
+                    $span.text('Mime/Type Not Found.');
+                } else {
+                    $span.text('File Type not supported for preview.');
+                }
+
+                $span.removeClass('slds-hide');
+
+                showGlobalSpinner(false);
+            }
+        });
+    </script>
+</apex:component>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <layouts>
+        <layout>Social Persona Layout</layout>
+        <sections>
+            <label>Vista de compromiso</label>
+            <section>Engagement View</section>
+        </sections>
+        <sections>
+            <label><!-- Facebook --></label>
+            <section>Facebook</section>
+        </sections>
+        <sections>
+            <label><!-- Twitter --></label>
+            <section>Twitter</section>
+        </sections>
+    </layouts>
+</CustomObjectTranslation>

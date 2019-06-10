@@ -1,0 +1,5 @@
+<apex:page controller="GRAXOrgWideBackupCtrl">
+    <apex:outputPanel layout="block" rendered="{!isAuthenticated}">
+        <iframe id="GRAXOrgWideBackupIframe" data-src="{!url}?token={!token}" style="border:0;width:100%;height:600px;"></iframe>
+    </apex:outputPanel>
+</apex:page>

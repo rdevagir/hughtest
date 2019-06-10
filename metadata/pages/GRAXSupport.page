@@ -1,0 +1,65 @@
+<apex:page controller="GRAXSupportCtrl" showChat="false" showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+
+    <style>
+    .headerRow .headerStyle{
+        background-color:#B5D3E7;
+        text-align: center;
+        font-weight: bold;
+    } 
+    </style>
+    
+    <div class="slds-scope">
+      <div class="slds-tabs_scoped">
+        <ul class="slds-tabs_scoped__nav" role="tablist" id="tabs">            
+            <li class="slds-tabs_scoped__item slds-is-active" title="Debug Logs" role="presentation">
+                <a class="slds-tabs_scoped__link" href="javascript:void(0);" role="tab" tabindex="0" aria-selected="false" aria-controls="tab-debuglogs" id="tab-debuglogs__item">
+                    Debug Logs
+                </a>
+            </li>
+        </ul>
+        
+        <div id="tab-debuglogs" class="slds-tabs_scoped__content" role="tabpanel" aria-labelledby="tab-debuglogs__item">
+            <apex:form id="form-debuglogs">
+            		<apex:pageBlock >   	
+            			<apex:pageblockTable value="{!GRAXLogInfo.Logs}" var="mw" styleClass="slds-table slds-table--bordered slds-table--striped">
+            			  <apex:column >
+            			  		<apex:facet name="header">
+	            			  		<div class="headerStyle">Support</div>
+	            			  	</apex:facet>    
+						    <apex:commandButton value="Open Ticket" action="/one/one.app#/n/GRAX_Support?organizationid={!mw.organizationid}&logging_timestamp={!mw.logging_timestamp}&source={!mw.source}&error={!mw.error}" /> 
+					  </apex:column>
+            			  <apex:column value="{!mw.logging_timestamp}">
+            			  	<apex:facet name="header">
+            			  		<div class="headerStyle">Time Stamp</div>
+            			  	</apex:facet>                        
+            			  </apex:column>
+					  <apex:column value="{!mw.source}">
+					  	<apex:facet name="header">
+					  		<div class="headerStyle">Source</div>
+					  	</apex:facet>  
+					  </apex:column>
+					  <apex:column value="{!mw.error}">
+					  	<apex:facet name="header">
+					  		<div class="headerStyle">Error</div> 
+					  	</apex:facet>  
+					  </apex:column>
+					  <apex:column value="{!mw.information}">
+					  	<apex:facet name="header">
+					  		<div class="headerStyle">Information</div>
+					  	</apex:facet> 
+					  </apex:column>
+					</apex:pageBlockTable>
+				</apex:pageBlock>	
+				 
+				<apex:pageBlock >
+					<!-- <apex:inputTextarea id="exceptionlist" value="{!LoggingJSON}" cols="100" rows="5" styleClass="slds-input" />  -->
+				</apex:pageBlock>
+            </apex:form>
+        </div>
+       
+      </div>
+    </div>
+  <!-- / REQUIRED SLDS WRAPPER -->
+
+
+</apex:page>

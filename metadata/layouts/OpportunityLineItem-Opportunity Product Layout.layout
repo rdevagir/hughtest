@@ -105,6 +105,10 @@
     <multilineLayoutFields>ServiceDate</multilineLayoutFields>
     <multilineLayoutFields>OpportunityId</multilineLayoutFields>
     <relatedLists>
+        <fields>ScheduleDate</fields>
+        <fields>Revenue</fields>
+        <fields>Quantity</fields>
+        <fields>Description</fields>
         <relatedList>RelatedScheduleList</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>

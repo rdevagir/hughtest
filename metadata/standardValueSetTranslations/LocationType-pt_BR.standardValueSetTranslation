@@ -13,6 +13,10 @@
         <translation>Van</translation>
     </valueTranslation>
     <valueTranslation>
+        <masterLabel>Virtual</masterLabel>
+        <translation><!-- Virtual --></translation>
+    </valueTranslation>
+    <valueTranslation>
         <masterLabel>Warehouse</masterLabel>
         <translation>Armazém</translation>
     </valueTranslation>

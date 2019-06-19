@@ -11361,6 +11361,10 @@
         <name>GRAX_Management</name>
     </customTabs>
     <customTabs>
+        <label><!-- GRAX: Summary Charts --></label>
+        <name>GRAX_Summary_Charts</name>
+    </customTabs>
+    <customTabs>
         <label><!-- GRAX : Support --></label>
         <name>GRAX_Support</name>
     </customTabs>

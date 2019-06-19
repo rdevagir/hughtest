@@ -21,6 +21,7 @@
     <tabs>GRAXQuery__c</tabs>
     <tabs>GRAX_Management</tabs>
     <tabs>HR_Object_timemachine__c</tabs>
+    <tabs>GRAX_Summary_Charts</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>GRAX_UtilityBar</utilityBar>
 </CustomApplication>

@@ -8,4 +8,5 @@
     <tabs>GRAXQuery__c</tabs>
     <tabs>GRAX_DEPLOY</tabs>
     <tabs>HR_Object_timemachine__c</tabs>
+    <tabs>GRAX_Summary_Charts</tabs>
 </CustomApplication>

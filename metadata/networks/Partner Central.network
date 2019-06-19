@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Network xmlns="http://soap.sforce.com/2006/04/metadata">
+    <allowInternalUserLogin>true</allowInternalUserLogin>
+    <allowMembersToFlag>true</allowMembersToFlag>
+    <changePasswordTemplate>unfiled$public/CommunityChangePasswordEmailTemplate</changePasswordTemplate>
+    <communityRoles/>
+    <description>Partner Community for PRM, channel sales &amp; marketing.  Used by Paul Partner and Vance Channel.</description>
+    <disableReputationRecordConversations>true</disableReputationRecordConversations>
+    <emailFooterText>Partner Central</emailFooterText>
+    <emailSenderAddress>sdo@salesforce.com</emailSenderAddress>
+    <emailSenderName>Partner Central</emailSenderName>
+    <enableCustomVFErrorPageOverrides>false</enableCustomVFErrorPageOverrides>
+    <enableDirectMessages>true</enableDirectMessages>
+    <enableGuestChatter>false</enableGuestChatter>
+    <enableGuestFileAccess>true</enableGuestFileAccess>
+    <enableInvitation>false</enableInvitation>
+    <enableKnowledgeable>true</enableKnowledgeable>
+    <enableMemberVisibility>true</enableMemberVisibility>
+    <enableNicknameDisplay>false</enableNicknameDisplay>
+    <enablePrivateMessages>true</enablePrivateMessages>
+    <enableReputation>true</enableReputation>
+    <enableShowAllNetworkSettings>true</enableShowAllNetworkSettings>
+    <enableSiteAsContainer>true</enableSiteAsContainer>
+    <enableTalkingAboutStats>true</enableTalkingAboutStats>
+    <enableTopicAssignmentRules>false</enableTopicAssignmentRules>
+    <enableTopicSuggestions>true</enableTopicSuggestions>
+    <enableUpDownVote>true</enableUpDownVote>
+    <forgotPasswordTemplate>unfiled$public/CommunityForgotPasswordEmailTemplate</forgotPasswordTemplate>
+    <gatherCustomerSentimentData>true</gatherCustomerSentimentData>
+    <maxFileSizeKb>256000</maxFileSizeKb>
+    <navigationLinkSet>
+        <navigationMenuItem>
+            <label>Learn</label>
+            <position>1</position>
+            <publiclyAvailable>false</publiclyAvailable>
+            <subMenu>
+                <navigationMenuItem>
+                    <label>Training Home</label>
+                    <position>0</position>
+                    <publiclyAvailable>false</publiclyAvailable>
+                    <target>/train-certify</target>
+                    <type>InternalLink</type>
+                </navigationMenuItem>
+                <navigationMenuItem>
+                    <label>Courses</label>
+                    <position>1</position>
+                    <publiclyAvailable>false</publiclyAvailable>
+                    <target>http://trailhead.salesforce.com</target>
+                    <type>ExternalLink</type>
+                </navigationMenuItem>
+            </subMenu>
+            <type>MenuLabel</type>
+        </navigationMenuItem>
+        <navigationMenuItem>
+            <label>Market</label>
+            <position>2</position>
+            <publiclyAvailable>false</publiclyAvailable>
+            <subMenu>
+                <navigationMenuItem>
+                    <label>Funds and Requests</label>
+                    <position>0</position>
+                    <publiclyAvailable>false</publiclyAvailable>
+                    <target>/marketing-home</target>
+                    <type>InternalLink</type>
+                </navigationMenuItem>
+                <navigationMenuItem>
+                    <label>Collateral</label>
+                    <position>1</position>
+                    <publiclyAvailable>false</publiclyAvailable>
+                    <target>/files</target>
+                    <type>InternalLink</type>
+                </navigationMenuItem>
+            </subMenu>
+            <type>MenuLabel</type>
+        </navigationMenuItem>
+        <navigationMenuItem>
+            <label>Sell</label>
+            <position>3</position>
+            <publiclyAvailable>false</publiclyAvailable>
+            <subMenu>
+                <navigationMenuItem>
+                    <label>Sales Home</label>
+                    <position>0</position>
+                    <publiclyAvailable>false</publiclyAvailable>
+                    <target>/sales-home</target>
+                    <type>InternalLink</type>
+                </navigationMenuItem>
+                <navigationMenuItem>
+                    <label>Customers and Contacts</label>
+                    <position>1</position>
+                    <publiclyAvailable>false</publiclyAvailable>
+                    <target>/customers</target>
+                    <type>InternalLink</type>
+                </navigationMenuItem>
+                <navigationMenuItem>
+                    <label>Performance</label>
+                    <position>2</position>
+                    <publiclyAvailable>false</publiclyAvailable>
+                    <target>/measure</target>
+                    <type>InternalLink</type>
+                </navigationMenuItem>
+            </subMenu>
+            <type>MenuLabel</type>
+        </navigationMenuItem>
+        <navigationMenuItem>
+            <label>Support</label>
+            <position>4</position>
+            <publiclyAvailable>false</publiclyAvailable>
+            <subMenu>
+                <navigationMenuItem>
+                    <label>Support Home</label>
+                    <position>0</position>
+                    <publiclyAvailable>false</publiclyAvailable>
+                    <target>/support</target>
+                    <type>InternalLink</type>
+                </navigationMenuItem>
+                <navigationMenuItem>
+                    <label>Field Service Home</label>
+                    <position>1</position>
+                    <publiclyAvailable>false</publiclyAvailable>
+                    <target>/field-service-home</target>
+                    <type>InternalLink</type>
+                </navigationMenuItem>
+                <navigationMenuItem>
+                    <label>Work Orders</label>
+                    <position>2</position>
+                    <publiclyAvailable>false</publiclyAvailable>
+                    <target>WorkOrder</target>
+                    <type>SalesforceObject</type>
+                </navigationMenuItem>
+                <navigationMenuItem>
+                    <defaultListViewId>FieldServiceMobile</defaultListViewId>
+                    <label>Service Appointments</label>
+                    <position>3</position>
+                    <publiclyAvailable>true</publiclyAvailable>
+                    <target>ServiceAppointment</target>
+                    <type>SalesforceObject</type>
+                </navigationMenuItem>
+            </subMenu>
+            <type>MenuLabel</type>
+        </navigationMenuItem>
+        <navigationMenuItem>
+            <label>Community</label>
+            <position>5</position>
+            <publiclyAvailable>false</publiclyAvailable>
+            <target>/community</target>
+            <type>InternalLink</type>
+        </navigationMenuItem>
+    </navigationLinkSet>
+    <networkMemberGroups>
+        <permissionSet>Einstein_Analytics</permissionSet>
+        <permissionSet>Community_Moderator</permissionSet>
+        <permissionSet>Work_com_for_Partner_License</permissionSet>
+        <profile>*Partners</profile>
+        <profile>Admin</profile>
+        <profile>*Channels</profile>
+        <profile>Partner Community User</profile>
+    </networkMemberGroups>
+    <networkPageOverrides>
+        <changePasswordPageOverrideSetting>Standard</changePasswordPageOverrideSetting>
+        <forgotPasswordPageOverrideSetting>Designer</forgotPasswordPageOverrideSetting>
+        <homePageOverrideSetting>Designer</homePageOverrideSetting>
+        <loginPageOverrideSetting>Standard</loginPageOverrideSetting>
+        <selfRegProfilePageOverrideSetting>Designer</selfRegProfilePageOverrideSetting>
+    </networkPageOverrides>
+    <picassoSite>Partner_Central1</picassoSite>
+    <recommendationAudience>
+        <recommendationAudienceDetails>
+            <audienceCriteriaType>CustomList</audienceCriteriaType>
+            <setupName>Bronze Tier Partners</setupName>
+        </recommendationAudienceDetails>
+        <recommendationAudienceDetails>
+            <audienceCriteriaType>CustomList</audienceCriteriaType>
+            <setupName>Gold Tier Partners</setupName>
+        </recommendationAudienceDetails>
+        <recommendationAudienceDetails>
+            <audienceCriteriaType>MaxDaysInCommunity</audienceCriteriaType>
+            <audienceCriteriaValue>100.0</audienceCriteriaValue>
+            <setupName>New Partners: 100 Days</setupName>
+        </recommendationAudienceDetails>
+        <recommendationAudienceDetails>
+            <audienceCriteriaType>CustomList</audienceCriteriaType>
+            <setupName>Silver Tier Partners</setupName>
+        </recommendationAudienceDetails>
+    </recommendationAudience>
+    <recommendationDefinition>
+        <recommendationDefinitionDetails>
+            <actionUrl>https://www.salesforce.com</actionUrl>
+            <description>We&apos;ve launched new products! Our messaging has changed! Please take a moment to download and familiarize yourself with the latest product overview deck.</description>
+            <linkText>Review the Deck!</linkText>
+            <scheduledRecommendations>
+                <scheduledRecommendationDetails>
+                    <channel>CustomChannel2</channel>
+                    <enabled>true</enabled>
+                    <rank>2</rank>
+                    <recommendationAudience>000000000000000</recommendationAudience>
+                </scheduledRecommendationDetails>
+            </scheduledRecommendations>
+            <setupName>Content: New Company Pitch</setupName>
+            <title>New Product Introduction</title>
+        </recommendationDefinitionDetails>
+        <recommendationDefinitionDetails>
+            <actionUrl>https://www.salesforce.com</actionUrl>
+            <description>Cirrus is revolutionizing the energy experience with our new line of commercial products and solutions! These are new products for you to sell, and to embed in your solutions!</description>
+            <linkText>Watch product Launch</linkText>
+            <scheduledRecommendations>
+                <scheduledRecommendationDetails>
+                    <channel>CustomChannel2</channel>
+                    <enabled>true</enabled>
+                    <rank>1</rank>
+                    <recommendationAudience>000000000000000</recommendationAudience>
+                </scheduledRecommendationDetails>
+            </scheduledRecommendations>
+            <setupName>Content: New Product Line Launch</setupName>
+            <title>New Product Line!</title>
+        </recommendationDefinitionDetails>
+        <recommendationDefinitionDetails>
+            <actionUrl>https://www.salesforce.com</actionUrl>
+            <description>Our messaging has changed! Please take a moment to download and familiarize yourself with the latest product overview deck.</description>
+            <linkText>Get Certified</linkText>
+            <scheduledRecommendations>
+                <scheduledRecommendationDetails>
+                    <channel>DefaultChannel</channel>
+                    <enabled>true</enabled>
+                    <rank>2</rank>
+                    <recommendationAudience>000000000000000</recommendationAudience>
+                </scheduledRecommendationDetails>
+            </scheduledRecommendations>
+            <setupName>Content: New Product Overview</setupName>
+            <title>New Product Overview</title>
+        </recommendationDefinitionDetails>
+        <recommendationDefinitionDetails>
+            <actionUrl>https://www.salesforce.com</actionUrl>
+            <description>New for the fiscal year, we&apos;re revamping our partner program! Our partners will ramp faster, get better discounts, and have more products to sell! Read the details now!</description>
+            <linkText>Review Now!</linkText>
+            <scheduledRecommendations>
+                <scheduledRecommendationDetails>
+                    <channel>DefaultChannel</channel>
+                    <enabled>true</enabled>
+                    <rank>3</rank>
+                    <recommendationAudience>000000000000000</recommendationAudience>
+                </scheduledRecommendationDetails>
+            </scheduledRecommendations>
+            <setupName>Content: Partner Program Overview</setupName>
+            <title>Partner Program Overview</title>
+        </recommendationDefinitionDetails>
+        <recommendationDefinitionDetails>
+            <actionUrl>https://www.salesforce.com</actionUrl>
+            <description>Take a look at the latest product specs and get up to speed!</description>
+            <linkText>Check it out!</linkText>
+            <scheduledRecommendations>
+                <scheduledRecommendationDetails>
+                    <channel>CustomChannel2</channel>
+                    <enabled>true</enabled>
+                    <rank>3</rank>
+                    <recommendationAudience>000000000000000</recommendationAudience>
+                </scheduledRecommendationDetails>
+            </scheduledRecommendations>
+            <setupName>Content: Product Specifications</setupName>
+            <title>Read the Product Specifications</title>
+        </recommendationDefinitionDetails>
+        <recommendationDefinitionDetails>
+            <actionUrl>https://www.salesforce.com</actionUrl>
+            <description>Checkout the latest solar product specs here!</description>
+            <linkText>Read Specs!</linkText>
+            <scheduledRecommendations>
+                <scheduledRecommendationDetails>
+                    <channel>CustomChannel2</channel>
+                    <enabled>true</enabled>
+                    <rank>4</rank>
+                    <recommendationAudience>000000000000000</recommendationAudience>
+                </scheduledRecommendationDetails>
+            </scheduledRecommendations>
+            <setupName>Content: Solar Product Specifications</setupName>
+            <title>Check Out the Solar Specs!</title>
+        </recommendationDefinitionDetails>
+        <recommendationDefinitionDetails>
+            <actionUrl>https://www.salesforce.com</actionUrl>
+            <description>How do you know which new products are a good fit for existing customers?  Have a look at this Whitespace report, and start calling customers today.</description>
+            <linkText>Learn More!</linkText>
+            <scheduledRecommendations>
+                <scheduledRecommendationDetails>
+                    <channel>CustomChannel4</channel>
+                    <enabled>true</enabled>
+                    <rank>1</rank>
+                    <recommendationAudience>000000000000000</recommendationAudience>
+                </scheduledRecommendationDetails>
+            </scheduledRecommendations>
+            <setupName>CTA: Whitespace Analysis</setupName>
+            <title>Analyze Your Whitespace</title>
+        </recommendationDefinitionDetails>
+        <recommendationDefinitionDetails>
+            <actionUrl>https://www.salesforce.com</actionUrl>
+            <description>Want to checkout the best way to manage your deals?</description>
+            <linkText>Yes I do!</linkText>
+            <scheduledRecommendations>
+                <scheduledRecommendationDetails>
+                    <channel>CustomChannel3</channel>
+                    <enabled>true</enabled>
+                    <rank>1</rank>
+                    <recommendationAudience>000000000000000</recommendationAudience>
+                </scheduledRecommendationDetails>
+            </scheduledRecommendations>
+            <setupName>Deal Management Guidelines</setupName>
+            <title>Deal Management Guidelines</title>
+        </recommendationDefinitionDetails>
+        <recommendationDefinitionDetails>
+            <actionUrl>https://www.salesforce.com</actionUrl>
+            <description>Not familiar with how to register a deal?  This step-by-step guide will ensure that you never miss an opportunity.</description>
+            <linkText>Learn Now!</linkText>
+            <scheduledRecommendations>
+                <scheduledRecommendationDetails>
+                    <channel>CustomChannel5</channel>
+                    <enabled>true</enabled>
+                    <rank>1</rank>
+                    <recommendationAudience>000000000000000</recommendationAudience>
+                </scheduledRecommendationDetails>
+            </scheduledRecommendations>
+            <setupName>Deal Registration</setupName>
+            <title>Deal Registration Process</title>
+        </recommendationDefinitionDetails>
+        <recommendationDefinitionDetails>
+            <actionUrl>https://www.salesforce.com</actionUrl>
+            <description>Get certified on the latest solutions so you can start selling!</description>
+            <linkText>Certify Me!</linkText>
+            <scheduledRecommendations>
+                <scheduledRecommendationDetails>
+                    <channel>CustomChannel1</channel>
+                    <enabled>true</enabled>
+                    <rank>2</rank>
+                    <recommendationAudience>000000000000000</recommendationAudience>
+                </scheduledRecommendationDetails>
+            </scheduledRecommendations>
+            <setupName>LMS: Current Product Line Certification</setupName>
+            <title>Get Certified Today!</title>
+        </recommendationDefinitionDetails>
+        <recommendationDefinitionDetails>
+            <actionUrl>https://developer.salesforce.com/trailhead/en</actionUrl>
+            <description>Get certified on the New Products so you can start selling!</description>
+            <linkText>Certify Me!</linkText>
+            <scheduledRecommendations>
+                <scheduledRecommendationDetails>
+                    <channel>CustomChannel1</channel>
+                    <enabled>true</enabled>
+                    <rank>3</rank>
+                    <recommendationAudience>000000000000000</recommendationAudience>
+                </scheduledRecommendationDetails>
+            </scheduledRecommendations>
+            <setupName>LMS: New Product Line Certification</setupName>
+            <title>New Products Certification</title>
+        </recommendationDefinitionDetails>
+        <recommendationDefinitionDetails>
+            <actionUrl>https://www.salesforce.com</actionUrl>
+            <description>Getting certified on our products is the fastest way to more leads, more marketing dollars, and better discounts! Take a moment and sign up for certification today!</description>
+            <linkText>Get Certified!</linkText>
+            <scheduledRecommendations>
+                <scheduledRecommendationDetails>
+                    <channel>CustomChannel1</channel>
+                    <enabled>true</enabled>
+                    <rank>1</rank>
+                    <recommendationAudience>New Partners: 100 Days</recommendationAudience>
+                </scheduledRecommendationDetails>
+            </scheduledRecommendations>
+            <setupName>LMS: Register for Certifications</setupName>
+            <title>Register for Product Certifications!</title>
+        </recommendationDefinitionDetails>
+        <recommendationDefinitionDetails>
+            <actionUrl>https://www.salesforce.com</actionUrl>
+            <description>Fill out your Partner Profile now, and we&apos;ll customize a list of recommended reading and learning paths to get your started quickly!</description>
+            <linkText>Complete Your Profile</linkText>
+            <scheduledRecommendations>
+                <scheduledRecommendationDetails>
+                    <channel>DefaultChannel</channel>
+                    <enabled>true</enabled>
+                    <rank>1</rank>
+                    <recommendationAudience>New Partners: 100 Days</recommendationAudience>
+                </scheduledRecommendationDetails>
+            </scheduledRecommendations>
+            <setupName>New Partners: Community Welcome</setupName>
+            <title>Tell Us About Yourself!</title>
+        </recommendationDefinitionDetails>
+    </recommendationDefinition>
+    <reputationLevels>
+        <level>
+            <label>Novice Partner</label>
+            <lowerThreshold>0.0</lowerThreshold>
+        </level>
+        <level>
+            <label>Intermediate Partner</label>
+            <lowerThreshold>51.0</lowerThreshold>
+        </level>
+        <level>
+            <label>Advanced Partner</label>
+            <lowerThreshold>151.0</lowerThreshold>
+        </level>
+        <level>
+            <label>Expert Partner</label>
+            <lowerThreshold>401.0</lowerThreshold>
+        </level>
+        <level>
+            <label>Superior Partner</label>
+            <lowerThreshold>801.0</lowerThreshold>
+        </level>
+        <level>
+            <label>Distinguished Partner</label>
+            <lowerThreshold>1501.0</lowerThreshold>
+        </level>
+        <level>
+            <lowerThreshold>2501.0</lowerThreshold>
+        </level>
+        <level>
+            <lowerThreshold>4001.0</lowerThreshold>
+        </level>
+        <level>
+            <lowerThreshold>6001.0</lowerThreshold>
+        </level>
+        <level>
+            <lowerThreshold>10001.0</lowerThreshold>
+        </level>
+    </reputationLevels>
+    <reputationPointsRules>
+        <pointsRule>
+            <eventType>FeedItemSomeoneSharesYourPost</eventType>
+            <points>5</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>EndorsedForKnowledgeOnATopic</eventType>
+            <points>20</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemWriteAComment</eventType>
+            <points>1</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemAnswerAQuestion</eventType>
+            <points>5</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemMentionSomeone</eventType>
+            <points>1</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemLikeSomething</eventType>
+            <points>1</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemMarkAnswerAsBest</eventType>
+            <points>5</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemPostQuestion</eventType>
+            <points>1</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemWriteAPost</eventType>
+            <points>1</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemReceiveAMention</eventType>
+            <points>5</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>EndorseSomeoneForKnowledgeOnATopic</eventType>
+            <points>5</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemReceiveAComment</eventType>
+            <points>5</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemShareAPost</eventType>
+            <points>1</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemReceiveAnAnswer</eventType>
+            <points>5</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemReceiveALike</eventType>
+            <points>5</points>
+        </pointsRule>
+        <pointsRule>
+            <eventType>FeedItemYourAnswerMarkedBest</eventType>
+            <points>20</points>
+        </pointsRule>
+    </reputationPointsRules>
+    <selfRegistration>false</selfRegistration>
+    <sendWelcomeEmail>true</sendWelcomeEmail>
+    <site>Partner_Central</site>
+    <status>Live</status>
+    <tabs>
+        <customTab>SFDC_Channel_Account_Plan__c</customTab>
+        <customTab>Certification__c</customTab>
+        <defaultTab>Chatter</defaultTab>
+        <standardTab>Chatter</standardTab>
+        <standardTab>Lead</standardTab>
+        <standardTab>Opportunity</standardTab>
+        <standardTab>Workspace</standardTab>
+        <standardTab>Dashboard</standardTab>
+        <standardTab>report</standardTab>
+    </tabs>
+    <urlPathPrefix>partnercentral</urlPathPrefix>
+    <welcomeTemplate>unfiled$public/CommunityWelcomeEmailTemplate</welcomeTemplate>
+</Network>

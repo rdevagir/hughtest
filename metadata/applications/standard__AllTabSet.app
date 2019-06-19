@@ -166,4 +166,11 @@
     <tabs>standard-Metric</tabs>
     <tabs>SDO_Tool__c</tabs>
     <tabs>standard-Workspace</tabs>
+    <tabs>standard-ContactPointTypeConsent</tabs>
+    <tabs>standard-DataUsePurpose</tabs>
+    <tabs>standard-DataUseLegalBasis</tabs>
+    <tabs>standard-AuthorizationForm</tabs>
+    <tabs>standard-AuthorizationFormConsent</tabs>
+    <tabs>standard-AuthorizationFormDataUse</tabs>
+    <tabs>standard-AuthorizationFormText</tabs>
 </CustomApplication>

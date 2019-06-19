@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WaveApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assetIcon>/analytics/wave/web/proto/images/app/icons/6.png</assetIcon>
+    <folder>Sales_Analytics_Embed_Only</folder>
+    <masterLabel>Sales Analytics (Embed Only)</masterLabel>
+    <shares>
+        <accessLevel>Manage</accessLevel>
+        <sharedTo>sdo_hp.lre3ozvgmicf@harding.demo</sharedTo>
+        <sharedToType>User</sharedToType>
+    </shares>
+    <templateOrigin>analyticsdemo__Sales_Analytics_Flex_Demo</templateOrigin>
+    <templateVersion>4.0</templateVersion>
+</WaveApplication>

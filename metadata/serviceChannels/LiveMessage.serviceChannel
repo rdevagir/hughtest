@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServiceChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <interactionComponent>LiveMessage_Panel_Hidden</interactionComponent>
+    <label>LiveMessage</label>
+    <relatedEntityType>LiveText__Conversation_Header__c</relatedEntityType>
+</ServiceChannel>

@@ -1,0 +1,2430 @@
+{
+  "actionOverrides": [],
+  "activateable": false,
+  "childRelationships": [],
+  "compactLayoutable": false,
+  "createable": true,
+  "custom": false,
+  "customSetting": false,
+  "deletable": true,
+  "deprecatedAndHidden": false,
+  "feedEnabled": false,
+  "fields": [
+    {
+      "aggregatable": true,
+      "aiPredictionField": false,
+      "autoNumber": false,
+      "byteLength": 18,
+      "calculated": false,
+      "calculatedFormula": null,
+      "cascadeDelete": false,
+      "caseSensitive": false,
+      "compoundFieldName": null,
+      "controllerName": null,
+      "createable": false,
+      "custom": false,
+      "defaultValue": null,
+      "defaultValueFormula": null,
+      "defaultedOnCreate": true,
+      "dependentPicklist": false,
+      "deprecatedAndHidden": false,
+      "digits": 0,
+      "displayLocationInDecimal": false,
+      "encrypted": false,
+      "externalId": false,
+      "extraTypeInfo": null,
+      "filterable": true,
+      "filteredLookupInfo": null,
+      "formulaTreatNullNumberAsZero": false,
+      "groupable": true,
+      "highScaleNumber": false,
+      "htmlFormatted": false,
+      "idLookup": true,
+      "inlineHelpText": null,
+      "label": "Object Territory Assignment Rule Item ID",
+      "length": 18,
+      "mask": null,
+      "maskType": null,
+      "name": "Id",
+      "nameField": false,
+      "namePointing": false,
+      "nillable": false,
+      "permissionable": false,
+      "picklistValues": [],
+      "polymorphicForeignKey": false,
+      "precision": 0,
+      "queryByDistance": false,
+      "referenceTargetField": null,
+      "referenceTo": [],
+      "relationshipName": null,
+      "relationshipOrder": null,
+      "restrictedDelete": false,
+      "restrictedPicklist": false,
+      "scale": 0,
+      "searchPrefilterable": false,
+      "soapType": "tns:ID",
+      "sortable": true,
+      "type": "id",
+      "unique": false,
+      "updateable": false,
+      "writeRequiresMasterRead": false
+    },
+    {
+      "aggregatable": false,
+      "aiPredictionField": false,
+      "autoNumber": false,
+      "byteLength": 0,
+      "calculated": false,
+      "calculatedFormula": null,
+      "cascadeDelete": false,
+      "caseSensitive": false,
+      "compoundFieldName": null,
+      "controllerName": null,
+      "createable": false,
+      "custom": false,
+      "defaultValue": false,
+      "defaultValueFormula": null,
+      "defaultedOnCreate": true,
+      "dependentPicklist": false,
+      "deprecatedAndHidden": false,
+      "digits": 0,
+      "displayLocationInDecimal": false,
+      "encrypted": false,
+      "externalId": false,
+      "extraTypeInfo": null,
+      "filterable": true,
+      "filteredLookupInfo": null,
+      "formulaTreatNullNumberAsZero": false,
+      "groupable": true,
+      "highScaleNumber": false,
+      "htmlFormatted": false,
+      "idLookup": false,
+      "inlineHelpText": null,
+      "label": "Deleted",
+      "length": 0,
+      "mask": null,
+      "maskType": null,
+      "name": "IsDeleted",
+      "nameField": false,
+      "namePointing": false,
+      "nillable": false,
+      "permissionable": false,
+      "picklistValues": [],
+      "polymorphicForeignKey": false,
+      "precision": 0,
+      "queryByDistance": false,
+      "referenceTargetField": null,
+      "referenceTo": [],
+      "relationshipName": null,
+      "relationshipOrder": null,
+      "restrictedDelete": false,
+      "restrictedPicklist": false,
+      "scale": 0,
+      "searchPrefilterable": false,
+      "soapType": "xsd:boolean",
+      "sortable": true,
+      "type": "boolean",
+      "unique": false,
+      "updateable": false,
+      "writeRequiresMasterRead": false
+    },
+    {
+      "aggregatable": true,
+      "aiPredictionField": false,
+      "autoNumber": false,
+      "byteLength": 0,
+      "calculated": false,
+      "calculatedFormula": null,
+      "cascadeDelete": false,
+      "caseSensitive": false,
+      "compoundFieldName": null,
+      "controllerName": null,
+      "createable": true,
+      "custom": false,
+      "defaultValue": null,
+      "defaultValueFormula": null,
+      "defaultedOnCreate": true,
+      "dependentPicklist": false,
+      "deprecatedAndHidden": false,
+      "digits": 0,
+      "displayLocationInDecimal": false,
+      "encrypted": false,
+      "externalId": false,
+      "extraTypeInfo": null,
+      "filterable": true,
+      "filteredLookupInfo": null,
+      "formulaTreatNullNumberAsZero": false,
+      "groupable": false,
+      "highScaleNumber": false,
+      "htmlFormatted": false,
+      "idLookup": false,
+      "inlineHelpText": null,
+      "label": "Created Date",
+      "length": 0,
+      "mask": null,
+      "maskType": null,
+      "name": "CreatedDate",
+      "nameField": false,
+      "namePointing": false,
+      "nillable": false,
+      "permissionable": false,
+      "picklistValues": [],
+      "polymorphicForeignKey": false,
+      "precision": 0,
+      "queryByDistance": false,
+      "referenceTargetField": null,
+      "referenceTo": [],
+      "relationshipName": null,
+      "relationshipOrder": null,
+      "restrictedDelete": false,
+      "restrictedPicklist": false,
+      "scale": 0,
+      "searchPrefilterable": false,
+      "soapType": "xsd:dateTime",
+      "sortable": true,
+      "type": "datetime",
+      "unique": false,
+      "updateable": false,
+      "writeRequiresMasterRead": false
+    },
+    {
+      "aggregatable": true,
+      "aiPredictionField": false,
+      "autoNumber": false,
+      "byteLength": 18,
+      "calculated": false,
+      "calculatedFormula": null,
+      "cascadeDelete": false,
+      "caseSensitive": false,
+      "compoundFieldName": null,
+      "controllerName": null,
+      "createable": true,
+      "custom": false,
+      "defaultValue": null,
+      "defaultValueFormula": null,
+      "defaultedOnCreate": true,
+      "dependentPicklist": false,
+      "deprecatedAndHidden": false,
+      "digits": 0,
+      "displayLocationInDecimal": false,
+      "encrypted": false,
+      "externalId": false,
+      "extraTypeInfo": null,
+      "filterable": true,
+      "filteredLookupInfo": null,
+      "formulaTreatNullNumberAsZero": false,
+      "groupable": true,
+      "highScaleNumber": false,
+      "htmlFormatted": false,
+      "idLookup": false,
+      "inlineHelpText": null,
+      "label": "Created By ID",
+      "length": 18,
+      "mask": null,
+      "maskType": null,
+      "name": "CreatedById",
+      "nameField": false,
+      "namePointing": false,
+      "nillable": false,
+      "permissionable": false,
+      "picklistValues": [],
+      "polymorphicForeignKey": false,
+      "precision": 0,
+      "queryByDistance": false,
+      "referenceTargetField": null,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "CreatedBy",
+      "relationshipOrder": null,
+      "restrictedDelete": false,
+      "restrictedPicklist": false,
+      "scale": 0,
+      "searchPrefilterable": false,
+      "soapType": "tns:ID",
+      "sortable": true,
+      "type": "reference",
+      "unique": false,
+      "updateable": false,
+      "writeRequiresMasterRead": false
+    },
+    {
+      "aggregatable": true,
+      "aiPredictionField": false,
+      "autoNumber": false,
+      "byteLength": 0,
+      "calculated": false,
+      "calculatedFormula": null,
+      "cascadeDelete": false,
+      "caseSensitive": false,
+      "compoundFieldName": null,
+      "controllerName": null,
+      "createable": true,
+      "custom": false,
+      "defaultValue": null,
+      "defaultValueFormula": null,
+      "defaultedOnCreate": true,
+      "dependentPicklist": false,
+      "deprecatedAndHidden": false,
+      "digits": 0,
+      "displayLocationInDecimal": false,
+      "encrypted": false,
+      "externalId": false,
+      "extraTypeInfo": null,
+      "filterable": true,
+      "filteredLookupInfo": null,
+      "formulaTreatNullNumberAsZero": false,
+      "groupable": false,
+      "highScaleNumber": false,
+      "htmlFormatted": false,
+      "idLookup": false,
+      "inlineHelpText": null,
+      "label": "Last Modified Date",
+      "length": 0,
+      "mask": null,
+      "maskType": null,
+      "name": "LastModifiedDate",
+      "nameField": false,
+      "namePointing": false,
+      "nillable": false,
+      "permissionable": false,
+      "picklistValues": [],
+      "polymorphicForeignKey": false,
+      "precision": 0,
+      "queryByDistance": false,
+      "referenceTargetField": null,
+      "referenceTo": [],
+      "relationshipName": null,
+      "relationshipOrder": null,
+      "restrictedDelete": false,
+      "restrictedPicklist": false,
+      "scale": 0,
+      "searchPrefilterable": false,
+      "soapType": "xsd:dateTime",
+      "sortable": true,
+      "type": "datetime",
+      "unique": false,
+      "updateable": false,
+      "writeRequiresMasterRead": false
+    },
+    {
+      "aggregatable": true,
+      "aiPredictionField": false,
+      "autoNumber": false,
+      "byteLength": 18,
+      "calculated": false,
+      "calculatedFormula": null,
+      "cascadeDelete": false,
+      "caseSensitive": false,
+      "compoundFieldName": null,
+      "controllerName": null,
+      "createable": true,
+      "custom": false,
+      "defaultValue": null,
+      "defaultValueFormula": null,
+      "defaultedOnCreate": true,
+      "dependentPicklist": false,
+      "deprecatedAndHidden": false,
+      "digits": 0,
+      "displayLocationInDecimal": false,
+      "encrypted": false,
+      "externalId": false,
+      "extraTypeInfo": null,
+      "filterable": true,
+      "filteredLookupInfo": null,
+      "formulaTreatNullNumberAsZero": false,
+      "groupable": true,
+      "highScaleNumber": false,
+      "htmlFormatted": false,
+      "idLookup": false,
+      "inlineHelpText": null,
+      "label": "Last Modified By ID",
+      "length": 18,
+      "mask": null,
+      "maskType": null,
+      "name": "LastModifiedById",
+      "nameField": false,
+      "namePointing": false,
+      "nillable": false,
+      "permissionable": false,
+      "picklistValues": [],
+      "polymorphicForeignKey": false,
+      "precision": 0,
+      "queryByDistance": false,
+      "referenceTargetField": null,
+      "referenceTo": [
+        "User"
+      ],
+      "relationshipName": "LastModifiedBy",
+      "relationshipOrder": null,
+      "restrictedDelete": false,
+      "restrictedPicklist": false,
+      "scale": 0,
+      "searchPrefilterable": false,
+      "soapType": "tns:ID",
+      "sortable": true,
+      "type": "reference",
+      "unique": false,
+      "updateable": false,
+      "writeRequiresMasterRead": false
+    },
+    {
+      "aggregatable": true,
+      "aiPredictionField": false,
+      "autoNumber": false,
+      "byteLength": 0,
+      "calculated": false,
+      "calculatedFormula": null,
+      "cascadeDelete": false,
+      "caseSensitive": false,
+      "compoundFieldName": null,
+      "controllerName": null,
+      "createable": false,
+      "custom": false,
+      "defaultValue": null,
+      "defaultValueFormula": null,
+      "defaultedOnCreate": true,
+      "dependentPicklist": false,
+      "deprecatedAndHidden": false,
+      "digits": 0,
+      "displayLocationInDecimal": false,
+      "encrypted": false,
+      "externalId": false,
+      "extraTypeInfo": null,
+      "filterable": true,
+      "filteredLookupInfo": null,
+      "formulaTreatNullNumberAsZero": false,
+      "groupable": false,
+      "highScaleNumber": false,
+      "htmlFormatted": false,
+      "idLookup": false,
+      "inlineHelpText": null,
+      "label": "System Modstamp",
+      "length": 0,
+      "mask": null,
+      "maskType": null,
+      "name": "SystemModstamp",
+      "nameField": false,
+      "namePointing": false,
+      "nillable": false,
+      "permissionable": false,
+      "picklistValues": [],
+      "polymorphicForeignKey": false,
+      "precision": 0,
+      "queryByDistance": false,
+      "referenceTargetField": null,
+      "referenceTo": [],
+      "relationshipName": null,
+      "relationshipOrder": null,
+      "restrictedDelete": false,
+      "restrictedPicklist": false,
+      "scale": 0,
+      "searchPrefilterable": false,
+      "soapType": "xsd:dateTime",
+      "sortable": true,
+      "type": "datetime",
+      "unique": false,
+      "updateable": false,
+      "writeRequiresMasterRead": false
+    },
+    {
+      "aggregatable": true,
+      "aiPredictionField": false,
+      "autoNumber": false,
+      "byteLength": 18,
+      "calculated": false,
+      "calculatedFormula": null,
+      "cascadeDelete": false,
+      "caseSensitive": false,
+      "compoundFieldName": null,
+      "controllerName": null,
+      "createable": true,
+      "custom": false,
+      "defaultValue": null,
+      "defaultValueFormula": null,
+      "defaultedOnCreate": false,
+      "dependentPicklist": false,
+      "deprecatedAndHidden": false,
+      "digits": 0,
+      "displayLocationInDecimal": false,
+      "encrypted": false,
+      "externalId": false,
+      "extraTypeInfo": null,
+      "filterable": true,
+      "filteredLookupInfo": null,
+      "formulaTreatNullNumberAsZero": false,
+      "groupable": true,
+      "highScaleNumber": false,
+      "htmlFormatted": false,
+      "idLookup": false,
+      "inlineHelpText": null,
+      "label": "Object Territory Assignment Rule ID",
+      "length": 18,
+      "mask": null,
+      "maskType": null,
+      "name": "RuleId",
+      "nameField": false,
+      "namePointing": false,
+      "nillable": false,
+      "permissionable": false,
+      "picklistValues": [],
+      "polymorphicForeignKey": false,
+      "precision": 0,
+      "queryByDistance": false,
+      "referenceTargetField": null,
+      "referenceTo": [
+        "ObjectTerritory2AssignmentRule"
+      ],
+      "relationshipName": "Rule",
+      "relationshipOrder": null,
+      "restrictedDelete": false,
+      "restrictedPicklist": false,
+      "scale": 0,
+      "searchPrefilterable": false,
+      "soapType": "tns:ID",
+      "sortable": true,
+      "type": "reference",
+      "unique": false,
+      "updateable": false,
+      "writeRequiresMasterRead": false
+    },
+    {
+      "aggregatable": true,
+      "aiPredictionField": false,
+      "autoNumber": false,
+      "byteLength": 765,
+      "calculated": false,
+      "calculatedFormula": null,
+      "cascadeDelete": false,
+      "caseSensitive": false,
+      "compoundFieldName": null,
+      "controllerName": null,
+      "createable": true,
+      "custom": false,
+      "defaultValue": null,
+      "defaultValueFormula": null,
+      "defaultedOnCreate": false,
+      "dependentPicklist": false,
+      "deprecatedAndHidden": false,
+      "digits": 0,
+      "displayLocationInDecimal": false,
+      "encrypted": false,
+      "externalId": false,
+      "extraTypeInfo": null,
+      "filterable": true,
+      "filteredLookupInfo": null,
+      "formulaTreatNullNumberAsZero": false,
+      "groupable": true,
+      "highScaleNumber": false,
+      "htmlFormatted": false,
+      "idLookup": false,
+      "inlineHelpText": null,
+      "label": "Field Name",
+      "length": 255,
+      "mask": null,
+      "maskType": null,
+      "name": "Field",
+      "nameField": false,
+      "namePointing": false,
+      "nillable": false,
+      "permissionable": false,
+      "picklistValues": [
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Account_Date_Field__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Account_Location__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Account_Priority__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Account_Source_Custom__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Account_Status__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.AccountNumber"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.AccountSource"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.ActiveLiveAgentUser__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Activity_Indicator__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Activity_Indicator_partner__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.analyticsdemo_batch_id__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.analyticsdemo_batch_id__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Annual_Income__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.AnnualRevenue"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Application_Date__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.BillingCity"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.BillingCountry"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.BillingGeocodeAccuracy"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.BillingPostalCode"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.BillingState"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.BillingStreet"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Business_Family_Members_Data__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Buying_Relationship__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Certification_Level__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.CleanStatus"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.CloneSourceId"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Closed_Lost_Opptys__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Closed_Won_Opptys__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Closed_Won_Value__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Competitive_Certifications__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Contact_Location__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Contract_Signed__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.CreatedById"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.CreatedDate"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.CreatedDate__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Current_Year_Revenue_Goal__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Current_Year_Target__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Custom_Contact_Date__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Customer_Account__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Customer_Satisfaction_Index__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Customer_Value__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Date_Time_Field__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Days_Since_Activity__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Days_Since_Last_Activity__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Delinquency_Risk_Data__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.DunsNumber"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.EDY_ORGCUSTOM__DB__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.EDY_ORGCUSTOM__DB__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.EDY_ORGCUSTOM__Old_Name__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.EDY_ORGCUSTOM__Old_Title__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Einstein_Account_Insights__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Einstein_Article_1_Date__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Einstein_Article_1_Source__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Einstein_Article_1_Title__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Einstein_Article_1_URL__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Einstein_Article_2_Date__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Einstein_Article_2_Source__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Einstein_Article_2_Title__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Einstein_Article_2_URL__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Einstein_Article_3_Date__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Einstein_Article_3_Source__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Einstein_Article_3_Title__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Einstein_Article_3_URL__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.External_ID__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.External_ID__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Facebook_Persona_ID__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Facebook_Picture__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Facebook_Profile_Picture__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Fax"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.FB_Id_for_Identity__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.FirstName"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Global_Business_Name_Data__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Global_Ultimate_D_U_N_S_Number__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Global_Unique_ID__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Goal_Attainment__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Grax_Restore__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Industry"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Initial_Formula_Field__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.IsCustomerPortal"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.IsPartner"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.IsPersonAccount"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Jigsaw"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.jsImpacts__Added_from_Data_com__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.jsImpacts__Data_com_does_not_auto_update__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.jsImpacts__Data_com_does_not_auto_update__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.jsImpacts__Data_com_Managed__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.jsImpacts__Data_com_Managed__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.jsImpacts__Data_com_Matched__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.jsImpacts__Imported_from_Jigsaw__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Klout_Score__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Last_Year_Revenue_Generated__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.LastModifiedById"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.LastName"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Latitude__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Lead_Conversion_Rate__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Lead_To_Opportunity_Close_Rate__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Liabilities__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.LongID__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Longitude__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Map_the_Account__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Month_of_Birth__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.NaicsCode"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.NaicsDesc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Name"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Net_Worth__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Number_Closed_Lost_Opportunities__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Number_Closed_Opportunities__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Number_Closed_Won_Opportunities__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Number_Leads_Active__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Number_Leads_Converted__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Number_Leads_Total__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Number_of_Employees_Location_Data__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Number_of_Friends__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Number_Open_Opportunities__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.NumberOfEmployees"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.of_Reps_Trained__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Open_Address_in_Google_Maps__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Open_Oppty_Value__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Open_Opptys__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Open_vs_Closed_Opportunities__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Open_vs_Closed_Won_Opportunities__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.OperatingHoursId"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Opportunity_Win_Rate__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Other_Income__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Overdue_Invoice_Revenue__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Overdue_Invoices__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.OwnerId"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Ownership"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.ParentId"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Partner_Certification__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Partner_Geographic_Coverage__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Partner_Program_Level__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Partner_Type__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Partnership_Status__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Percent_Won__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Personal_Assets__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonAssistantName"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonAssistantPhone"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonBirthdate"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonDepartment"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonDoNotCall"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonEmail"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonEmailBouncedDate"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonEmailBouncedReason"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonHasOptedOutOfEmail"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonHasOptedOutOfFax"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonHomePhone"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonIndividualId"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonLastCURequestDate"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonLastCUUpdateDate"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonLeadSource"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonMailingCity"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonMailingCountry"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonMailingGeocodeAccuracy"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonMailingPostalCode"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonMailingState"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonMailingStreet"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonMobilePhone"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonOtherCity"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonOtherCountry"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonOtherGeocodeAccuracy"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonOtherPhone"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonOtherPostalCode"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonOtherState"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonOtherStreet"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.PersonTitle"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Phone"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__campaign__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__conversion_date__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__conversion_object_name__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__conversion_object_type__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__created_date__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__first_activity__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__first_search_term__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__first_search_type__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__grade__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__last_activity__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__Needs_Score_Synced__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__pardot_hard_bounced__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__Pardot_Last_Scored_At__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__score__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__url__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__utm_campaign__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__utm_content__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__utm_medium__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__utm_source__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.pi__utm_term__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Programs__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Rating"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Rating_Indicator__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.RecordTypeId"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Region__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Salutation"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Scorecard_Last_Updated__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.ShippingCity"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.ShippingCountry"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.ShippingGeo__Latitude__s"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.ShippingGeo__Longitude__s"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.ShippingGeocodeAccuracy"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.ShippingPostalCode"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.ShippingState"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.ShippingStreet"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Show_on_Checkin_Map__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Show_Partner_Users__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Sic"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.SicDesc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Site"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.SlickSidebar_AccountAddress__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.SSP_User__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.TEST_FIELD__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.TickerSymbol"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Total_of_Activities__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Tradestyle"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Twitter_Persona_ID__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Type"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.URLsrc__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.URLsrc__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Value__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Value_Closed_Won_Opportunties__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Value_Open_Opportunties__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Vertical_Coverage__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Website"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Win_Loss_Ratio__c"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.Year_of_Birth__pc"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.YearStarted"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": null,
+          "validFor": null,
+          "value": "Account.YTD_Revenue_Generated__c"
+        }
+      ],
+      "polymorphicForeignKey": false,
+      "precision": 0,
+      "queryByDistance": false,
+      "referenceTargetField": null,
+      "referenceTo": [],
+      "relationshipName": null,
+      "relationshipOrder": null,
+      "restrictedDelete": false,
+      "restrictedPicklist": true,
+      "scale": 0,
+      "searchPrefilterable": false,
+      "soapType": "xsd:string",
+      "sortable": true,
+      "type": "picklist",
+      "unique": false,
+      "updateable": true,
+      "writeRequiresMasterRead": false
+    },
+    {
+      "aggregatable": true,
+      "aiPredictionField": false,
+      "autoNumber": false,
+      "byteLength": 765,
+      "calculated": false,
+      "calculatedFormula": null,
+      "cascadeDelete": false,
+      "caseSensitive": false,
+      "compoundFieldName": null,
+      "controllerName": null,
+      "createable": true,
+      "custom": false,
+      "defaultValue": null,
+      "defaultValueFormula": null,
+      "defaultedOnCreate": false,
+      "dependentPicklist": false,
+      "deprecatedAndHidden": false,
+      "digits": 0,
+      "displayLocationInDecimal": false,
+      "encrypted": false,
+      "externalId": false,
+      "extraTypeInfo": null,
+      "filterable": true,
+      "filteredLookupInfo": null,
+      "formulaTreatNullNumberAsZero": false,
+      "groupable": true,
+      "highScaleNumber": false,
+      "htmlFormatted": false,
+      "idLookup": false,
+      "inlineHelpText": null,
+      "label": "Operation",
+      "length": 255,
+      "mask": null,
+      "maskType": null,
+      "name": "Operation",
+      "nameField": false,
+      "namePointing": false,
+      "nillable": false,
+      "permissionable": false,
+      "picklistValues": [
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": "equals",
+          "validFor": null,
+          "value": "equals"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": "not equal to",
+          "validFor": null,
+          "value": "notEqual"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": "less than",
+          "validFor": null,
+          "value": "lessThan"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": "greater than",
+          "validFor": null,
+          "value": "greaterThan"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": "less or equal",
+          "validFor": null,
+          "value": "lessOrEqual"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": "greater or equal",
+          "validFor": null,
+          "value": "greaterOrEqual"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": "contains",
+          "validFor": null,
+          "value": "contains"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": "does not contain",
+          "validFor": null,
+          "value": "notContain"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": "starts with",
+          "validFor": null,
+          "value": "startsWith"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": "includes",
+          "validFor": null,
+          "value": "includes"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": "excludes",
+          "validFor": null,
+          "value": "excludes"
+        },
+        {
+          "active": true,
+          "defaultValue": false,
+          "label": "within",
+          "validFor": null,
+          "value": "within"
+        }
+      ],
+      "polymorphicForeignKey": false,
+      "precision": 0,
+      "queryByDistance": false,
+      "referenceTargetField": null,
+      "referenceTo": [],
+      "relationshipName": null,
+      "relationshipOrder": null,
+      "restrictedDelete": false,
+      "restrictedPicklist": true,
+      "scale": 0,
+      "searchPrefilterable": false,
+      "soapType": "xsd:string",
+      "sortable": true,
+      "type": "picklist",
+      "unique": false,
+      "updateable": true,
+      "writeRequiresMasterRead": false
+    },
+    {
+      "aggregatable": true,
+      "aiPredictionField": false,
+      "autoNumber": false,
+      "byteLength": 0,
+      "calculated": false,
+      "calculatedFormula": null,
+      "cascadeDelete": false,
+      "caseSensitive": false,
+      "compoundFieldName": null,
+      "controllerName": null,
+      "createable": true,
+      "custom": false,
+      "defaultValue": null,
+      "defaultValueFormula": null,
+      "defaultedOnCreate": false,
+      "dependentPicklist": false,
+      "deprecatedAndHidden": false,
+      "digits": 9,
+      "displayLocationInDecimal": false,
+      "encrypted": false,
+      "externalId": false,
+      "extraTypeInfo": null,
+      "filterable": true,
+      "filteredLookupInfo": null,
+      "formulaTreatNullNumberAsZero": false,
+      "groupable": true,
+      "highScaleNumber": false,
+      "htmlFormatted": false,
+      "idLookup": false,
+      "inlineHelpText": null,
+      "label": "Sort Order",
+      "length": 0,
+      "mask": null,
+      "maskType": null,
+      "name": "SortOrder",
+      "nameField": false,
+      "namePointing": false,
+      "nillable": false,
+      "permissionable": false,
+      "picklistValues": [],
+      "polymorphicForeignKey": false,
+      "precision": 0,
+      "queryByDistance": false,
+      "referenceTargetField": null,
+      "referenceTo": [],
+      "relationshipName": null,
+      "relationshipOrder": null,
+      "restrictedDelete": false,
+      "restrictedPicklist": false,
+      "scale": 0,
+      "searchPrefilterable": false,
+      "soapType": "xsd:int",
+      "sortable": true,
+      "type": "int",
+      "unique": false,
+      "updateable": true,
+      "writeRequiresMasterRead": false
+    },
+    {
+      "aggregatable": true,
+      "aiPredictionField": false,
+      "autoNumber": false,
+      "byteLength": 3000,
+      "calculated": false,
+      "calculatedFormula": null,
+      "cascadeDelete": false,
+      "caseSensitive": false,
+      "compoundFieldName": null,
+      "controllerName": null,
+      "createable": true,
+      "custom": false,
+      "defaultValue": null,
+      "defaultValueFormula": null,
+      "defaultedOnCreate": false,
+      "dependentPicklist": false,
+      "deprecatedAndHidden": false,
+      "digits": 0,
+      "displayLocationInDecimal": false,
+      "encrypted": false,
+      "externalId": false,
+      "extraTypeInfo": null,
+      "filterable": true,
+      "filteredLookupInfo": null,
+      "formulaTreatNullNumberAsZero": false,
+      "groupable": false,
+      "highScaleNumber": false,
+      "htmlFormatted": false,
+      "idLookup": false,
+      "inlineHelpText": null,
+      "label": "Value",
+      "length": 1000,
+      "mask": null,
+      "maskType": null,
+      "name": "Value",
+      "nameField": false,
+      "namePointing": false,
+      "nillable": true,
+      "permissionable": false,
+      "picklistValues": [],
+      "polymorphicForeignKey": false,
+      "precision": 0,
+      "queryByDistance": false,
+      "referenceTargetField": null,
+      "referenceTo": [],
+      "relationshipName": null,
+      "relationshipOrder": null,
+      "restrictedDelete": false,
+      "restrictedPicklist": false,
+      "scale": 0,
+      "searchPrefilterable": false,
+      "soapType": "xsd:string",
+      "sortable": true,
+      "type": "string",
+      "unique": false,
+      "updateable": true,
+      "writeRequiresMasterRead": false
+    }
+  ],
+  "hasSubtypes": false,
+  "isSubtype": false,
+  "keyPrefix": "0Iq",
+  "label": "Object Territory Assignment Rule Item",
+  "labelPlural": "Object Territory Assignment Rule Items",
+  "layoutable": false,
+  "listviewable": null,
+  "lookupLayoutable": null,
+  "mergeable": false,
+  "mruEnabled": false,
+  "name": "ObjectTerritory2AssignmentRuleItem",
+  "namedLayoutInfos": [],
+  "networkScopeFieldName": null,
+  "queryable": true,
+  "recordTypeInfos": [],
+  "replicateable": false,
+  "retrieveable": true,
+  "searchLayoutable": false,
+  "searchable": false,
+  "supportedScopes": [
+    {
+      "label": "All object territory assignment rule items",
+      "name": "everything"
+    }
+  ],
+  "triggerable": false,
+  "undeletable": false,
+  "updateable": true,
+  "urls": {
+    "rowTemplate": "/services/data/v43.0/sobjects/ObjectTerritory2AssignmentRuleItem/{ID}",
+    "defaultValues": "/services/data/v43.0/sobjects/ObjectTerritory2AssignmentRuleItem/defaultValues?recordTypeId&fields",
+    "describe": "/services/data/v43.0/sobjects/ObjectTerritory2AssignmentRuleItem/describe",
+    "sobject": "/services/data/v43.0/sobjects/ObjectTerritory2AssignmentRuleItem"
+  }
+}
